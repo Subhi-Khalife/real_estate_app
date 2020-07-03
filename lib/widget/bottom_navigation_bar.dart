@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:realestateapp/widget/color_app.dart';
+import 'package:realestateapp/widget/constant.dart';
 
 class BottomNavBar extends StatefulWidget {
   final IconData iconExplore , iconFavorite ,iconAlert ,iconProfile;
   final String textExplore , textFavorite ,textAlert ,textProfile ;
-
+  final Function onTap ;
+  int index;
 
   BottomNavBar(
       {@required this.iconExplore,
@@ -14,51 +16,59 @@ class BottomNavBar extends StatefulWidget {
         @required this.textExplore,
         @required this.textFavorite,
         @required this.textAlert,
-        @required this.textProfile});
+        @required this.textProfile,
+        @required this.onTap,
+        @required this.index,
+      });
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
 
-  int index = 0 ;
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(color:Colors.black12,spreadRadius: 0.0,blurRadius: 100.0),],
-      ),
-      child: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(widget.iconExplore,color: index == 0 ? activeIconNavBar : colorGrey,),
-            title: Text(widget.textExplore,style: TextStyle(color:index == 0 ? activeIconNavBar : colorGrey,),),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(widget.iconFavorite,color:index == 1 ? activeIconNavBar : colorGrey,),
-            title: Text(widget.textFavorite,style: TextStyle(color:index == 1 ? activeIconNavBar : colorGrey,),),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(widget.iconAlert,color:index == 2 ? activeIconNavBar : colorGrey,),
-            title: Text(widget.textAlert,style: TextStyle(color:index == 2 ? activeIconNavBar : colorGrey,),),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(widget.iconProfile,color:index == 3 ? activeIconNavBar : colorGrey,),
-            title: Text(widget.textProfile,style: TextStyle(color:index == 3 ? activeIconNavBar : colorGrey,),),
-          ),
-        ],
-        iconSize: 20,
-        currentIndex: 0,
-        fixedColor: colorGrey,
-        onTap: (index){
-          print("index $index");
-          setState(() {
-            this.index =index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
+    return ClipRRect(
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0) , topRight: Radius.circular(10.0)),
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black45,
+              blurRadius: 10.0,
+              spreadRadius: 5.0
+            )
+          ]
+        ),
+        child: BottomNavigationBar(
+          elevation: 5,
+          backgroundColor: Colors.white,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(widget.iconExplore,),
+              title: Text(widget.textExplore,),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(widget.iconFavorite),
+              title: Text(widget.textFavorite,),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(widget.iconAlert),
+              title: Text(widget.textAlert,),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(widget.iconProfile),
+              title: Text(widget.textProfile, ),
+            ),
+          ],
+          iconSize: 20,
+          unselectedItemColor: colorGrey,
+          selectedItemColor: activeIconNavBar,
+          currentIndex: widget.index,
+          selectedFontSize: 18,
+          onTap:widget.onTap,
+          type: BottomNavigationBarType.fixed,
+        ),
       ),
     );
   }
