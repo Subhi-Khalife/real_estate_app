@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:realestateapp/widget/color_app.dart';
+import 'package:projects/widget/color_app.dart';
 
 class LogInTitle extends StatelessWidget {
   final String title;
@@ -53,7 +53,7 @@ class PropertyCardDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(description , style: TextStyle(color: colorDescription ?? Colors.black,fontSize: 14),);
+    return Expanded(child: Text(description , style: TextStyle(color: colorDescription ?? Colors.black,fontSize: 14,height: 1.4),maxLines: 3,));
   }
 }
 
@@ -69,8 +69,6 @@ class PropertyCardPrice extends StatelessWidget {
   }
 }
 
-
-
 class PageTitle extends StatelessWidget {
   final String title;
 
@@ -82,4 +80,3 @@ class PageTitle extends StatelessWidget {
     return Text(title , style: TextStyle(fontSize: 22,color: colorTitleLogin,fontWeight: FontWeight.bold),);
   }
 }
-

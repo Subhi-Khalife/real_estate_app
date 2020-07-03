@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:realestateapp/ui/MainView.dart';
+import 'package:projects/ui/MainView.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,10 +29,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
-    return MainView();
+    return Scaffold(body: MainView());
   }
 }

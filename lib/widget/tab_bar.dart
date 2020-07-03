@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:realestateapp/widget/color_app.dart';
+import 'package:projects/widget/color_app.dart';
 
 class CustomTabBar extends StatefulWidget {
   @override

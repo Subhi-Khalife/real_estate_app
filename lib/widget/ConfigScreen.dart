@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:realestateapp/widget/constant.dart';
+import 'package:projects/widget/constant.dart';
 
 enum ScreenType { SMALL, MEDIUM, LARGE, XLARGE }
 

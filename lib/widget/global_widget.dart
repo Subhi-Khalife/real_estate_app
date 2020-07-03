@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:realestateapp/widget/color_app.dart';
+import 'package:projects/widget/color_app.dart';
 
 class ShowSvg extends StatelessWidget {
   final String assetName;
@@ -95,7 +95,8 @@ class TextFieldApp extends StatelessWidget {
                   borderRadius: BorderRadius.circular(7.0),
                   borderSide: BorderSide(color: colorApp, width: 2)),
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7.0),),
+                borderRadius: BorderRadius.circular(7.0),
+              ),
             ));
   }
 }
@@ -135,11 +136,12 @@ class LoginButton extends StatelessWidget {
 }
 
 class ImageCard extends StatelessWidget {
-  final String imageUrl ;
-  final double height ;
-  final double width ;
+  final String imageUrl;
+  final double height;
+  final double width;
 
-  ImageCard({@required this.imageUrl,@required this.height,@required this.width});
+  ImageCard(
+      {@required this.imageUrl, @required this.height, @required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +149,7 @@ class ImageCard extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15.0),
-        color: colorApp
-      ),
+          borderRadius: BorderRadius.circular(15.0), color: colorApp),
     );
   }
 }
@@ -161,14 +161,11 @@ class DotSpace extends StatelessWidget {
       width: 3,
       height: 3,
       decoration: BoxDecoration(
-        color: Colors.grey.shade400,
-        borderRadius: BorderRadius.circular(45)
-      ),
-      margin: EdgeInsets.only(left: 3,right: 3),
+          color: Colors.grey.shade400, borderRadius: BorderRadius.circular(45)),
+      margin: EdgeInsets.only(left: 3, right: 3),
     );
   }
 }
-
 
 class TextFieldSearch extends StatelessWidget {
   final TextEditingController controller;
@@ -178,29 +175,28 @@ class TextFieldSearch extends StatelessWidget {
   final IconData icon;
   final Function onSearch;
 
-
-  TextFieldSearch(
-     {@required this.controller,
-      this.onSubmitted,
-      this.textInputAction,
-      this.hintText,
-      this.icon,
-      this.onSearch,
-     });
+  TextFieldSearch({
+    @required this.controller,
+    this.onSubmitted,
+    this.textInputAction,
+    this.hintText,
+    this.icon,
+    this.onSearch,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: 100,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300.withOpacity(0.5),
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: TextField(
         controller: controller,
         textInputAction: textInputAction,
         onSubmitted: onSubmitted,
-        style:
-        TextStyle(color: colorApp, fontFamily: "regular", fontSize: 16),
+        style: TextStyle(color: colorApp, fontFamily: "regular", fontSize: 16),
         cursorColor: colorApp,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 15),
@@ -210,18 +206,14 @@ class TextFieldSearch extends StatelessWidget {
           suffixIcon: Padding(
             padding: const EdgeInsets.only(right: 5),
             child: IconButton(
-              icon: Icon(
-                  Icons.search,
-                  color: colorGrey,
-                  size: 18),
+              icon: Icon(Icons.search, color: colorGrey, size: 18),
               onPressed: onSearch,
             ),
           ),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
               borderSide: BorderSide(color: colorApp, width: 2)),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
           fillColor: Colors.teal,
           focusColor: Colors.teal,
           hoverColor: Colors.teal,
@@ -230,6 +222,3 @@ class TextFieldSearch extends StatelessWidget {
     );
   }
 }
-
-
-

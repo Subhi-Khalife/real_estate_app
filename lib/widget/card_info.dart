@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:realestateapp/widget/color_app.dart';
-import 'package:realestateapp/widget/global_text.dart';
-import 'package:realestateapp/widget/global_widget.dart';
+import 'package:projects/widget/color_app.dart';
+import 'package:projects/widget/global_text.dart';
+import 'package:projects/widget/global_widget.dart';
 
 class PropertyCardInformation extends StatelessWidget {
   @override
@@ -13,6 +13,7 @@ class PropertyCardInformation extends StatelessWidget {
           height: MediaQuery.of(context).size.height*.25,
           width: MediaQuery.of(context).size.width*.9,
         ),
+
         Padding(
           padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.06,
@@ -22,21 +23,24 @@ class PropertyCardInformation extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  PropertyCardDescription(
-                    description: "1,200 sq.ft",
-                    colorDescription: Colors.black87,
-                  ),
-                  DotSpace(),
-                  PropertyCardDescription(
-                    description: "4 Beds",
-                  ),
-                  DotSpace(),
-                  PropertyCardDescription(
-                    description: "4 Bath",
-                  ),
-                ],
+              Container(
+                width:  MediaQuery.of(context).size.height*.4,
+                child: Row(
+                  children: <Widget>[
+                    PropertyCardDescription(
+                      description: "1,200 sq.ft",
+                      colorDescription: Colors.black87,
+                    ),
+                    DotSpace(),
+                    PropertyCardDescription(
+                      description: "4 Beds",
+                    ),
+                    DotSpace(),
+                    PropertyCardDescription(
+                      description: "4 Bath",
+                    ),
+                  ],
+                ),
               ),
               PropertyCardPrice(
                 price: "\$4999",
@@ -44,6 +48,7 @@ class PropertyCardInformation extends StatelessWidget {
             ],
           ),
         ),
+        
         Padding(
           padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.06,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:realestateapp/widget/color_app.dart';
-import 'package:realestateapp/widget/global_widget.dart';
-
+import 'package:projects/widget/color_app.dart';
+import 'package:projects/widget/global_widget.dart';
 class CardDesignerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height *.3,
+      width: MediaQuery.of(context).size.width*0.9,
       child: Stack(
         children: <Widget>[
           Positioned.fill(

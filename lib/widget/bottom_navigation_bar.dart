@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realestateapp/widget/color_app.dart';
-import 'package:realestateapp/widget/constant.dart';
+import 'package:projects/widget/color_app.dart';
+
 
 class BottomNavBar extends StatefulWidget {
   final IconData iconExplore , iconFavorite ,iconAlert ,iconProfile;
