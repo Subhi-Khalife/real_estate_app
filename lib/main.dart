@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projects/ui/MainView.dart';
+import 'package:projects/ui/verification_interfaces/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: MainView());
+    return Scaffold(body: LoginView());
   }
 }

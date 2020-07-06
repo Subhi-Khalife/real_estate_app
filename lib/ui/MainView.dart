@@ -27,6 +27,7 @@ class _MainViewState extends State<MainView> {
     NotificationsView(),
     ProfileView(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

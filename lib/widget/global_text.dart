@@ -9,7 +9,7 @@ class LogInTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title , style: TextStyle(fontSize: 22,color: colorTitleLogin,fontWeight: FontWeight.bold),);
+    return Text(title , style: TextStyle(fontSize: 30,color: colorTitleLogin,fontWeight: FontWeight.w600,letterSpacing: 1.2),);
   }
 }
 

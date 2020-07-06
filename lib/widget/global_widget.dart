@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projects/widget/color_app.dart';
 
-class ShowSvg extends StatelessWidget {
+class ShowImage extends StatelessWidget {
   final String assetName;
 
   final double height, width;
 
   final BoxFit boxFit;
 
-  ShowSvg(this.assetName,
+  ShowImage(this.assetName,
       {this.height = 25.0, this.width = 25.0, this.boxFit = BoxFit.contain});
 
   @override
@@ -29,6 +29,8 @@ class TextFieldApp extends StatelessWidget {
   final bool isLookAtPassword;
   final Function onPressedLookAtPassword;
   final bool isTextFieldPassword;
+  final Function onChange;
+  final Color colorIcon;
 
   TextFieldApp(
       {@required this.controller,
@@ -39,7 +41,10 @@ class TextFieldApp extends StatelessWidget {
       this.icon,
       this.isLookAtPassword = false,
       this.onPressedLookAtPassword,
-      @required this.isTextFieldPassword});
+      @required this.isTextFieldPassword,
+        this.onChange,
+        this.colorIcon
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +55,10 @@ class TextFieldApp extends StatelessWidget {
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
             style:
-                TextStyle(color: colorApp, fontFamily: "regular", fontSize: 16),
-            cursorColor: colorApp,
+                TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+            cursorColor: activeIconNavBar,
             obscureText: !isLookAtPassword,
+            onChanged: onChange,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),
               labelText: labelText,
@@ -63,9 +69,9 @@ class TextFieldApp extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(
                       isLookAtPassword
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      color: colorGrey,
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: colorIcon ?? colorGrey,
                       size: 18),
                   onPressed: onPressedLookAtPassword,
                 ),
@@ -73,7 +79,7 @@ class TextFieldApp extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7.0),
                   gapPadding: 5.0,
-                  borderSide: BorderSide(color: colorApp, width: 2)),
+                  borderSide: BorderSide(color: activeIconNavBar, width: 2)),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7.0), gapPadding: 5.0),
             ),
@@ -84,8 +90,8 @@ class TextFieldApp extends StatelessWidget {
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
             style:
-                TextStyle(color: colorApp, fontFamily: "regular", fontSize: 16),
-            cursorColor: colorApp,
+                TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+            cursorColor: activeIconNavBar,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),
               labelText: labelText,
@@ -93,10 +99,13 @@ class TextFieldApp extends StatelessWidget {
                   color: colorGrey, fontFamily: "regular", fontSize: 15),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7.0),
-                  borderSide: BorderSide(color: colorApp, width: 2)),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(7.0),
+                  borderSide: BorderSide(color: activeIconNavBar, width: 2),
               ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7.0)),
+              focusColor: Colors.white,
+              hoverColor: Colors.white,
+              fillColor: Colors.white,
             ));
   }
 }
@@ -149,7 +158,7 @@ class ImageCard extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0), color: colorApp),
+          borderRadius: BorderRadius.circular(15.0), color: activeIconNavBar),
     );
   }
 }
@@ -196,8 +205,8 @@ class TextFieldSearch extends StatelessWidget {
         controller: controller,
         textInputAction: textInputAction,
         onSubmitted: onSubmitted,
-        style: TextStyle(color: colorApp, fontFamily: "regular", fontSize: 16),
-        cursorColor: colorApp,
+        style: TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+        cursorColor: activeIconNavBar,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 15),
           hintText: hintText,
@@ -212,13 +221,40 @@ class TextFieldSearch extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
-              borderSide: BorderSide(color: colorApp, width: 2)),
+              borderSide: BorderSide(color: activeIconNavBar, width: 2)),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
           fillColor: Colors.teal,
           focusColor: Colors.teal,
           hoverColor: Colors.teal,
         ),
       ),
+    );
+  }
+}
+
+class ButtonApp extends StatelessWidget {
+  final Function onPressed;
+  final Color colorButton;
+  final Color colorText;
+  final String textButton;
+  final double heightButton;
+  final double widthButton;
+
+  ButtonApp(
+  {@required this.onPressed, this.colorButton, this.colorText,@required this.textButton,this.heightButton,this.widthButton });
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      onPressed: onPressed,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0)
+      ),
+      elevation: 5.0,
+      color: colorButton ?? activeIconNavBar,
+      child: Text(textButton , style:  TextStyle(color: colorText ?? Colors.white,fontSize: 18,letterSpacing: 1.2),),
+      height: heightButton ?? 40,
+      splashColor: Colors.grey.withOpacity(0.6),
     );
   }
 }
