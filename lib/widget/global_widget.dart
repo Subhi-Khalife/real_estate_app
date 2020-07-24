@@ -32,6 +32,8 @@ class TextFieldApp extends StatelessWidget {
   final Function onChange;
   final Color colorIcon;
   final bool isEnable;
+  final List<dynamic> inputFormatter;
+  final TextInputType keyboardType;
 
   TextFieldApp(
       {@required this.controller,
@@ -41,6 +43,8 @@ class TextFieldApp extends StatelessWidget {
       this.textInputAction,
       this.labelText,
       this.icon,
+        this.keyboardType,
+        this.inputFormatter,
       this.isLookAtPassword = false,
       this.onPressedLookAtPassword,
       @required this.isTextFieldPassword,
@@ -88,9 +92,11 @@ class TextFieldApp extends StatelessWidget {
           )
         : TextField(
             controller: controller,
+            inputFormatters:inputFormatter ?? [] ,
             focusNode: focusNode,
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
+            keyboardType:keyboardType ?? TextInputType.text,
             enabled: isEnable ?? true,
             style:
                 TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 import 'package:real_estate_app/widget/color_app.dart';
@@ -110,6 +111,7 @@ class _SignInViewState extends State<SignInView> {
                               isTextFieldPassword: false,
                               focusNode: _phoneNumberFocus,
                               labelText: "Phone Number",
+                              keyboardType: TextInputType.phone,
                               onSubmitted: (val){
                                 FocusScope.of(context).requestFocus(_emailFocus);
                               },
@@ -119,6 +121,7 @@ class _SignInViewState extends State<SignInView> {
                               controller: _emailController,
                               isTextFieldPassword: false,
                               labelText: "Email",
+                              keyboardType: TextInputType.emailAddress,
                               focusNode: _emailFocus,
                               onSubmitted: (val){
                                 FocusScope.of(context).requestFocus(_passwordFocus);
@@ -127,7 +130,52 @@ class _SignInViewState extends State<SignInView> {
                             SizedBox(height: 15),
                             InkWell(
                               onTap: (){
-                              },
+                                if(_birthdayController.text.trim() == "")
+                                  _birthdayController.text = parseToDateTime(DateTime.now());
+                                  showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      isDismissible: false,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(15.0),topLeft: Radius.circular(15.0))),
+                                      builder: (context){
+                                    return Container(
+                                      height: MediaQuery.of(context).size.height *0.6,
+                                      margin: EdgeInsets.only(left: 10.0,right: 10.0),
+                                      child: ListView(
+                                        children: [
+                                          SizedBox(height: 10,),
+                                          Text("Select Date",textAlign: TextAlign.center,style: TextStyle(
+                                            fontSize: 18,color: Colors.black54
+                                          ),),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            height:MediaQuery.of(context).size.height *0.4,
+                                            child: CupertinoDatePicker(
+                                                mode: CupertinoDatePickerMode.date,
+                                                initialDateTime: DateTime.now(),
+                                                onDateTimeChanged: (dateTime){
+                                                  print("date Time $dateTime}");
+                                                  _birthdayController.text = parseToDateTime(dateTime);
+                                                }),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Padding(
+                                            padding:  EdgeInsets.only(left: 20,right: 20.0),
+                                            child: ButtonApp(
+                                              onPressed: (){
+                                                Navigator.of(context).pop();
+                                              },
+                                              textButton: "Apply",
+
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                                },
                               child: TextFieldApp(
                                 controller: _birthdayController,
                                 isTextFieldPassword: false,
@@ -246,5 +294,9 @@ class _SignInViewState extends State<SignInView> {
         ),
       ),
     );
+  }
+  
+  String parseToDateTime(DateTime time){
+    return "${time.year}/${time.month}/${time.day}";
   }
 }
