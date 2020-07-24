@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_app/ui/MainView.dart';
+import 'package:real_estate_app/ui/onboarding.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 import 'package:real_estate_app/widget/color_app.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -34,6 +35,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LoginView());
+    return Scaffold(body: Onboarding());
   }
 }
