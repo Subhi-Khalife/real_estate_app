@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
-import 'package:projects/widget/global_text.dart';
+import 'package:real_estate_app/widget/global_text.dart';
 
 class HouesDetail extends StatefulWidget {
   @override

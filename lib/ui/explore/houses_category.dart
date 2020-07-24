@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projects/ui/house_detail.dart';
-import 'package:projects/widget/card_category_just_in.dart';
-import 'package:projects/widget/card_designer_home.dart';
-import 'package:projects/widget/global_text.dart';
+import 'package:real_estate_app/ui/house_detail.dart';
+import 'package:real_estate_app/widget/card_category_just_in.dart';
+import 'package:real_estate_app/widget/card_designer_home.dart';
+import 'package:real_estate_app/widget/global_text.dart';
 
 class HousesCategory extends StatefulWidget {
   @override

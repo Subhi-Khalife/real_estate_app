@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projects/widget/color_app.dart';
+import 'package:real_estate_app/widget/color_app.dart';
 
 
 class BottomNavBar extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projects/widget/color_app.dart';
-import 'package:projects/widget/global_widget.dart';
+import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/widget/global_widget.dart';
 class CardDesignerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

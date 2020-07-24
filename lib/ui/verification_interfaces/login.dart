@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projects/ui/verification_interfaces/signin.dart';
-import 'package:projects/widget/color_app.dart';
-import 'package:projects/widget/global_text.dart';
-import 'package:projects/widget/global_widget.dart';
+import 'package:real_estate_app/ui/verification_interfaces/signin.dart';
+import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/widget/global_text.dart';
+import 'package:real_estate_app/widget/global_widget.dart';
 
 class LoginView extends StatefulWidget {
   @override

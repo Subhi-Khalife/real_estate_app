@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:projects/widget/color_app.dart';
-
+import 'package:real_estate_app/widget/color_app.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 class ShowImage extends StatelessWidget {
   final String assetName;
 

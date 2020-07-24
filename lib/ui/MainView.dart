@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projects/ui/explore/explore.dart';
-import 'package:projects/ui/favourite/favorite.dart';
-import 'package:projects/ui/notification.dart';
-import 'package:projects/ui/profile.dart';
-import 'package:projects/widget/bottom_navigation_bar.dart';
+import 'package:real_estate_app/ui/explore/explore.dart';
+import 'package:real_estate_app/ui/favourite/favorite.dart';
+import 'package:real_estate_app/ui/notification.dart';
+import 'package:real_estate_app/ui/profile.dart';
+import 'package:real_estate_app/widget/bottom_navigation_bar.dart';
 
 class MainView extends StatefulWidget {
   @override

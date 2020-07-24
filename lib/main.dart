@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projects/ui/MainView.dart';
-import 'package:projects/ui/verification_interfaces/login.dart';
+import 'package:real_estate_app/ui/verification_interfaces/login.dart';
+
 
 void main() {
   runApp(MyApp());

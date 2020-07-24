@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projects/ui/house_detail.dart';
-import 'package:projects/widget/card_info.dart';
+import 'package:real_estate_app/ui/house_detail.dart';
+import 'package:real_estate_app/widget/card_info.dart';
 
 class FavoriteView extends StatefulWidget {
   @override

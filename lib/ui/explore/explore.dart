@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projects/ui/explore/houses_category.dart';
-import 'package:projects/ui/profile.dart';
-import 'package:projects/widget/color_app.dart';
-import 'package:projects/widget/global_widget.dart';
+import 'package:real_estate_app/ui/explore/houses_category.dart';
+import 'package:real_estate_app/ui/profile.dart';
+import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/widget/global_widget.dart';
 
 class ExploreView extends StatefulWidget {
   @override
