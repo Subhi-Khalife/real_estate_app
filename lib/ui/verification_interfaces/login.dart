@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:real_estate_app/model/login_model.dart';
 import 'package:real_estate_app/ui/verification_interfaces/signin.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
+import 'package:real_estate_app/widget/loading_dialog.dart';
 import 'package:real_estate_app/widget/show_message.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -13,6 +19,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final facebookLogin = FacebookLogin();
   TextEditingController _emailController, _passwordController;
   bool isLockPassword = false;
   bool isCheck = false;
@@ -141,7 +148,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             ButtonApp(
               onPressed: () {
-                print("ok");
+                _loginWithFB();
               },
               textButton: "Login with Facebook",
               colorButton: activeIconNavBar,
@@ -166,5 +173,47 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  _loginWithFB() async {
+    final result = await facebookLogin.logInWithReadPermissions(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final token = result.accessToken.token;
+        print("the token is $token");
+        final graphResponse = await http.get(
+            'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+        final profile = JSON.jsonDecode(graphResponse.body);
+        print(profile);
+        setState(() {
+//          userProfile = profile;
+//          _isLoggedIn = true;
+        });
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+
+        LoadingDialog loadingDialog = LoadingDialog(context);
+        loadingDialog.show(context);
+//        SocailLoginApi loginApi = await LoginModel.socialLogin(
+//            socialToken: token, provider: "facebook");
+        //  userToken=loginApi.data.tokenApi;
+        loadingDialog.dismiss(context);
+//        if (loginApi.status != "no") {
+//          sharedPreferences.setBool('loginDone',true);
+//          sharedPreferences.setString('token',loginApi.data.tokenApi.toString());
+//          Navigator.push(context,
+//              MaterialPageRoute(builder: (context) => PageReactiveButton()));
+//        }
+
+        break;
+
+      case FacebookLoginStatus.cancelledByUser:
+//        setState(() => _isLoggedIn = false);
+        break;
+      case FacebookLoginStatus.error:
+//        setState(() => _isLoggedIn = false);
+        break;
+    }
   }
 }
