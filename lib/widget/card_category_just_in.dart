@@ -61,7 +61,7 @@ class CardJustIn extends StatelessWidget {
             ),
           ),
         ),
-
+//
         Container(
           width: MediaQuery.of(context).size.width * .5,
           child: Padding(
