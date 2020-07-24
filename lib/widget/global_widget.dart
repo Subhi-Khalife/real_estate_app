@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:real_estate_app/widget/color_app.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 class ShowImage extends StatelessWidget {
   final String assetName;
 
@@ -30,10 +31,12 @@ class TextFieldApp extends StatelessWidget {
   final bool isTextFieldPassword;
   final Function onChange;
   final Color colorIcon;
+  final bool isEnable;
 
   TextFieldApp(
       {@required this.controller,
       this.focusNode,
+        this.isEnable,
       this.onSubmitted,
       this.textInputAction,
       this.labelText,
@@ -88,6 +91,7 @@ class TextFieldApp extends StatelessWidget {
             focusNode: focusNode,
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
+            enabled: isEnable ?? true,
             style:
                 TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
@@ -100,6 +104,7 @@ class TextFieldApp extends StatelessWidget {
                   borderRadius: BorderRadius.circular(7.0),
                   borderSide: BorderSide(color: activeIconNavBar, width: 2),
               ),
+              suffixIcon:icon != null ? Icon(icon,color: colorIcon,) : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7.0)),
               focusColor: Colors.white,

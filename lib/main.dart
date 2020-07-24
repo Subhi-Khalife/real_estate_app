@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
+import 'package:real_estate_app/widget/color_app.dart';
 
 
 void main() {
@@ -11,8 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),

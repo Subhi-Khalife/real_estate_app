@@ -33,6 +33,8 @@ class _LoginViewState extends State<LoginView> {
       body: Padding(
         padding:  EdgeInsets.only(left: 20,right: 20,bottom: 15),
         child: ListView(
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
           children: <Widget>[
             SizedBox(height: height*0.1,),
             ShowImage("svg/Login-bro-1.svg",height: height * 0.27,boxFit: BoxFit.fitHeight,),
