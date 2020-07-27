@@ -53,7 +53,7 @@ class PropertyCardDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: Text(description , style: TextStyle(color: colorDescription ?? Colors.black,fontSize: 14,height: 1.4),maxLines: 3,));
+    return Text(description , style: TextStyle(color: colorDescription ?? Colors.black,fontSize: 14,height: 1.4),maxLines: 3,);
   }
 }
 
@@ -65,7 +65,7 @@ class PropertyCardPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(price , style: TextStyle(color: colorPrice ?? Colors.red,fontSize: 17,fontWeight: FontWeight.w600),);
+    return Text(price , style: TextStyle(color: colorPrice ?? activeIconNavBar,fontSize: 17,fontWeight: FontWeight.w600),);
   }
 }
 

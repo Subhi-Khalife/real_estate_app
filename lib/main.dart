@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_app/ui/MainView.dart';
+import 'package:real_estate_app/ui/explore/explore.dart';
+import 'package:real_estate_app/ui/onboarding.dart';
+import 'package:real_estate_app/ui/splash_screen.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 
 void main() {
@@ -32,6 +36,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LoginView());
+    return Scaffold(body: MainView());
   }
 }

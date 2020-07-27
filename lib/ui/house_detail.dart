@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
+import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 
 class HouesDetail extends StatefulWidget {
@@ -68,11 +69,11 @@ Widget showTwoButton(BuildContext context) {
                 context: context,
                 color: Colors.white,
                 text: "Ask a Question",
-                textColor: Colors.black)),
+                textColor: colorApp)),
         Flexible(
             child: button(
                 context: context,
-                color: Colors.red,
+                color: colorApp,
                 text: "Express interest",
                 textColor: Colors.white))
       ],
@@ -86,7 +87,7 @@ Widget button(
     onTap: () {},
     child: Container(
       width: MediaQuery.of(context).size.width,
-      height: 75,
+      height: 60,
       child: Card(
         color: color,
         child: Center(
@@ -109,13 +110,15 @@ Widget showImageAndTitle(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Icon(icon, color: Colors.red),
+        Icon(icon, color: colorApp),
         SizedBox(
           width: 10,
         ),
-        PropertyCardDescription(
-          description: description,
-          colorDescription: Colors.black45,
+        Expanded(
+          child: PropertyCardDescription(
+            description: description,
+            colorDescription: Colors.black45,
+          ),
         )
       ],
     ),

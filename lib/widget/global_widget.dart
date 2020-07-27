@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
@@ -32,8 +33,10 @@ class TextFieldApp extends StatelessWidget {
   final Function onChange;
   final Color colorIcon;
   final bool isEnable;
-  final List<dynamic> inputFormatter;
+  final List<TextInputFormatter> inputFormatter;
   final TextInputType keyboardType;
+  final int maxLength;
+  final bool isLengthSmall;
 
   TextFieldApp(
       {@required this.controller,
@@ -43,6 +46,8 @@ class TextFieldApp extends StatelessWidget {
       this.textInputAction,
       this.labelText,
       this.icon,
+        this.isLengthSmall=false,
+        this.maxLength,
         this.keyboardType,
         this.inputFormatter,
       this.isLookAtPassword = false,
@@ -64,10 +69,16 @@ class TextFieldApp extends StatelessWidget {
                 TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
             obscureText: !isLookAtPassword,
+            maxLength: maxLength,
             onChanged: onChange,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),
               labelText: labelText,
+              errorText: isLengthSmall ? "Please Enter 4 character at least" :null,
+              errorBorder: isLengthSmall ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7.0),
+                  gapPadding: 5.0,
+                  borderSide: BorderSide(color: Colors.red, width: 2)): null,
               labelStyle: TextStyle(
                   color: colorGrey, fontFamily: "regular", fontSize: 15),
               suffixIcon: Padding(
@@ -77,7 +88,7 @@ class TextFieldApp extends StatelessWidget {
                       isLookAtPassword
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: colorIcon ?? colorGrey,
+                      color:isLengthSmall ? Colors.red : colorIcon ?? colorGrey ,
                       size: 18),
                   onPressed: onPressedLookAtPassword,
                 ),
@@ -98,6 +109,7 @@ class TextFieldApp extends StatelessWidget {
             onSubmitted: onSubmitted,
             keyboardType:keyboardType ?? TextInputType.text,
             enabled: isEnable ?? true,
+            maxLength: maxLength,
             style:
                 TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
@@ -179,9 +191,10 @@ class DotSpace extends StatelessWidget {
     return Container(
       width: 3,
       height: 3,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
           color: Colors.grey.shade400, borderRadius: BorderRadius.circular(45)),
-      margin: EdgeInsets.only(left: 3, right: 3),
+      margin: EdgeInsets.only(left: 5, right: 5),
     );
   }
 }
@@ -193,6 +206,7 @@ class TextFieldSearch extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final Function onSearch;
+  final bool isShowIcon;
 
   TextFieldSearch({
     @required this.controller,
@@ -200,14 +214,13 @@ class TextFieldSearch extends StatelessWidget {
     this.textInputAction,
     this.hintText,
     this.icon,
+    this.isShowIcon = true,
     this.onSearch,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -221,14 +234,14 @@ class TextFieldSearch extends StatelessWidget {
           contentPadding: EdgeInsets.only(left: 15),
           hintText: hintText,
           hintStyle: TextStyle(
-              color: Colors.black, fontFamily: "regular", fontSize: 14),
-          suffixIcon: Padding(
+              color: Colors.black26, fontFamily: "regular", fontSize: 14),
+          suffixIcon: isShowIcon ? Padding(
             padding: const EdgeInsets.only(right: 5),
-            child: IconButton(
+            child:IconButton(
               icon: Icon(Icons.search, color: colorGrey, size: 18),
               onPressed: onSearch,
-            ),
-          ),
+            ) ,
+          ) : null,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
               borderSide: BorderSide(color: activeIconNavBar, width: 2)),

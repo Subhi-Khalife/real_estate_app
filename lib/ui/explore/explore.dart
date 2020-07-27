@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:real_estate_app/ui/explore/houses_category.dart';
 import 'package:real_estate_app/ui/profile.dart';
@@ -13,6 +14,16 @@ class _ExploreViewState extends State<ExploreView>
     with SingleTickerProviderStateMixin {
   TextEditingController textEditingController = TextEditingController();
 
+  Widget titleWidget = Text("Dalal",style: TextStyle(
+    fontSize: 20,color: Colors.black54
+  ),);
+
+  IconData iconAction = CupertinoIcons.search;
+
+  Widget bottomSheet = null;
+
+  ValueNotifier<bool> _searchNotifier = ValueNotifier(false);
+  ValueNotifier<bool> _bottomSheetNotifier = ValueNotifier(false);
   final tabs = [
     ProfileView(),
     HousesCategory(),
@@ -30,37 +41,68 @@ class _ExploreViewState extends State<ExploreView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
+      backgroundColor: Colors.grey.shade100,
       body: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: Stack(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 60, bottom: 10),
-                child: tabs[tapIndex],
-              ),
-              tapBar(),
-            ],
-          ),
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 60),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                  child: tabs[tapIndex]),
+            ),
+            tapBar(),
+            ValueListenableBuilder(
+              valueListenable: _bottomSheetNotifier,
+              builder: (context,_,__){
+                return AnimatedSwitcher(
+                    duration: Duration(milliseconds: 1000),
+                    switchInCurve: Curves.easeInOutBack,
+                    switchOutCurve: Curves.easeInOutBack,reverseDuration: Duration(milliseconds: 1000),
+                    child: bottomSheet);
+              },
+            ),
+          ],
         ),
       ),
     );
   }
 
+
   Widget appBar() {
     return AppBar(
       backgroundColor: Colors.grey.shade100,
       elevation: 0,
+      centerTitle: false,
+      title: ValueListenableBuilder(
+        valueListenable: _searchNotifier,
+        builder: (context,_,__) {
+          return AnimatedSwitcher(
+              duration: Duration(
+                  milliseconds: 700
+              ),
+              switchInCurve: Curves.easeIn,
+              child:titleWidget);
+        }
+      ),
       actions: <Widget>[
-        TextFieldSearch(controller: textEditingController),
+        ValueListenableBuilder(
+          valueListenable: _searchNotifier,
+          builder: (context, _,__) {
+            return IconButton(
+              icon: Icon(iconAction,color: Colors.black45,size: 20,),
+              onPressed: onSearchAction,
+            );
+          }
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 4,right: 4),
           child: IconButton(
               icon: Icon(
-                Icons.brush,
-                color: Colors.black,
+                Icons.sort,
+                color: Colors.black45,
               ),
-              onPressed: () {}),
+              onPressed: onFilterAction),
         ),
       ],
     );
@@ -75,11 +117,14 @@ class _ExploreViewState extends State<ExploreView>
             width: MediaQuery.of(context).size.width,
             child: Card(
               color: Colors.white,
+              clipBehavior: Clip.hardEdge,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               elevation: 3,
               child: TabBar(
                 controller: controller,
+                indicatorWeight: 4,
+                indicatorSize: TabBarIndicatorSize.tab,
                 onTap: (int a) {
                   setState(() {
                     tapIndex = a;
@@ -97,7 +142,16 @@ class _ExploreViewState extends State<ExploreView>
                           left: MediaQuery.of(context).size.width * 0.1,
                           right: MediaQuery.of(context).size.width * 0.1),
                       child: Tab(
-                        text: "On Map",
+                       child: Row(
+                         mainAxisSize: MainAxisSize.min,
+                         children: <Widget>[
+                           Text("On Map",style: TextStyle(
+                               color: tapIndex == 0 ?activeIconNavBar: colorGrey,fontWeight: tapIndex==0? FontWeight.bold :FontWeight.w300
+                            ),
+                           ),
+                           Icon(CupertinoIcons.location_solid,size: 15,color: tapIndex == 0 ?activeIconNavBar: colorGrey),
+                         ],
+                       ),
                       ),
                     ),
                   ),
@@ -107,7 +161,15 @@ class _ExploreViewState extends State<ExploreView>
                           left: MediaQuery.of(context).size.width * 0.1,
                           right: MediaQuery.of(context).size.width * 0.1),
                       child: Tab(
-                        text: "Categiry",
+                        child: Row(
+                          mainAxisSize:MainAxisSize.min,
+                          children: <Widget>[
+                            Text("Category",style: TextStyle(
+                                color: tapIndex == 1 ?activeIconNavBar: colorGrey,fontWeight: tapIndex==1 ? FontWeight.bold :FontWeight.w300
+                            ),),
+                            Icon(Icons.category,size: 15,color: tapIndex == 1 ?activeIconNavBar: colorGrey),
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -118,5 +180,70 @@ class _ExploreViewState extends State<ExploreView>
         ),
       ],
     );
+  }
+
+  void onSearchAction() {
+    _searchNotifier.value = !_searchNotifier.value;
+    if(_searchNotifier.value)
+      {
+        titleWidget = Container(
+          height: 40,
+//        width: MediaQuery.of(context).size.width*0.6,
+          child: TextFieldSearch(
+            controller: TextEditingController(),
+            isShowIcon: false,
+            hintText: "Search here.....",
+          ),
+        );
+        iconAction = CupertinoIcons.clear_thick_circled;
+      }
+    else
+     {
+       titleWidget = Text("Dalal",style: TextStyle(
+           fontSize: 20,color: Colors.black54
+       ),);
+       iconAction = CupertinoIcons.search;
+     }
+  }
+
+  void onFilterAction() {
+    _bottomSheetNotifier.value = !_bottomSheetNotifier.value;
+
+    if(_bottomSheetNotifier.value)
+      bottomSheet = FilterBottomSheet();
+    else
+      bottomSheet =null;
+  }
+}
+class FilterBottomSheet extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return  DraggableScrollableSheet(
+        maxChildSize: 0.85,
+        initialChildSize: 0.4,
+        minChildSize: 0.25,
+        builder: (context, scrollController) {
+          return Container(
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: 25,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(title: Text('Item index'));
+              },
+            ),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.white,
+
+              /// To set radius of top left and top right
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+            ),
+          );
+        },
+      );
+
   }
 }

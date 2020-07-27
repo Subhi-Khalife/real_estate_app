@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:real_estate_app/model/login_model.dart';
-import 'package:real_estate_app/ui/verification_interfaces/signin.dart';
+import 'package:real_estate_app/Api/login_model.dart';
+import 'package:real_estate_app/ui/verification_interfaces/signup.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
@@ -10,7 +10,6 @@ import 'package:real_estate_app/widget/loading_dialog.dart';
 import 'package:real_estate_app/widget/show_message.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
@@ -135,7 +134,7 @@ class _LoginViewState extends State<LoginView> {
                     _passwordController.text.length > 12)
                   showMessage("Password should between 4 and 12");
                 else {
-                  await LoginModel.login(
+                  await LoginApi.login(
                       _emailController.text, _passwordController.text, context);
                 }
               },

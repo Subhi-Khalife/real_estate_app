@@ -6,7 +6,7 @@ import 'package:real_estate_app/widget/constant.dart';
 import 'package:real_estate_app/widget/loading_dialog.dart';
 import 'package:real_estate_app/widget/show_message.dart';
 
-class LoginModel {
+class LoginApi {
   static Future login(
       String email, String password, BuildContext context) async {
     String url = Constant.baseUrl + "/auth/signIn";

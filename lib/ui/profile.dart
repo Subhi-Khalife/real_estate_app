@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:real_estate_app/widget/color_app.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -41,11 +43,21 @@ class _HomePageState extends State<ProfileView> {
           _controller.complete(controller);
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: set,
-        label: Text('location'),
-        icon: Icon(Icons.location_on),
+      floatingActionButton: Row(
+        children: <Widget>[
+          Transform.translate(
+            offset: Offset(3,8),
+            child: FloatingActionButton.extended(
+              onPressed: set,
+              backgroundColor: colorApp,
+              label: Text('location'),
+              icon: Icon(CupertinoIcons.location_solid),
+            ),
+          ),
+        ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 

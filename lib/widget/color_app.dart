@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 
 Color colorTitleLogin = Colors.black;
-Color colorApp = Colors.indigo.shade400;
+Color colorApp = Colors.indigo.shade800;
 Color colorGrey = Colors.grey.shade500;
 Color activeIconNavBar = Color(0xff0066FF);
 Color tabBarColor =Color(0xff0066FF);

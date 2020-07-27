@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:real_estate_app/ui/explore/explore.dart';
 import 'package:real_estate_app/ui/favourite/favorite.dart';
@@ -33,14 +34,14 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       body: tabs[currentIndex],
       bottomNavigationBar: BottomNavBar(
-        iconProfile: Icons.person,
-        iconFavorite: Icons.favorite,
-        iconAlert: Icons.notifications,
-        iconExplore: Icons.search,
+        iconProfile:CupertinoIcons.home ,
+        iconFavorite:currentIndex == 1 ? CupertinoIcons.heart_solid: CupertinoIcons.heart,
+        iconAlert: currentIndex == 2 ?CupertinoIcons.news_solid :CupertinoIcons.news,
+        iconExplore:CupertinoIcons.search,
         textProfile: "Profile",
         textFavorite:"Favorite",
         textExplore: "Explore",
-        textAlert: "Alert",
+        textAlert: "News",
         onTap: onTap,
         index: currentIndex,
       ),
