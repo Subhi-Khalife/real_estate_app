@@ -4,6 +4,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:real_estate_app/ui/add_property.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
 class ProfileView extends StatefulWidget {
@@ -58,7 +59,7 @@ class _HomePageState extends State<ProfileView> {
       floatingActionButton: Row(
         children: <Widget>[
           Transform.translate(
-            offset: Offset(3,8),
+            offset: Offset(3, 8),
             child: FloatingActionButton.extended(
               onPressed: set,
               backgroundColor: colorApp,
@@ -73,31 +74,36 @@ class _HomePageState extends State<ProfileView> {
     );
   }
 
-  void set() async {
-    List<LatLng> latlng = List();
+//  void set() async {
+//    List<LatLng> latlng = List();
+//
+//    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+//        "AIzaSyByVFzmF91NWH2gcvkE4hGgqK5Rl_cBVRE",
+//        PointLatLng(36.22635162756718, 37.14083556085825),
+//        PointLatLng(36.22413325507572, 37.143884897232056),
+//        travelMode: TravelMode.driving,
+//        wayPoints: [PolylineWayPoint(location: "Sabo, Yaba Lagos Nigeria")]);
+//    if (result.points.isNotEmpty) {
+//      result.points.forEach((PointLatLng point) {
+//        latlng.add(LatLng(point.latitude, point.longitude));
+//      });
+//    }
+//
+//    setState(() {
+//      _polyline.add(Polyline(
+//        polylineId: PolylineId("1"),
+//        visible: true,
+//        //latlng is List<LatLng>
+//        points: latlng,
+//        color: Colors.blue,
+//      ));
+//    });
+//    setState(() {});
+//  }
 
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        "AIzaSyByVFzmF91NWH2gcvkE4hGgqK5Rl_cBVRE",
-        PointLatLng(36.22635162756718, 37.14083556085825),
-        PointLatLng(36.22413325507572, 37.143884897232056),
-        travelMode: TravelMode.driving,
-        wayPoints: [PolylineWayPoint(location: "Sabo, Yaba Lagos Nigeria")]);
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        latlng.add(LatLng(point.latitude, point.longitude));
-      });
-    }
-
-    setState(() {
-      _polyline.add(Polyline(
-        polylineId: PolylineId("1"),
-        visible: true,
-        //latlng is List<LatLng>
-        points: latlng,
-        color: Colors.blue,
-      ));
-    });
-    setState(() {});
+  void set() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => AddProperty()));
   }
 
   Future<void> _goToTheDirectLocation() async {

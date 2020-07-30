@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:real_estate_app/ui/MainView.dart';
-import 'package:real_estate_app/ui/explore/explore.dart';
-import 'package:real_estate_app/ui/onboarding.dart';
-import 'package:real_estate_app/ui/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AddProperetyDartBloc>(
+          create: (context) => AddProperetyDartBloc()..add(LoadingData()),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +43,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: MainView());
+    return Scaffold(body: LoginView());
   }
 }
