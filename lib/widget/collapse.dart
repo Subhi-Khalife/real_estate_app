@@ -9,9 +9,10 @@ class CollapseView extends StatefulWidget {
   String title;
   List<String> values;
   int index;
-  String first;
+  List<String> first;
+  List<TextEditingController> controller = [];
   GetAllTypeApi getAllTypeApi;
-  int typeId;
+  List<int> typeId;
   int houseTypeIndex = 0;
   Map<int, List<int>> specID;
   TextEditingController textEditingController;
@@ -19,6 +20,7 @@ class CollapseView extends StatefulWidget {
       {this.title,
       this.specID,
       this.first,
+      this.controller,
       this.index,
       this.typeId,
       this.values,
@@ -47,13 +49,13 @@ class _CollapseView extends State<CollapseView> {
   }
 
   Widget showText() {
-    if ((widget.first == "" && widget.index == 0)) {
+    if ((widget.first[0] == "" && widget.index == 0)) {
       print("21");
-      print('the first Value :: ${widget.first}');
+      print('the first Value :: ${widget.first[0]}');
       return showTitle("نوع العقار");
-    } else if ((widget.first != "" && widget.index == 0)) {
+    } else if ((widget.first[0] != "" && widget.index == 0)) {
       print("2");
-      return showTitle('${widget.first}');
+      return showTitle('${widget.first[0]}');
     } else if (((widget.values[widget.index - 1] == "" && widget.index != 0)) ||
         widget.getAllTypeApi.data[widget.houseTypeIndex]
                 .typeSpecs[widget.index - 1].hasMultipleOption ==
@@ -73,7 +75,7 @@ class _CollapseView extends State<CollapseView> {
         padding: EdgeInsets.all(0),
         title: showText(),
         body: Container(
-          height: 120,
+            height: 120,
             width: MediaQuery.of(context).size.width,
             color: Colors.white,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -84,18 +86,38 @@ class _CollapseView extends State<CollapseView> {
                     height: 40,
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
-                      onTap: (){
+                      onTap: () {
                         print("ok");
                         setState(() {
-                          if(widget.index==0||widget.getAllTypeApi.data[widget.houseTypeIndex].typeSpecs[widget.index-1].hasMultipleOption==false) randomValueCard=-1;
+                          if (widget.index == 0 ||
+                              widget
+                                      .getAllTypeApi
+                                      .data[widget.houseTypeIndex]
+                                      .typeSpecs[widget.index - 1]
+                                      .hasMultipleOption ==
+                                  false) randomValueCard = -1;
                           if (widget.index == 0) {
-                            widget.typeId = widget.getAllTypeApi.data[index].id;
+                            widget.controller.clear();
+                            widget.values.clear();
+                            widget.specID.clear();
+                            for (int i = 0; i < 70; i++) {
+                              widget.controller.add(TextEditingController());
+                              widget.values.add("");
+                              widget.specID[i] = [];
+                            }
+
+
+                            print("${widget.getAllTypeApi.data[index].id}");
+                            widget.typeId[0] =
+                                widget.getAllTypeApi.data[index].id;
+                            print("the allll l l l ");
                             widget.textEditingController.text =
                                 widget.getAllTypeApi.data[index].name;
                             widget.houseTypeIndex = index;
 
-                            widget.first = widget.getAllTypeApi.data[index].name;
-                            print("the first value is ::${widget.first}");
+                            widget.first[0] =
+                                widget.getAllTypeApi.data[index].name;
+                            print("the first value is ::${widget.first[0]}");
                           }
                           if (widget.index != 0) {
                             widget.textEditingController.text = widget
@@ -117,7 +139,7 @@ class _CollapseView extends State<CollapseView> {
                             print(
                                 "test ${widget.getAllTypeApi.data[widget.houseTypeIndex].typeSpecs[index].hasMultipleOption}");
                             if (widget.getAllTypeApi.data[widget.houseTypeIndex]
-                                .typeSpecs[index].hasMultipleOption ==
+                                    .typeSpecs[index].hasMultipleOption ==
                                 true) {
                               print("inside one");
                               items = [];
@@ -207,7 +229,7 @@ class _CollapseView extends State<CollapseView> {
                           ),
                           (widget.index != 0)
                               ? Checkbox(
-                                  value: values.contains((widget
+                                  value: widget.specID[widget.index].contains((widget
                                       .getAllTypeApi
                                       .data[widget.houseTypeIndex]
                                       .typeSpecs[index]

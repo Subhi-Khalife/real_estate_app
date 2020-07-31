@@ -1,12 +1,21 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:real_estate_app/Api/upload_image.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
+import 'package:real_estate_app/model/photos_model.dart';
 import 'package:real_estate_app/widget/collapse.dart';
 import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/widget/constant.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
+import 'package:real_estate_app/widget/list_image.dart';
 import 'package:real_estate_app/widget/show_message.dart';
 
 class AddProperty extends StatefulWidget {
@@ -17,8 +26,9 @@ class AddProperty extends StatefulWidget {
 }
 
 class _AddProperty extends State<AddProperty> {
-  int typeId = -1;
-  String first = "";
+  List<String> propertyImages = [];
+  List<int> typeId = [];
+  List<String> first =[];
   List<TextEditingController> _controller = [];
   TextEditingController proprtyController = TextEditingController();
   int randomValueCard = 100;
@@ -28,6 +38,8 @@ class _AddProperty extends State<AddProperty> {
   @override
   void initState() {
     super.initState();
+    typeId.add(-1);
+    first.add("نوع العقار");
     proprtyController.text = "";
     for (int i = 0; i < 70; i++) {
       _controller.add(TextEditingController());
@@ -76,23 +88,45 @@ class _AddProperty extends State<AddProperty> {
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             children: <Widget>[
-              addImage(state.type),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(top: 4, bottom: 4),
+                child: addImage(state.type),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 14, bottom: 8),
                 child: CollapseView(
                   title: "نوع العقار",
                   getAllTypeApi: state.type,
                   index: 0,
                   values: collapse,
+                  specID: specID,
                   first: first,
+                  controller: _controller,
                   textEditingController: proprtyController,
                   houseTypeIndex: houseIndex,
                   typeId: typeId,
                 ),
               ),
+
               (state.index != -1)
                   ? showOtheInfo(state.type, state.index)
                   : Container()
+              ,
+              MaterialButton(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                onPressed: (){
+                  if(checkFields(state.type)){
+                    showMessage("جميع المعلومات صحيحة");
+                  }else{
+                    showMessage("حدث خطا في الإدخال");
+
+                  }
+                },
+                color: colorApp,
+                child: Text("Next",style: TextStyle(color: Colors.white),),
+              )
             ],
           );
         } else if (state is Error) {
@@ -153,13 +187,16 @@ class _AddProperty extends State<AddProperty> {
                 ),
               )
             : Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: CollapseView(
                   title: "نوع العقار",
                   getAllTypeApi: items,
                   index: index + 1,
                   specID: specID,
+                  first: first,
+
                   values: collapse,
+                  controller: _controller,
                   textEditingController: _controller[index],
                   houseTypeIndex: houseIndex,
                 ),
@@ -196,34 +233,21 @@ class _AddProperty extends State<AddProperty> {
           return false;
         }
       }
+      if(propertyImages.length==0){
+        showMessage("يجب إدخال الصورة الرئيسية للعقار");
+        return false;
+      }
+      else  if(propertyImages.length==1){
+        showMessage("يجب إدخال الصورة فرعية واحدة على الاقل");
+        return false;
+      }
       return true;
     }
   }
 
   Widget addImage(GetAllTypeApi getAllTypeApi) {
-    return GestureDetector(
-      onTap: () {
-        if (checkFields(getAllTypeApi))
-          showMessage('جميع المعلةمات مدخلة بشكل صحيح ');
-      },
-      child: Padding(
-        padding: EdgeInsets.only(top: 14),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 150,
-          child: Card(
-              child: Center(
-                child: Icon(
-                  Icons.add_a_photo,
-                  size: 50,
-                  color: colorApp,
-                ),
-              ),
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10))),
-        ),
-      ),
+    return ListImage(
+      propertyImages: propertyImages,
     );
   }
 
