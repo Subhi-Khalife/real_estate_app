@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
-import 'package:flutter_collapse/flutter_collapse.dart';
 import 'package:real_estate_app/widget/collapse.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 
@@ -16,19 +15,23 @@ class AddProperty extends StatefulWidget {
 }
 
 class _AddProperty extends State<AddProperty> {
+  int typeId;
   String first = "";
   List<TextEditingController> _controller = [];
-  TextEditingController proprtyController=TextEditingController();
+  TextEditingController proprtyController = TextEditingController();
   int randomValueCard = 100;
   int select, houseIndex = 0;
-  List<String> collapse = [];
+  List<String> collapse = List();
+  Map<int,List<int> >specID={};
   @override
   void initState() {
     super.initState();
-    proprtyController.text="";
-    for (int i = 1; i < 75; i++) {
+    proprtyController.text = "";
+
+    for (int i = 0; i < 70; i++) {
       _controller.add(TextEditingController());
       collapse.add("");
+      specID[i]=[];
     }
   }
 
@@ -70,6 +73,7 @@ class _AddProperty extends State<AddProperty> {
                   first: first,
                   textEditingController: proprtyController,
                   houseTypeIndex: houseIndex,
+                  typeId: typeId,
                 ),
               ),
               (state.index != -1)
@@ -101,26 +105,27 @@ class _AddProperty extends State<AddProperty> {
       itemBuilder: (context, index) {
         return (items.data[selectedValue].typeSpecs[index].hasOption == false)
             ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: TextFieldApp(
-                    controller: _controller[index],
-                    labelText: items.data[selectedValue].typeSpecs[index].name,
-                    isTextFieldPassword: false,
-                  ),
-                ),
-              )
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: TextFieldApp(
+              controller: _controller[index],
+              labelText: items.data[selectedValue].typeSpecs[index].name,
+              isTextFieldPassword: false,
+            ),
+          ),
+        )
             : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CollapseView(
-                  title: "نوع العقار",
-                  getAllTypeApi: items,
-                  index: index + 1,
-                  values: collapse,
-                  textEditingController: _controller[index],
-                  houseTypeIndex: houseIndex,
-                ),
-              );
+          padding: const EdgeInsets.all(8.0),
+          child: CollapseView(
+            title: "نوع العقار",
+            getAllTypeApi: items,
+            index: index + 1,
+            specID: specID,
+            values: collapse,
+            textEditingController: _controller[index],
+            houseTypeIndex: houseIndex,
+          ),
+        );
       },
       itemCount: items.data[selectedValue].typeSpecs.length,
     );
@@ -128,11 +133,10 @@ class _AddProperty extends State<AddProperty> {
 
   Widget addImage() {
     return GestureDetector(
-      onTap: (){
-        for(int i=0;i<=4;i++)
-          {
-            print("the values is ::${_controller[i].text}");
-          }
+      onTap: () {
+        for (int i = 0; i <= 4; i++) {
+          print("the values is ::${_controller[i].text}");
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -146,8 +150,8 @@ class _AddProperty extends State<AddProperty> {
               ),
             ),
             elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
       ),
     );
   }
