@@ -21,6 +21,12 @@ class InsertAllPropertyType extends AddProperetyDartState {
   List<Object> get props => [type,index];
 }
 
+class Error extends AddProperetyDartState{
+  @override
+  List<Object> get props => [];
+
+}
+
 //class ShowTypeSpec extends AddProperetyDartState {
 //  GetAllTypeApi type;
 //  int houseIndex;

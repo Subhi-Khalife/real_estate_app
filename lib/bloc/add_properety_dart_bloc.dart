@@ -19,16 +19,27 @@ class AddProperetyDartBloc
     if (event is LoadingData) {
       yield Wait();
       try {
+        print("the status :: ");
+
         GetAllTypeApi items = await AddPropertyApi.getAllProperty();
+        print("the status :: ${items.status}");
+        if(items.status!="no")
         yield InsertAllPropertyType(items, -1);
+        else
+          yield Error();
+
       } catch (e) {
         print("error happened");
+        yield Error();
       }
     } else if (event is ShowSpecEvent) {
       yield Wait();
       try {
         yield InsertAllPropertyType(event.getAllTypeApi, event.index);
-      } catch (e) {}
+      } catch (e) {
+        print("error happened");
+        yield Error();
+      }
     }
   }
 }

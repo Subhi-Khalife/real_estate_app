@@ -5,6 +5,9 @@ abstract class AddProperetyDartEvent extends Equatable{
 
 }
 
+
+
+
 class LoadingData extends AddProperetyDartEvent{
   @override
   // TODO: implement props

@@ -32,8 +32,9 @@ class CollapseView extends StatefulWidget {
 }
 
 class _CollapseView extends State<CollapseView> {
-  int randomValueCard = 0;
+  int randomValueCard = -1;
   List<int> values = [];
+
   @override
   void initState() {
     super.initState();
@@ -79,27 +80,104 @@ class _CollapseView extends State<CollapseView> {
             child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      print("ok");
-                      setState(() {
-                        if (widget.index == 0) {
-                          widget.typeId = widget.getAllTypeApi.data[index].id;
-                          widget.textEditingController.text =
-                              widget.getAllTypeApi.data[index].name;
-                          widget.houseTypeIndex = index;
+                  return Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width,
+                    child: InkWell(
+                      onTap: (){
+                        print("ok");
+                        setState(() {
+                          if(widget.index==0||widget.getAllTypeApi.data[widget.houseTypeIndex].typeSpecs[widget.index-1].hasMultipleOption==false) randomValueCard=-1;
+                          if (widget.index == 0) {
+                            widget.typeId = widget.getAllTypeApi.data[index].id;
+                            widget.textEditingController.text =
+                                widget.getAllTypeApi.data[index].name;
+                            widget.houseTypeIndex = index;
 
-                          widget.first = widget.getAllTypeApi.data[index].name;
-                          print("the first value is ::${widget.first}");
-                        }
+                            widget.first = widget.getAllTypeApi.data[index].name;
+                            print("the first value is ::${widget.first}");
+                          }
+                          if (widget.index != 0) {
+                            widget.textEditingController.text = widget
+                                .getAllTypeApi
+                                .data[widget.houseTypeIndex]
+                                .typeSpecs[widget.index - 1]
+                                .typeOptions[index]
+                                .name;
+
+                            widget.values[widget.index - 1] = widget
+                                .getAllTypeApi
+                                .data[widget.houseTypeIndex]
+                                .typeSpecs[widget.index - 1]
+                                .typeOptions[index]
+                                .name;
+                          }
+                          if (widget.index != 0) {
+                            List<int> items = widget.specID[widget.index];
+                            print(
+                                "test ${widget.getAllTypeApi.data[widget.houseTypeIndex].typeSpecs[index].hasMultipleOption}");
+                            if (widget.getAllTypeApi.data[widget.houseTypeIndex]
+                                .typeSpecs[index].hasMultipleOption ==
+                                true) {
+                              print("inside one");
+                              items = [];
+                              items.add((widget
+                                  .getAllTypeApi
+                                  .data[widget.houseTypeIndex]
+                                  .typeSpecs[index]
+                                  .id));
+                              widget.specID[widget.index] = items;
+                            } else {
+                              int y = 0;
+                              print("inside two");
+                              if (items.contains((widget
+                                  .getAllTypeApi
+                                  .data[widget.houseTypeIndex]
+                                  .typeSpecs[index]
+                                  .id))) {
+                                for (int i = 0; i < items.length; i++) {
+                                  print("the length is :: ${items.length}");
+                                  if (items[i] ==
+                                      widget
+                                          .getAllTypeApi
+                                          .data[widget.houseTypeIndex]
+                                          .typeSpecs[index]
+                                          .id) {
+                                    items.removeAt(i);
+                                    y = 1;
+                                    print(
+                                        "the length is  afttter:: ${items.length}");
+                                  } else if (i == items.length - 1 && y == 0) {
+                                    print("okkkk");
+                                    items.add(widget
+                                        .getAllTypeApi
+                                        .data[widget.houseTypeIndex]
+                                        .typeSpecs[index]
+                                        .id);
+                                  }
+                                }
+                              } else {
+                                items.add(widget
+                                    .getAllTypeApi
+                                    .data[widget.houseTypeIndex]
+                                    .typeSpecs[index]
+                                    .id);
+                              }
+                              widget.specID[widget.index] = items;
+                            }
+                            setState(() {
+                              print("okkkk222");
+
+                              values = items;
+                            });
+                          }
+                          //                        if (randomValueCard == widget.index)
+//                          randomValueCard = 100;
+//                        else {
+//                          randomValueCard = widget.index;
+//                        }
+                        });
                         if (widget.index != 0) {
-                          widget.textEditingController.text = widget
-                              .getAllTypeApi
-                              .data[widget.houseTypeIndex]
-                              .typeSpecs[widget.index - 1]
-                              .typeOptions[index]
-                              .name;
-
                           widget.values[widget.index - 1] = widget
                               .getAllTypeApi
                               .data[widget.houseTypeIndex]
@@ -107,86 +185,11 @@ class _CollapseView extends State<CollapseView> {
                               .typeOptions[index]
                               .name;
                         }
-                        if (widget.index != 0) {
-                          List<int> items = widget.specID[widget.index];
-                          print(
-                              "test ${widget.getAllTypeApi.data[widget.houseTypeIndex].typeSpecs[index].hasMultipleOption}");
-                          if (widget.getAllTypeApi.data[widget.houseTypeIndex]
-                                  .typeSpecs[index].hasMultipleOption ==
-                              true) {
-                            print("inside one");
-                            items = [];
-                            items.add((widget
-                                .getAllTypeApi
-                                .data[widget.houseTypeIndex]
-                                .typeSpecs[index]
-                                .id));
-                            widget.specID[widget.index] = items;
-                          } else {
-                            int y = 0;
-                            print("inside two");
-                            if (items.contains((widget
-                                .getAllTypeApi
-                                .data[widget.houseTypeIndex]
-                                .typeSpecs[index]
-                                .id))) {
-                              for (int i = 0; i < items.length; i++) {
-                                print("the length is :: ${items.length}");
-                                if (items[i] ==
-                                    widget
-                                        .getAllTypeApi
-                                        .data[widget.houseTypeIndex]
-                                        .typeSpecs[index]
-                                        .id) {
-                                  items.removeAt(i);
-                                  y = 1;
-                                  print(
-                                      "the length is  afttter:: ${items.length}");
-                                } else if (i == items.length - 1 && y == 0) {
-                                  print("okkkk");
-                                  items.add(widget
-                                      .getAllTypeApi
-                                      .data[widget.houseTypeIndex]
-                                      .typeSpecs[index]
-                                      .id);
-                                }
-                              }
-                            } else {
-                              items.add(widget
-                                  .getAllTypeApi
-                                  .data[widget.houseTypeIndex]
-                                  .typeSpecs[index]
-                                  .id);
-                            }
-                            widget.specID[widget.index] = items;
-                          }
-                          setState(() {
-                            print("okkkk222");
-
-                            values = items;
-                          });
+                        if (widget.index == 0) {
+                          BlocProvider.of<AddProperetyDartBloc>(context)
+                            ..add(ShowSpecEvent(index, widget.getAllTypeApi));
                         }
-                        //                        if (randomValueCard == widget.index)
-//                          randomValueCard = 100;
-//                        else {
-//                          randomValueCard = widget.index;
-//                        }
-                      });
-
-                      if (widget.index != 0) {
-                        widget.values[widget.index - 1] = widget
-                            .getAllTypeApi
-                            .data[widget.houseTypeIndex]
-                            .typeSpecs[widget.index - 1]
-                            .typeOptions[index]
-                            .name;
-                      }
-                      if (widget.index == 0) {
-                        BlocProvider.of<AddProperetyDartBloc>(context)
-                          ..add(ShowSpecEvent(index, widget.getAllTypeApi));
-                      }
-                    },
-                    child: Container(
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -230,6 +233,8 @@ class _CollapseView extends State<CollapseView> {
         onChange: (bool value) {
           setState(
             () {
+              print("ok12344 ${widget.index}");
+              print("the rand val is :: $randomValueCard");
               if (randomValueCard == widget.index)
                 randomValueCard = 100;
               else {
@@ -242,11 +247,3 @@ class _CollapseView extends State<CollapseView> {
     );
   }
 }
-/*
-Checkbox(
-                                value: invite[index],
-                                activeColor: Colors.white,
-                                checkColor: fontMainColor,
-                                onChanged: (bool value) {},
-                              )
- */
