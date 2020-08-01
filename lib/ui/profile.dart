@@ -4,7 +4,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:real_estate_app/ui/add_property.dart';
+import 'file:///D:/404Developers/real_estate_app/lib/ui/add_properity/add_property_spec_and_image.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
 class ProfileView extends StatefulWidget {
@@ -103,7 +103,7 @@ class _HomePageState extends State<ProfileView> {
 
   void set() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => AddProperty()));
+        .push(MaterialPageRoute(builder: (context) => AddPropertySpecAndImage()));
   }
 
   Future<void> _goToTheDirectLocation() async {

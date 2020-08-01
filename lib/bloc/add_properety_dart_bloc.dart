@@ -23,6 +23,16 @@ class AddProperetyDartBloc
 
         GetAllTypeApi items = await AddPropertyApi.getAllProperty();
         print("the status :: ${items.status}");
+        print("yessss");
+        print("the length is :: ${items.data.length}");
+        print("the length33 is :: ${items.data[1].typeSpecs.length}");
+
+        for(int i=0;i<6;i++){
+          print("the name");
+          print("${items.data[1].typeSpecs[i].name}");
+          print("the length ${items.data[1].typeSpecs[i].typeOptions.length}");
+
+        }
         if(items.status!="no")
         yield InsertAllPropertyType(items, -1);
         else

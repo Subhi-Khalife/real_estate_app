@@ -9,6 +9,7 @@ class AddPropertyApi {
   static Future<GetAllTypeApi> getAllProperty() async {
     String url = Constant.baseUrl + "/type/allTypes";
     String token = await SharedPreferenceStore.getToken();
+    print("the token is :: $token");
     Map<String, String> header = {"Authorization": "Bearer $token"};
     try {
       var response = await http.get(url, headers: header);
@@ -16,6 +17,7 @@ class AddPropertyApi {
       print('GetAllTypeApi Api statusCode:${response.statusCode}');
 
       if (response.statusCode == 220) {
+        print("the body:: ${response.body}");
         print('GetTeacherVote Model Success');
         return getAllTypeApiFromJson(response.body);
       }
