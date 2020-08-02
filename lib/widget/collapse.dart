@@ -73,6 +73,9 @@ class _CollapseView extends State<CollapseView> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      clipBehavior: Clip.hardEdge,
+      shadowColor: Colors.black54,
+      elevation: 3.0,
       child: Collapse(
         padding: EdgeInsets.all(0),
         title: showText(),
@@ -278,6 +281,8 @@ class _CollapseView extends State<CollapseView> {
             },
           );
         },
+        showBorder: false,
+        icon: Icon(Icons.keyboard_arrow_down),
       ),
     );
   }

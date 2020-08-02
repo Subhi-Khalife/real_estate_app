@@ -348,20 +348,33 @@ class _SignInViewState extends State<SignInView> {
                               height: 30,
                             ),
                             Center(
-                                child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginView()),
-                                          (route) => false);
-                                    },
-                                    child: Text(
-                                      "Already Have an account ?",
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Already Have an account?",
                                       style: TextStyle(
                                           color: Colors.indigo.shade900
                                               .withOpacity(0.7)),
-                                    ))),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginView()),
+                                                (route) => false);
+                                      },
+                                      child: Text(
+                                        " LogIn",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                            color: Colors.indigo.shade900
+                                                .withOpacity(0.7)),
+                                      ),
+                                    ),
+                                  ],
+                                )),
                           ],
                         ),
                       )

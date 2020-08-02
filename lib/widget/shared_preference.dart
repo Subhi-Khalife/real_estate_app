@@ -25,4 +25,20 @@ class SharedPreferenceStore{
     SharedPreferences sharedPreferences =await SharedPreferences.getInstance();
     sharedPreferences.setString("token",token);
   }
+  static Future<bool> getCheckLogin()async{
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    return sharedPreference.get("check");
+  }
+  static setSaveLoginAndSignUp(bool check)async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool("check",check);
+  }
+  static Future<String> getCheckShowOnBoarding()async{
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    return sharedPreference.getString("isShow");
+  }
+  static setShowOnBoarding(String isShow)async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("isShow",isShow);
+  }
 }

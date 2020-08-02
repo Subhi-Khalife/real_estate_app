@@ -44,7 +44,7 @@ static Future<UserModel> signUpRequest(context,{
         print("response is ${response.body}");
         await SharedPreferenceStore.setUserObj(response.body);
         await SharedPreferenceStore.setToken(userModelFromJson(response.body).data.tokenApi); // extract token another way:     jsonDecode(response.body)["data"]["token_api"]
-
+        await SharedPreferenceStore.setSaveLoginAndSignUp(true);
         loadingDialog.dismiss(context);
         return  userModelFromJson(response.body);
       }

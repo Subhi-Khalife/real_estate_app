@@ -37,25 +37,26 @@ class TextFieldApp extends StatelessWidget {
   final TextInputType keyboardType;
   final int maxLength;
   final bool isLengthSmall;
+  final String hintText;
 
   TextFieldApp(
       {@required this.controller,
       this.focusNode,
-        this.isEnable,
+      this.isEnable,
+      this.hintText,
       this.onSubmitted,
       this.textInputAction,
       this.labelText,
       this.icon,
-        this.isLengthSmall=false,
-        this.maxLength,
-        this.keyboardType,
-        this.inputFormatter,
+      this.isLengthSmall = false,
+      this.maxLength,
+      this.keyboardType,
+      this.inputFormatter,
       this.isLookAtPassword = false,
       this.onPressedLookAtPassword,
       @required this.isTextFieldPassword,
-        this.onChange,
-        this.colorIcon
-      });
+      this.onChange,
+      this.colorIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +66,8 @@ class TextFieldApp extends StatelessWidget {
             focusNode: focusNode,
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
-            style:
-                TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+            style: TextStyle(
+                color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
             obscureText: !isLookAtPassword,
             maxLength: maxLength,
@@ -74,11 +75,14 @@ class TextFieldApp extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),
               labelText: labelText,
-              errorText: isLengthSmall ? "Please Enter 4 character at least" :null,
-              errorBorder: isLengthSmall ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                  gapPadding: 5.0,
-                  borderSide: BorderSide(color: Colors.red, width: 2)): null,
+              errorText:
+                  isLengthSmall ? "Please Enter 4 character at least" : null,
+              errorBorder: isLengthSmall
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(7.0),
+                      gapPadding: 5.0,
+                      borderSide: BorderSide(color: Colors.red, width: 2))
+                  : null,
               labelStyle: TextStyle(
                   color: colorGrey, fontFamily: "regular", fontSize: 15),
               suffixIcon: Padding(
@@ -88,7 +92,8 @@ class TextFieldApp extends StatelessWidget {
                       isLookAtPassword
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color:isLengthSmall ? Colors.red : colorIcon ?? colorGrey ,
+                      color:
+                          isLengthSmall ? Colors.red : colorIcon ?? colorGrey,
                       size: 18),
                   onPressed: onPressedLookAtPassword,
                 ),
@@ -103,28 +108,37 @@ class TextFieldApp extends StatelessWidget {
           )
         : TextField(
             controller: controller,
-            inputFormatters:inputFormatter ?? [] ,
+            inputFormatters: inputFormatter ?? [],
             focusNode: focusNode,
+            onChanged: onChange,
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
-            keyboardType:keyboardType ?? TextInputType.text,
+            keyboardType: keyboardType ?? TextInputType.text,
             enabled: isEnable ?? true,
             maxLength: maxLength,
-            style:
-                TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+            style: TextStyle(
+                color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 15),
+              contentPadding: EdgeInsets.only(left: 15,right: 10),
               labelText: labelText,
               labelStyle: TextStyle(
                   color: colorGrey, fontFamily: "regular", fontSize: 15),
+              hintText: hintText,
+              hintStyle: TextStyle(
+                  color: colorGrey, fontFamily: "regular", fontSize: 15),
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                  borderSide: BorderSide(color: activeIconNavBar, width: 2),
+                borderRadius: BorderRadius.circular(7.0),
+                borderSide: BorderSide(color: activeIconNavBar, width: 2),
               ),
-              suffixIcon:icon != null ? Icon(icon,color: colorIcon,) : null,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7.0)),
+              suffixIcon: icon != null
+                  ? Icon(
+                      icon,
+                      color: colorIcon,
+                    )
+                  : null,
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(7.0)),
               focusColor: Colors.white,
               hoverColor: Colors.white,
               fillColor: Colors.white,
@@ -228,20 +242,23 @@ class TextFieldSearch extends StatelessWidget {
         controller: controller,
         textInputAction: textInputAction,
         onSubmitted: onSubmitted,
-        style: TextStyle(color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+        style: TextStyle(
+            color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
         cursorColor: activeIconNavBar,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 15),
           hintText: hintText,
           hintStyle: TextStyle(
               color: Colors.black26, fontFamily: "regular", fontSize: 14),
-          suffixIcon: isShowIcon ? Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child:IconButton(
-              icon: Icon(Icons.search, color: colorGrey, size: 18),
-              onPressed: onSearch,
-            ) ,
-          ) : null,
+          suffixIcon: isShowIcon
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: IconButton(
+                    icon: Icon(Icons.search, color: colorGrey, size: 18),
+                    onPressed: onSearch,
+                  ),
+                )
+              : null,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
               borderSide: BorderSide(color: activeIconNavBar, width: 2)),
@@ -264,18 +281,25 @@ class ButtonApp extends StatelessWidget {
   final double widthButton;
 
   ButtonApp(
-  {@required this.onPressed, this.colorButton, this.colorText,@required this.textButton,this.heightButton,this.widthButton });
+      {@required this.onPressed,
+      this.colorButton,
+      this.colorText,
+      @required this.textButton,
+      this.heightButton,
+      this.widthButton});
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       elevation: 5.0,
       color: colorButton ?? activeIconNavBar,
-      child: Text(textButton , style:  TextStyle(color: colorText ?? Colors.white,fontSize: 18,letterSpacing: 1.2),),
+      child: Text(
+        textButton,
+        style: TextStyle(
+            color: colorText ?? Colors.white, fontSize: 18, letterSpacing: 1.2),
+      ),
       height: heightButton ?? 40,
       splashColor: Colors.grey.withOpacity(0.6),
     );

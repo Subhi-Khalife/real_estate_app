@@ -29,6 +29,7 @@ class LoginApi {
         showMessage("login success");
         await SharedPreferenceStore.setUserObj(response.body);
         await SharedPreferenceStore.setToken(userModelFromJson(response.body).data.tokenApi); // extract token another way:     jsonDecode(response.body)["data"]["token_api"]
+        await SharedPreferenceStore.setSaveLoginAndSignUp(true);
         loadingDialog.dismiss(context);
         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainView()));
 //        return userModelFromJson(response.body);

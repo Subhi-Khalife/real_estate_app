@@ -157,17 +157,29 @@ class _LoginViewState extends State<LoginView> {
               height: 30,
             ),
             Center(
-                child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => SignInView()),
-                          (Route ee) => false);
-                    },
-                    child: Text(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
                       "Don't Have an account ?",
                       style: TextStyle(
                           color: Colors.indigo.shade900.withOpacity(0.7)),
-                    ))),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                          builder: (context) =>SignInView()
+                        ), (route) => false);
+                      },
+                      child: Text(
+                        " SignUp",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                            color: Colors.indigo.shade900.withOpacity(0.7)),
+                      ),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
+import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
+import 'package:real_estate_app/ui/splash_screen.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 
 void main() {
@@ -9,6 +11,9 @@ void main() {
       providers: [
         BlocProvider<AddProperetyDartBloc>(
           create: (context) => AddProperetyDartBloc()..add(LoadingData()),
+        ),
+        BlocProvider<CountryBloc>(
+          create: (context) => CountryBloc()..add(GetAllCountry()),
         ),
       ],
       child: MyApp(),
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "Dalal ",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
@@ -47,6 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LoginView());
+    return Scaffold(body: SplashScreen());
   }
 }

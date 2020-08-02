@@ -7,6 +7,7 @@ import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 import 'package:real_estate_app/ui/verification_interfaces/signup.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/page_model.dart';
+import 'package:real_estate_app/widget/shared_preference.dart';
 
 class Onboarding extends StatefulWidget {
   @override
@@ -140,7 +141,7 @@ class _OnboardingState extends State<Onboarding> {
                                   )),
                             ],
                           ),
-                          delay: 1000,
+                          delay: 1500,
                         ),
                       ],
                     ),
@@ -176,7 +177,8 @@ class _OnboardingState extends State<Onboarding> {
               ),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
-              onPressed: () {
+              onPressed: () async {
+                await SharedPreferenceStore.setShowOnBoarding("LogInPressed");
                 Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(builder: (context) => LoginView()),
@@ -210,7 +212,8 @@ class _OnboardingState extends State<Onboarding> {
               ),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
-              onPressed: () {
+              onPressed: () async{
+                await SharedPreferenceStore.setShowOnBoarding("SignUpPressed");
                 Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(builder: (context) => SignInView()),

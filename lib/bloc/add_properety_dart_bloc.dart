@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:real_estate_app/Api/add_property_api.dart';
+import 'package:real_estate_app/model/country_model.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
 
 part 'add_properety_dart_event.dart';
@@ -51,5 +52,11 @@ class AddProperetyDartBloc
         yield Error();
       }
     }
+  }
+  @override
+  void onTransition(Transition<AddProperetyDartEvent, AddProperetyDartState> transition) {
+    // TODO: implement onTransition
+    super.onTransition(transition);
+    print(transition);
   }
 }

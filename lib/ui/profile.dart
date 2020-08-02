@@ -4,7 +4,9 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'file:///D:/404Developers/real_estate_app/lib/ui/add_properity/add_property_spec_and_image.dart';
+import 'package:provider/provider.dart';
+import 'package:real_estate_app/ui/add_properity/add_property_spec_and_image.dart';
+import 'package:real_estate_app/ui/add_properity/provier_property.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
 class ProfileView extends StatefulWidget {
@@ -37,7 +39,7 @@ class _HomePageState extends State<ProfileView> {
     super.initState();
     _polyline = Set<Polyline>();
   }
-
+PageController controller;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -64,6 +66,7 @@ class _HomePageState extends State<ProfileView> {
               onPressed: set,
               backgroundColor: colorApp,
               label: Text('location'),
+              heroTag: "salasnlkccadlkmdsa",
               icon: Icon(CupertinoIcons.location_solid),
             ),
           ),
@@ -103,7 +106,9 @@ class _HomePageState extends State<ProfileView> {
 
   void set() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => AddPropertySpecAndImage()));
+        .push(MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+            create: (context)=>PropertyProvider(),
+            child: AddPropertySpecAndImage())));
   }
 
   Future<void> _goToTheDirectLocation() async {

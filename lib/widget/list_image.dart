@@ -99,15 +99,23 @@ class _ListImage extends State<ListImage> {
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                child: Container(
-                  color: Colors.white.withOpacity(0.4),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(title),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Spacer(),
+                    SvgPicture.asset("svg/add-image.svg",height: 50,width: 50,),
+                    Spacer(),
+                    Container(
+                      color: Colors.white.withOpacity(0.4),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(title),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
