@@ -30,7 +30,9 @@ class RequiredParam {
   TextEditingController spaceController =TextEditingController();
   TextEditingController postalCodeController =TextEditingController();
   TextEditingController priceController =TextEditingController();
+  TextEditingController descriptionController =TextEditingController();
   FocusNode priceNode =FocusNode();
+  FocusNode spaceNode =FocusNode();
   FocusNode postalCodeNode =FocusNode();
 
   //////////////////////////////////////////

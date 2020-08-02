@@ -9,6 +9,7 @@ class PropertyProvider extends ChangeNotifier{
   double latitude = 0 ;
   double postalCode = 0;
   String useType = "";
+  String description = "";
 
   setAddressValue(String newAddress){
     address = newAddress ;
@@ -43,9 +44,13 @@ class PropertyProvider extends ChangeNotifier{
     postalCode = newPostalCode ;
     notifyListeners();
   }
+  setDescriptionValue(String newDescription){
+    description = newDescription ;
+    notifyListeners();
+  }
 
   @override
   String toString() {
-    return 'PropertyProvider{address: $address, areaId: $areaId, price: $price, space: $space, longitude: $longitude, latitude: $latitude, postalCode: $postalCode, useType: $useType}';
+    return 'PropertyProvider{address: $address, areaId: $areaId, price: $price, space: $space, longitude: $longitude, latitude: $latitude, postalCode: $postalCode, useType: $useType, description: $description}';
   }
 }

@@ -75,7 +75,8 @@ class AddPropertyApi {
   }
 
  static Future<int> addProperty({
-  @required  List<int> typeId ,
+  @required  int typeId ,
+  @required String description,
   @required  int areaId ,
   @required  String address ,
   @required  int price ,
@@ -94,28 +95,33 @@ class AddPropertyApi {
      HttpHeaders.contentTypeHeader: "application/json"
    };
 final param={
-  "type_id": List<dynamic>.from(typeId.map((e) => e)),
-  "area_id": "$areaId",
-  "address": "$address",
-  "price": "$price",
-  "img": "$img",
-  "space" : "$space",
-  "longtiude" :"$longitude",
-  "latitude" : "$latitude",
-  "postalCode" : "$postalCode",
-  "use_type" : "$useType",
-  "images" : List<dynamic>.from(images.map((e) => e)),
-  "specs": List<dynamic>.from(specs.map((e) => e))
+  "description":description,
+  "type_id": typeId,
+  "area_id": areaId,
+  "address": address,
+  "price": price,
+  "img": img,
+  "space" : space,
+  "longtiude" :longitude,
+  "latitude" : latitude,
+  "postalCode" : postalCode,
+  "use_type" : useType,
+  "images" : List<dynamic>.from(images.map((image) => image)),
+  "specs": List<dynamic>.from(specs.map((specObj) => specObj))
 };
 
-print ("Param is :::$param");
+print ("Param is :::${json.encode(param)}");
 
 
    var connectivityResult = await (Connectivity().checkConnectivity());
    if (connectivityResult == ConnectivityResult.mobile ||
        connectivityResult == ConnectivityResult.wifi) {
      try {
-       var response = await http.post(url, headers: header,body: jsonEncode(param)).timeout(Duration(seconds: 30));
+       var response = await http.post(
+           url,
+           headers: header,
+           body: json.encode(param))
+           .timeout(Duration(seconds: 30));
        print('addProperty Api :${response.body}');
        print('addProperty Api statusCode:${response.statusCode}');
 

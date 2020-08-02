@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<ProfileView> {
 
   Position position;
   final Map<String, Marker> _markers = {};
+  MapType mapType =MapType.normal;
   @override
   void initState() {
     super.initState();
@@ -48,31 +50,64 @@ PageController controller;
           print(x);
           print("Sadsadas");
         },
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
+        zoomGesturesEnabled: true,
         circles: circles,
         polylines: _polyline,
+        zoomControlsEnabled: false,
+        mapToolbarEnabled: true,
         markers: _markers.values.toSet(),
-        mapType: MapType.normal,
+        mapType: mapType,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
-          _goToTheDirectLocation();
+//          _goToTheDirectLocation();
           _controller.complete(controller);
         },
       ),
       floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Transform.translate(
-            offset: Offset(3, 8),
-            child: FloatingActionButton.extended(
-              onPressed: set,
-              backgroundColor: colorApp,
-              label: Text('location'),
-              heroTag: "salasnlkccadlkmdsa",
-              icon: Icon(CupertinoIcons.location_solid),
+          Padding(
+            padding:  EdgeInsets.only(left: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FloatingActionButton(
+                  heroTag: "alsjdhaslkdmas",
+                  onPressed: (){
+                    setState(() {
+                      mapType = MapType.satellite;
+                    });
+                  },
+                  backgroundColor: activeIconNavBar,
+                  child: Icon(Icons.filter_hdr),
+                  mini: true,
+                ),
+                SizedBox(width: 5,),
+                FloatingActionButton(
+                  heroTag: "aslkfcaslkm",
+                  onPressed: (){
+                    setState(() {
+                      mapType =MapType.normal;
+                    });
+                  },
+                  mini: true,
+                  backgroundColor: activeIconNavBar,
+                  child: Icon(Icons.satellite),
+                ),
+              ],
             ),
+          ),
+          FloatingActionButton(
+            onPressed: set,
+            backgroundColor: activeIconNavBar,
+            heroTag: "salasnlkccadlkmdsa",
+            child: Icon(Icons.add,size: 40,),
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }

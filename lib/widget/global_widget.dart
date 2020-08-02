@@ -38,6 +38,7 @@ class TextFieldApp extends StatelessWidget {
   final int maxLength;
   final bool isLengthSmall;
   final String hintText;
+  final int maxLines;
 
   TextFieldApp(
       {@required this.controller,
@@ -51,6 +52,7 @@ class TextFieldApp extends StatelessWidget {
       this.isLengthSmall = false,
       this.maxLength,
       this.keyboardType,
+      this.maxLines,
       this.inputFormatter,
       this.isLookAtPassword = false,
       this.onPressedLookAtPassword,
@@ -113,6 +115,7 @@ class TextFieldApp extends StatelessWidget {
             onChanged: onChange,
             textInputAction: textInputAction,
             onSubmitted: onSubmitted,
+            maxLines: maxLines ?? 1,
             keyboardType: keyboardType ?? TextInputType.text,
             enabled: isEnable ?? true,
             maxLength: maxLength,
@@ -120,8 +123,9 @@ class TextFieldApp extends StatelessWidget {
                 color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 15,right: 10),
+              contentPadding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
               labelText: labelText,
+              alignLabelWithHint: true,
               labelStyle: TextStyle(
                   color: colorGrey, fontFamily: "regular", fontSize: 15),
               hintText: hintText,
@@ -293,12 +297,12 @@ class ButtonApp extends StatelessWidget {
     return MaterialButton(
       onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      elevation: 5.0,
+      elevation: 2.0,
       color: colorButton ?? activeIconNavBar,
       child: Text(
         textButton,
         style: TextStyle(
-            color: colorText ?? Colors.white, fontSize: 18, letterSpacing: 1.2),
+            color: colorText ?? Colors.white, fontSize: 18, letterSpacing: 1.2,fontWeight: FontWeight.w600),
       ),
       height: heightButton ?? 40,
       splashColor: Colors.grey.withOpacity(0.6),

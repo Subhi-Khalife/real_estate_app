@@ -76,6 +76,9 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
   Widget secondPage(PropertyProvider propertyProvider){
     return ListView(
       children: <Widget>[
+        Text("ملاحظة: * تعني أن هذا الحقل مطوب إدخاله",style: TextStyle(
+          color: colorApp,fontSize: 20
+        ),textAlign: TextAlign.center,),
         Card(
           clipBehavior: Clip.hardEdge,
           shape: RoundedRectangleBorder(
@@ -134,9 +137,31 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
         Directionality(
           textDirection: TextDirection.rtl,
           child: TextFieldApp(
+            controller:requiredParam.descriptionController,
+            isTextFieldPassword: false,
+            labelText: "وصف البيت *",
+            maxLines: 5,
+            isLengthSmall: true,
+            onSubmitted: (val){
+              FocusScope.of(context).requestFocus(requiredParam.spaceNode);
+            },
+            onChange: (val){
+              print(val);
+              propertyProvider.setDescriptionValue(val.toString());
+            },
+            keyboardType: TextInputType.text,
+            inputFormatter: [],
+          ),
+        ),
+        SizedBox(height: 10,),
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: TextFieldApp(
             controller:requiredParam.spaceController,
             isTextFieldPassword: false,
             hintText: "المساحة(بالمتر) *",
+            focusNode: requiredParam.spaceNode,
+            labelText: "المساحة",
             isLengthSmall: true,
             onSubmitted: (val){
               FocusScope.of(context).requestFocus(requiredParam.priceNode);
@@ -158,6 +183,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
             controller:requiredParam.priceController,
             isTextFieldPassword: false,
             hintText: "السعر(ليرة سوري) *",
+            labelText: "السعر",
             focusNode: requiredParam.priceNode,
             onChange: (val){
               propertyProvider.setPriceValue(int.parse(val));
@@ -182,6 +208,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
               propertyProvider.setPostalCodeValue(double.parse(val));
             },
             hintText: "الكود البريدى (اختياري)",
+            labelText: "الكود البريدي",
             isLengthSmall: true,
             keyboardType: TextInputType.phone,
             inputFormatter: [
@@ -215,16 +242,16 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
           Container(
               width: MediaQuery.of(context).size.width,
               child: ButtonApp(onPressed: (){
+                addPropertyAction(propertyProvider);
+                print("providerval  $propertyProvider");
+              }, textButton: "Add Property",colorButton: colorApp)),
+          Container(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonApp(onPressed: (){
                 print("mypPositionProperty ${propertyProvider.latitude}  ${propertyProvider.longitude}");
                 _pageController.previousPage(duration: Duration(milliseconds: 800), curve: Curves.easeIn);
               }, textButton: "Previous",colorButton: colorApp)),
           SizedBox(height: 5,),
-          Container(
-              width: MediaQuery.of(context).size.width,
-              child: ButtonApp(onPressed: (){
-                addPropertyAction(propertyProvider);
-                print("providerval  $propertyProvider");
-              }, textButton: "Add Property",colorButton: colorApp)),
         ],
       ),
     );
@@ -248,16 +275,17 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  checkFields(state.type);
-                },
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.red,
-                ),
-              ),
+//              GestureDetector(
+//                onTap: () {
+//                  checkFields(state.type);
+//                  print("stat index ${state.index}");
+//                },
+//                child: Container(
+//                  width: 100,
+//                  height: 100,
+//                  color: Colors.red,
+//                ),
+//              ),
               Padding(
                 padding: const EdgeInsets.only(top: 4, bottom: 4),
                 child: addImage(state.type),
@@ -280,23 +308,19 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
               (state.index != -1)
                   ? showOtheInfo(state.type, state.index)
                   : Container(),
-              MaterialButton(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+              ButtonApp(
                 onPressed: () {
                   if (checkFields(state.type)) {
                     showMessage("جميع المعلومات صحيحة");
                     _pageController.nextPage(duration: Duration(milliseconds: 700), curve: Curves.easeIn);
-                  } else {
-                    showMessage("حدث خطا في الإدخال");
                   }
+//                  else {
+//                    showMessage("حدث خطا في الإدخال");
+//                  }
                 },
-                color: colorApp,
-                child: Text(
-                  "Following",
-                  style: TextStyle(color: Colors.white),
-                ),
+                colorButton: colorApp,
+                textButton:"Following" ,
+                colorText: Colors.white,
               )
             ],
           );
@@ -417,25 +441,26 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
 
       /// Add Spec Values To Array
       print("Add Spec Values To Array");
+      print("Add Spec Values To Array $getAllTypeApi");
       for (int i = 0; i < typeSpecsLength; i++) {
         bool hasOptions = getAllTypeApi
             .data[requiredParam.houseIndex[0]].typeSpecs[i].hasOption;
         if (hasOptions == false) {
           SpecValues specValues = SpecValues(
-              id: requiredParam.typeId[0],
+              id: getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
               option: null,
               value: requiredParam.controller[i].text);
           requiredParam.specValues.add(specValues);
         } else {
           SpecValues specValues = SpecValues(
-              id: requiredParam.typeId[0],
+              id: getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
               option: requiredParam.specID[i + 1],
               value: null);
           requiredParam.specValues.add(specValues);
         }
       }
       for (int i = 0; i < requiredParam.specValues.length; i++) {
-        print("the id is :: ${requiredParam.specValues[i].id}");
+        print("the id is :: ${getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id}");
         print("the option is :: ${requiredParam.specValues[i].option}");
         print("the value is :: ${requiredParam.specValues[i].value}");
       }
@@ -584,7 +609,9 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
                         print("onPressed");
                         _getCurrentLocation(propertyProvider);
                       },
-                      child: Text("الحصول على موقعي",style: TextStyle(color: colorApp,fontWeight: FontWeight.w600),))
+                      child: Container(
+                          height: 20,
+                          child: Text("الحصول على موقعي",style: TextStyle(color: colorApp,fontWeight: FontWeight.w600),)))
                 ],
               ),
             ),
@@ -596,6 +623,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
                 width: MediaQuery.of(context).size.width,
                 child: GoogleMap(
                   myLocationButtonEnabled: false,
+                  mapToolbarEnabled: true,
                   myLocationEnabled: requiredParam.isLocationEnable,
                   zoomControlsEnabled: false,
                   markers: Set<Marker>.of(requiredParam.markers.values),
@@ -701,16 +729,36 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
       final GoogleMapController controller = await requiredParam.mapController.future;
       controller.animateCamera(CameraUpdate.newCameraPosition(requiredParam.kGooglePlex));
     }).catchError((e) {
+      showMessage("تحقق من تشغيل الموقع");
       print("error $e");
     });
   }
+
   addPropertyAction(PropertyProvider propertyProvider)async {
-    await AddPropertyApi.addProperty(typeId: [1,5], areaId:propertyProvider.areaId ,
-        address: propertyProvider.address, price: propertyProvider.price, img: requiredParam.propertyImages[0],
-        space: propertyProvider.space, useType: propertyProvider.useType,postalCode: propertyProvider.postalCode,
-        images: requiredParam.propertyImages, specs: requiredParam.specValues,
-        longitude: propertyProvider.longitude,latitude: propertyProvider.latitude
-    );
+    List<String> images = [];
+    for(int i = 1 ; i<requiredParam.propertyImages.length ; i++)
+      images.add(requiredParam.propertyImages[i]);
+    await AddPropertyApi.addProperty(
+        description:propertyProvider.description,
+        typeId: requiredParam.typeId[0],
+        areaId:propertyProvider.areaId ,
+        address: propertyProvider.address,
+        price: propertyProvider.price,
+        img: requiredParam.propertyImages[0],
+        space: propertyProvider.space,
+        useType: propertyProvider.useType,
+        postalCode: propertyProvider.postalCode,
+        images: images,
+        specs: requiredParam.specValues,
+        longitude: propertyProvider.longitude,
+        latitude: propertyProvider.latitude
+    ).then((value) {
+    if(value == 230)
+    {  showMessage("تمت اضافة العقار");
+    Navigator.of(context).pop();}
+    else
+      showMessage("تأكد من إدخال جميع الحقول المطلوبة");
+    });
 
   }
 }

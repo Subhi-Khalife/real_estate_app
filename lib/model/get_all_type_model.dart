@@ -26,6 +26,11 @@ class GetAllTypeApi {
     "status": status == null ? null : status,
     "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toJson())),
   };
+
+  @override
+  String toString() {
+    return 'GetAllTypeApi{status: $status, data: $data}';
+  }
 }
 
 class Datum {
@@ -54,6 +59,11 @@ class Datum {
     "img": img == null ? null : img,
     "type_specs": typeSpecs == null ? null : List<dynamic>.from(typeSpecs.map((x) => x.toJson())),
   };
+
+  @override
+  String toString() {
+    return 'Datum{id: $id, name: $name, img: $img, typeSpecs: $typeSpecs}';
+  }
 }
 
 class TypeSpec {
@@ -90,6 +100,11 @@ class TypeSpec {
     "type_id": typeId == null ? null : typeId,
     "type_options": typeOptions == null ? null : List<dynamic>.from(typeOptions.map((x) => x.toJson())),
   };
+
+  @override
+  String toString() {
+    return 'TypeSpec{id: $id, name: $name, hasOption: $hasOption, hasMultipleOption: $hasMultipleOption, typeId: $typeId, typeOptions: $typeOptions}';
+  }
 }
 
 class TypeOption {
@@ -114,4 +129,9 @@ class TypeOption {
     "name": name == null ? null : name,
     "type_spec_id": typeSpecId == null ? null : typeSpecId,
   };
+
+  @override
+  String toString() {
+    return 'TypeOption{id: $id, name: $name, typeSpecId: $typeSpecId}';
+  }
 }
