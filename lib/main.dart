@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
+import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
+import 'package:real_estate_app/ui/add_properity/provier_property.dart';
+import 'package:real_estate_app/ui/explore/filter_provider.dart';
 import 'package:real_estate_app/ui/splash_screen.dart';
-import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 
 void main() {
   runApp(
     MultiBlocProvider(
-      providers: [
+      providers: [//ExploreDartBloc
         BlocProvider<AddProperetyDartBloc>(
           create: (context) => AddProperetyDartBloc()..add(LoadingData()),
         ),
         BlocProvider<CountryBloc>(
           create: (context) => CountryBloc()..add(GetAllCountry()),
         ),
+        BlocProvider<ExploreDartBloc>(
+          create: (context) => ExploreDartBloc()..add(LoadingExploreData()),
+        ),
       ],
-      child: MyApp(),
+      child: MultiProvider(
+        providers: [//propertyProvider
+          ChangeNotifierProvider(
+            create: (BuildContext context) => FilterProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (BuildContext context) => PropertyProvider(),
+          ),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -50,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SplashScreen());

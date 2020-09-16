@@ -101,8 +101,8 @@ final param={
   "address": address,
   "price": price,
   "img": img,
-  "space" : space,
-  "longtiude" :longitude,
+  "space" : space,//longitude
+  "longitude" :longitude,
   "latitude" : latitude,
   "postalCode" : postalCode,
   "use_type" : useType,

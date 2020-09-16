@@ -17,7 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_collapse/flutter_collapse.dart';
 import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
-import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -34,11 +33,14 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
   PageController _pageController = PageController(
     initialPage: 0
   );
+  // BlocProvider.of<CountryBloc>(context)..add();
 
   @override
   void initState() {
     super.initState();
     requiredParam = RequiredParam();
+    BlocProvider.of<AddProperetyDartBloc>(context)..add(LoadingData());
+
   }
 
   @override
@@ -275,17 +277,6 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             children: <Widget>[
-//              GestureDetector(
-//                onTap: () {
-//                  checkFields(state.type);
-//                  print("stat index ${state.index}");
-//                },
-//                child: Container(
-//                  width: 100,
-//                  height: 100,
-//                  color: Colors.red,
-//                ),
-//              ),
               Padding(
                 padding: const EdgeInsets.only(top: 4, bottom: 4),
                 child: addImage(state.type),
@@ -370,18 +361,8 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
-        return (items.data[selectedValue].typeSpecs[index].hasOption == false)
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: TextFieldApp(
-                    controller: requiredParam.controller[index],
-                    labelText: items.data[selectedValue].typeSpecs[index].name,
-                    isTextFieldPassword: false,
-                  ),
-                ),
-              )
-            : Padding(
+        return
+        Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: CollapseView(
                   title: "نوع العقار",
@@ -411,8 +392,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
       showMessage("قم باختيار نوع العقار المطلوب");
     } else {
       for (int i = 0; i < typeSpecsLength; i++) {
-        bool hasOptions = getAllTypeApi
-            .data[requiredParam.houseIndex[0]].typeSpecs[i].hasOption;
+        bool hasOptions = true;
         bool hasMutipleOptions = getAllTypeApi
             .data[requiredParam.houseIndex[0]].typeSpecs[i].hasMultipleOption;
         if (hasOptions == false &&
@@ -443,21 +423,20 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
       print("Add Spec Values To Array");
       print("Add Spec Values To Array $getAllTypeApi");
       for (int i = 0; i < typeSpecsLength; i++) {
-        bool hasOptions = getAllTypeApi
-            .data[requiredParam.houseIndex[0]].typeSpecs[i].hasOption;
-        if (hasOptions == false) {
-          SpecValues specValues = SpecValues(
-              id: getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
-              option: null,
-              value: requiredParam.controller[i].text);
-          requiredParam.specValues.add(specValues);
-        } else {
+        // bool hasOptions = getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].hasOption;
+        // if (hasOptions == false) {
+        //   SpecValues specValues = SpecValues(
+        //       id: getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
+        //       option: null,
+        //       value: requiredParam.controller[i].text);
+        //   requiredParam.specValues.add(specValues);
+        // } else {
           SpecValues specValues = SpecValues(
               id: getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
               option: requiredParam.specID[i + 1],
               value: null);
           requiredParam.specValues.add(specValues);
-        }
+        // }
       }
       for (int i = 0; i < requiredParam.specValues.length; i++) {
         print("the id is :: ${getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id}");

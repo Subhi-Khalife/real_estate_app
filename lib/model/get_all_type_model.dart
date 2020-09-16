@@ -15,26 +15,21 @@ class GetAllTypeApi {
   });
 
   String status;
-  List<Datum> data;
+  List<NewFilter> data;
 
   factory GetAllTypeApi.fromJson(Map<String, dynamic> json) => GetAllTypeApi(
     status: json["status"] == null ? null : json["status"],
-    data: json["data"] == null ? null : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] == null ? null : List<NewFilter>.from(json["data"].map((x) => NewFilter.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status == null ? null : status,
     "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toJson())),
   };
-
-  @override
-  String toString() {
-    return 'GetAllTypeApi{status: $status, data: $data}';
-  }
 }
 
-class Datum {
-  Datum({
+class NewFilter {
+  NewFilter({
     this.id,
     this.name,
     this.img,
@@ -46,7 +41,7 @@ class Datum {
   String img;
   List<TypeSpec> typeSpecs;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory NewFilter.fromJson(Map<String, dynamic> json) => NewFilter(
     id: json["id"] == null ? null : json["id"],
     name: json["name"] == null ? null : json["name"],
     img: json["img"] == null ? null : json["img"],
@@ -59,18 +54,12 @@ class Datum {
     "img": img == null ? null : img,
     "type_specs": typeSpecs == null ? null : List<dynamic>.from(typeSpecs.map((x) => x.toJson())),
   };
-
-  @override
-  String toString() {
-    return 'Datum{id: $id, name: $name, img: $img, typeSpecs: $typeSpecs}';
-  }
 }
 
 class TypeSpec {
   TypeSpec({
     this.id,
     this.name,
-    this.hasOption,
     this.hasMultipleOption,
     this.typeId,
     this.typeOptions,
@@ -78,7 +67,6 @@ class TypeSpec {
 
   int id;
   String name;
-  bool hasOption;
   bool hasMultipleOption;
   int typeId;
   List<TypeOption> typeOptions;
@@ -86,7 +74,6 @@ class TypeSpec {
   factory TypeSpec.fromJson(Map<String, dynamic> json) => TypeSpec(
     id: json["id"] == null ? null : json["id"],
     name: json["name"] == null ? null : json["name"],
-    hasOption: json["has_option"] == null ? null : json["has_option"],
     hasMultipleOption: json["has_multiple_option"] == null ? null : json["has_multiple_option"],
     typeId: json["type_id"] == null ? null : json["type_id"],
     typeOptions: json["type_options"] == null ? null : List<TypeOption>.from(json["type_options"].map((x) => TypeOption.fromJson(x))),
@@ -95,16 +82,10 @@ class TypeSpec {
   Map<String, dynamic> toJson() => {
     "id": id == null ? null : id,
     "name": name == null ? null : name,
-    "has_option": hasOption == null ? null : hasOption,
     "has_multiple_option": hasMultipleOption == null ? null : hasMultipleOption,
     "type_id": typeId == null ? null : typeId,
     "type_options": typeOptions == null ? null : List<dynamic>.from(typeOptions.map((x) => x.toJson())),
   };
-
-  @override
-  String toString() {
-    return 'TypeSpec{id: $id, name: $name, hasOption: $hasOption, hasMultipleOption: $hasMultipleOption, typeId: $typeId, typeOptions: $typeOptions}';
-  }
 }
 
 class TypeOption {
@@ -129,9 +110,4 @@ class TypeOption {
     "name": name == null ? null : name,
     "type_spec_id": typeSpecId == null ? null : typeSpecId,
   };
-
-  @override
-  String toString() {
-    return 'TypeOption{id: $id, name: $name, typeSpecId: $typeSpecId}';
-  }
 }

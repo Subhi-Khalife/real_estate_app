@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
+import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
 import 'package:real_estate_app/ui/add_properity/add_property_spec_and_image.dart';
 import 'package:real_estate_app/ui/add_properity/provier_property.dart';
+import 'package:real_estate_app/ui/explore/filter_provider.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
 class ProfileView extends StatefulWidget {
@@ -20,6 +23,8 @@ class _HomePageState extends State<ProfileView> {
   LatLng DEST_LOCATION = LatLng(42.6871386, -71.2143403);
   Set<Circle> circles;
   Set<Polyline> _polyline;
+  FilterProvider _filterProvider;
+
   PolylinePoints polylinePoints = PolylinePoints();
   Completer<GoogleMapController> _controller = Completer();
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -35,13 +40,16 @@ class _HomePageState extends State<ProfileView> {
 
   Position position;
   final Map<String, Marker> _markers = {};
-  MapType mapType =MapType.normal;
+  MapType mapType = MapType.normal;
   @override
   void initState() {
     super.initState();
+    _filterProvider = Provider.of<FilterProvider>(context, listen: false);
+
     _polyline = Set<Polyline>();
   }
-PageController controller;
+
+  PageController controller;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -69,13 +77,13 @@ PageController controller;
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Padding(
-            padding:  EdgeInsets.only(left: 20),
+            padding: EdgeInsets.only(left: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FloatingActionButton(
                   heroTag: "alsjdhaslkdmas",
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
                       mapType = MapType.satellite;
                     });
@@ -84,12 +92,14 @@ PageController controller;
                   child: Icon(Icons.filter_hdr),
                   mini: true,
                 ),
-                SizedBox(width: 5,),
+                SizedBox(
+                  width: 5,
+                ),
                 FloatingActionButton(
                   heroTag: "aslkfcaslkm",
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
-                      mapType =MapType.normal;
+                      mapType = MapType.normal;
                     });
                   },
                   mini: true,
@@ -100,10 +110,16 @@ PageController controller;
             ),
           ),
           FloatingActionButton(
-            onPressed: set,
+            onPressed: () {
+              _filterProvider.firstTime=false;
+              set();
+            },
             backgroundColor: activeIconNavBar,
             heroTag: "salasnlkccadlkmdsa",
-            child: Icon(Icons.add,size: 40,),
+            child: Icon(
+              Icons.add,
+              size: 40,
+            ),
           ),
         ],
       ),
@@ -140,9 +156,9 @@ PageController controller;
 //  }
 
   void set() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
-            create: (context)=>PropertyProvider(),
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+            create: (context) => PropertyProvider(),
             child: AddPropertySpecAndImage())));
   }
 

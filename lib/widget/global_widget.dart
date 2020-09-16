@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/widget/constant.dart';
 
 class ShowImage extends StatelessWidget {
   final String assetName;
@@ -199,6 +201,19 @@ class ImageCard extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0), color: activeIconNavBar),
+      child:  CachedNetworkImage(
+        imageUrl: "${Constant.baseUrl}${imageUrl}",
+        fit: BoxFit.fill,
+        placeholder: (context, imageUrl) => Center(
+          child: CircularProgressIndicator(
+            valueColor:
+            new AlwaysStoppedAnimation<Color>(colorApp),
+          ),
+        ),
+        errorWidget: (context, imageUrl, error) =>
+            Image.asset("assets/profile.png"),
+      )
+      ,
     );
   }
 }

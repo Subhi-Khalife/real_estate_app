@@ -7,7 +7,6 @@ class SharedPreferenceStore{
 
   static Future<UserModel> getUserObj() async{
       SharedPreferences sharedPreferences =await SharedPreferences.getInstance();
-      print("runnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn${sharedPreferences.get("userObj").runtimeType}");
      return userModelFromJson(sharedPreferences.get("userObj"));
   }
 

@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:real_estate_app/ui/add_properity/spec_values.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:real_estate_app/ui/explore/spec_value_for_filter.dart';
 
-class RequiredParam {
+class RequiredParam
+{
+  List<SpecValuesForFilter>specValuesForFilter=List<SpecValuesForFilter>();
+  TextEditingController minPrice=TextEditingController();
+  TextEditingController maxPrice=TextEditingController();
+  TextEditingController minSpace=TextEditingController();
+  TextEditingController maxSpace=TextEditingController();
+//////////////////////////////////////////////////////////////////////////
   List<String> propertyImages = [];
   List<int> typeId = [];
   List<String> first = [];

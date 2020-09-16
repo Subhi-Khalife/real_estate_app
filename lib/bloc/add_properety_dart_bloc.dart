@@ -6,12 +6,10 @@ import 'package:meta/meta.dart';
 import 'package:real_estate_app/Api/add_property_api.dart';
 import 'package:real_estate_app/model/country_model.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
-
 part 'add_properety_dart_event.dart';
 part 'add_properety_dart_state.dart';
 
-class AddProperetyDartBloc
-    extends Bloc<AddProperetyDartEvent, AddProperetyDartState> {
+class AddProperetyDartBloc extends Bloc<AddProperetyDartEvent, AddProperetyDartState> {
   AddProperetyDartBloc() : super(AddProperetyDartInitial());
 
   @override
@@ -52,7 +50,11 @@ class AddProperetyDartBloc
         yield Error();
       }
     }
+    else if(event is UpdateInfoEvent){
+      yield InsertAllPropertyType(event.getAllTypeApi, event.index);
+    }
   }
+
   @override
   void onTransition(Transition<AddProperetyDartEvent, AddProperetyDartState> transition) {
     // TODO: implement onTransition
