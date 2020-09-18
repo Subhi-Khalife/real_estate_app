@@ -338,7 +338,9 @@ class _SignInViewState extends State<SignInView> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: ButtonApp(
-                                onPressed: onSignUpFacebook,
+                                onPressed: (){
+
+                                },
                                 textButton: "SignUp with Facebook",
                                 colorButton: activeIconNavBar,
                                 heightButton: 50,
@@ -524,12 +526,12 @@ class _SignInViewState extends State<SignInView> {
     }
   }
 
-  onSignUpFacebook() async {
-    final FacebookLoginResult result =
-        await facebookSignUp.logInWithReadPermissions(['email']);
-    final token = result.accessToken.token;
-    final graphResponse = await http.get(
-        'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-    final profile = JSON.json.decode(graphResponse.body);
-  }
+  // onSignUpFacebook() async {
+  //   final FacebookLoginResult result =
+  //       await facebookSignUp.logInWithReadPermissions(['email']);
+  //   final token = result.accessToken.token;
+  //   final graphResponse = await http.get(
+  //       'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+  //   final profile = JSON.json.decode(graphResponse.body);
+  // }
 }

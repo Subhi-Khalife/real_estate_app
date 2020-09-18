@@ -7,8 +7,10 @@ import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/ui/add_properity/provier_property.dart';
 import 'package:real_estate_app/ui/explore/filter_provider.dart';
 import 'package:real_estate_app/ui/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() {
+  SharedPreferences.setMockInitialValues({});
   runApp(
     MultiBlocProvider(
       providers: [//ExploreDartBloc

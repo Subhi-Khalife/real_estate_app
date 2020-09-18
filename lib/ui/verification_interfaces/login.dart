@@ -147,7 +147,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             ButtonApp(
               onPressed: () {
-                _loginWithFB();
+                // _loginWithFB();
               },
               textButton: "Login with Facebook",
               colorButton: activeIconNavBar,
@@ -186,45 +186,45 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  _loginWithFB() async {
-    final result = await facebookLogin.logInWithReadPermissions(['email']);
-
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final token = result.accessToken.token;
-        print("the token is $token");
-        final graphResponse = await http.get(
-            'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
-        final profile = JSON.jsonDecode(graphResponse.body);
-        print(profile);
-        setState(() {
-//          userProfile = profile;
-//          _isLoggedIn = true;
-        });
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-
-        LoadingDialog loadingDialog = LoadingDialog(context);
-        loadingDialog.show(context);
-//        SocailLoginApi loginApi = await LoginModel.socialLogin(
-//            socialToken: token, provider: "facebook");
-        //  userToken=loginApi.data.tokenApi;
-        loadingDialog.dismiss(context);
-//        if (loginApi.status != "no") {
-//          sharedPreferences.setBool('loginDone',true);
-//          sharedPreferences.setString('token',loginApi.data.tokenApi.toString());
-//          Navigator.push(context,
-//              MaterialPageRoute(builder: (context) => PageReactiveButton()));
-//        }
-
-        break;
-
-      case FacebookLoginStatus.cancelledByUser:
-//        setState(() => _isLoggedIn = false);
-        break;
-      case FacebookLoginStatus.error:
-//        setState(() => _isLoggedIn = false);
-        break;
-    }
-  }
+//   _loginWithFB() async {
+//     final result = await facebookLogin.logInWithReadPermissions(['email']);
+//
+//     switch (result.status) {
+//       case FacebookLoginStatus.loggedIn:
+//         final token = result.accessToken.token;
+//         print("the token is $token");
+//         final graphResponse = await http.get(
+//             'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+//         final profile = JSON.jsonDecode(graphResponse.body);
+//         print(profile);
+//         setState(() {
+// //          userProfile = profile;
+// //          _isLoggedIn = true;
+//         });
+//         SharedPreferences sharedPreferences =
+//             await SharedPreferences.getInstance();
+//
+//         LoadingDialog loadingDialog = LoadingDialog(context);
+//         loadingDialog.show(context);
+// //        SocailLoginApi loginApi = await LoginModel.socialLogin(
+// //            socialToken: token, provider: "facebook");
+//         //  userToken=loginApi.data.tokenApi;
+//         loadingDialog.dismiss(context);
+// //        if (loginApi.status != "no") {
+// //          sharedPreferences.setBool('loginDone',true);
+// //          sharedPreferences.setString('token',loginApi.data.tokenApi.toString());
+// //          Navigator.push(context,
+// //              MaterialPageRoute(builder: (context) => PageReactiveButton()));
+// //        }
+//
+//         break;
+//
+//       case FacebookLoginStatus.cancelledByUser:
+// //        setState(() => _isLoggedIn = false);
+//         break;
+//       case FacebookLoginStatus.error:
+// //        setState(() => _isLoggedIn = false);
+//         break;
+//     }
+//   }
 }
