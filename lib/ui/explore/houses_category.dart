@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
-import 'package:real_estate_app/ui/explore/filter_provider.dart';
+import 'file:///D:/projects/real_estate_app/lib/Provider/filter_provider.dart';
 import 'package:real_estate_app/ui/house_detail.dart';
 import 'package:real_estate_app/widget/card_category_just_in.dart';
 import 'package:real_estate_app/widget/card_designer_home.dart';
@@ -20,13 +20,13 @@ class HousesCategory extends StatefulWidget {
 
 class _HousesCategory extends State<HousesCategory> {
   FilterProvider _filterProvider;
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _filterProvider = Provider.of<FilterProvider>(context, listen: false);
+  }
 
-}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,26 +38,32 @@ class _HousesCategory extends State<HousesCategory> {
             } else if (state is SetHouseValuesState) {
               // if(_filterProvider.firstTime==false)
               // _filterProvider.filtersValues.add(state.types);
-             return Padding(
-                padding:  EdgeInsets.only(top: 10.0),
+              return Padding(
+                padding: EdgeInsets.only(top: 10.0),
                 child: Container(
                     child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => HouesDetail()));
-                            },
-                            child: PropertyCardInformation(
-                              img: state.types.properties.data[index].img,
-                              address: state.types.properties.data[index].address,
-                              price: state.types.properties.data[index].price.toString(),
-                              description: state.types.properties.data[index].description,
-                              space: state.types.properties.data[index].space.toString(),
-                            ),);
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HouesDetail(
+                              properties: state.types.properties.data[index],
+                            )));
                       },
-                      itemCount: state.types.properties.data.length,
-                    )),
+                      child: PropertyCardInformation(
+                        img: state.types.properties.data[index].img,
+                        address: state.types.properties.data[index].address,
+                        price:
+                            state.types.properties.data[index].price.toString(),
+                        description:
+                            state.types.properties.data[index].description,
+                        space:
+                            state.types.properties.data[index].space.toString(),
+                      ),
+                    );
+                  },
+                  itemCount: state.types.properties.data.length,
+                )),
               );
             } else if (state is ErrorState) {
               return error();
@@ -71,7 +77,7 @@ class _HousesCategory extends State<HousesCategory> {
     return IconButton(
       icon: Icon(Icons.refresh),
       onPressed: () {
-        BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData());
+        BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData(context));
       },
     );
   }

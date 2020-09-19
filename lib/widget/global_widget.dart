@@ -125,7 +125,8 @@ class TextFieldApp extends StatelessWidget {
                 color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
             cursorColor: activeIconNavBar,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+              contentPadding:
+                  EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
               labelText: labelText,
               alignLabelWithHint: true,
               labelStyle: TextStyle(
@@ -201,19 +202,17 @@ class ImageCard extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0), color: activeIconNavBar),
-      child:  CachedNetworkImage(
+      child: CachedNetworkImage(
         imageUrl: "${Constant.baseUrl}${imageUrl}",
         fit: BoxFit.fill,
         placeholder: (context, imageUrl) => Center(
           child: CircularProgressIndicator(
-            valueColor:
-            new AlwaysStoppedAnimation<Color>(colorApp),
+            valueColor: new AlwaysStoppedAnimation<Color>(colorApp),
           ),
         ),
         errorWidget: (context, imageUrl, error) =>
             Image.asset("assets/profile.png"),
-      )
-      ,
+      ),
     );
   }
 }
@@ -236,20 +235,24 @@ class TextFieldSearch extends StatelessWidget {
   final TextEditingController controller;
   final Function onSubmitted;
   final TextInputAction textInputAction;
+  final TextInputType textInputType;
   final String hintText;
   final IconData icon;
   final Function onSearch;
   final bool isShowIcon;
-
-  TextFieldSearch({
-    @required this.controller,
-    this.onSubmitted,
-    this.textInputAction,
-    this.hintText,
-    this.icon,
-    this.isShowIcon = true,
-    this.onSearch,
-  });
+  final double longitude;
+  final double latidude;
+  TextFieldSearch(
+      {@required this.controller,
+      this.onSubmitted,
+        this.textInputType=TextInputType.text,
+      this.textInputAction,
+      this.hintText,
+      this.icon,
+      this.isShowIcon = true,
+      this.onSearch,
+      this.longitude = 0,
+      this.latidude = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -261,10 +264,12 @@ class TextFieldSearch extends StatelessWidget {
         controller: controller,
         textInputAction: textInputAction,
         onSubmitted: onSubmitted,
+        keyboardType: textInputType,
         style: TextStyle(
             color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
         cursorColor: activeIconNavBar,
         decoration: InputDecoration(
+
           contentPadding: EdgeInsets.only(left: 15),
           hintText: hintText,
           hintStyle: TextStyle(
@@ -317,7 +322,10 @@ class ButtonApp extends StatelessWidget {
       child: Text(
         textButton,
         style: TextStyle(
-            color: colorText ?? Colors.white, fontSize: 18, letterSpacing: 1.2,fontWeight: FontWeight.w600),
+            color: colorText ?? Colors.white,
+            fontSize: 18,
+            letterSpacing: 1.2,
+            fontWeight: FontWeight.w600),
       ),
       height: heightButton ?? 40,
       splashColor: Colors.grey.withOpacity(0.6),

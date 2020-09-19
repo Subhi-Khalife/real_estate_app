@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:real_estate_app/Api/get_filter_api.dart';
 import 'package:real_estate_app/model/filter_model.dart';
@@ -14,11 +15,11 @@ class ExploreDartBloc extends Bloc<ExploreDartEvent, ExploreDartState> {
   Stream<ExploreDartState> mapEventToState(ExploreDartEvent event) async* {
     if (event is LoadingExploreData) {
       yield LoadingState();
-      FilterModel values = await GetFilterApi.getFilter(getAllHouse: true);
+      FilterModel values = await GetFilterApi.getFilter(getAllHouse: true,context: event.context);
       if (values.status == 'OK')
         yield SetHouseValuesState(types: values.data,index: -1);
       else
-        yield ErrorState();
+          yield ErrorState();
     }else if(event is ChangeValuesEvent){
       yield LoadingState();
       yield SetHouseValuesState(types: event.items,index: -1);

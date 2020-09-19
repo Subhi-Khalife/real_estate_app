@@ -12,6 +12,9 @@ class RequiredParam
   TextEditingController maxPrice=TextEditingController();
   TextEditingController minSpace=TextEditingController();
   TextEditingController maxSpace=TextEditingController();
+  double longitude,latitude;
+  bool successGetLocation;
+  TextEditingController spaceSearchController=TextEditingController();
 //////////////////////////////////////////////////////////////////////////
   List<String> propertyImages = [];
   List<int> typeId = [];

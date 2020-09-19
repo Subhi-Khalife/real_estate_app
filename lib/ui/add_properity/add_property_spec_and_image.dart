@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:real_estate_app/Api/add_property_api.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
-import 'package:real_estate_app/ui/add_properity/provier_property.dart';
+import 'file:///D:/projects/real_estate_app/lib/Provider/provier_property.dart';
 import 'package:real_estate_app/ui/add_properity/required_param.dart';
 import 'package:real_estate_app/ui/add_properity/spec_values.dart';
 import 'package:real_estate_app/widget/collapse.dart';

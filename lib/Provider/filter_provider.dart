@@ -1,15 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:real_estate_app/model/filter_model.dart';
+import 'package:real_estate_app/ui/add_properity/required_param.dart';
 
 class FilterProvider extends ChangeNotifier {
   // List<Data> filtersValues = List<Data>();
-  bool firstTime;
+
+  RequiredParam requiredParam;
+
   initValues() {
-    // filtersValues = List<Data>();
-    firstTime=false;
+    requiredParam = RequiredParam();
   }
-  setFirstTime(bool values){
-    firstTime=true;
+
+  setChangeBottomSheetValues() {
+    notifyListeners();
+  }
+
+  setFirstTime(bool values) {
     notifyListeners();
   }
 

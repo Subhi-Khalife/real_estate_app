@@ -1,9 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
+import 'package:real_estate_app/model/filter_model.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
+import 'package:real_estate_app/widget/global_widget.dart';
+import 'package:real_estate_app/widget/swiper_image.dart';
 
 class HouesDetail extends StatefulWidget {
+  Datum properties;
+  HouesDetail({this.properties});
   @override
   _HouesDetail createState() => _HouesDetail();
 }
@@ -17,7 +23,7 @@ class _HouesDetail extends State<HouesDetail> {
           SliverPersistentHeader(
             pinned: true,
             floating: true,
-            delegate: PagerHeader(mminExtent: 150, maxExtent: 250),
+            delegate: PagerHeader(mminExtent: 150, maxExtent: 250,properties: widget.properties),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -26,21 +32,23 @@ class _HouesDetail extends State<HouesDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  priceAndDetail(),
+                  priceAndDetail(widget.properties.price.toString(),
+                      widget.properties.description, Colors.black54),
                   space(context),
                   showImageAndTitle(
                       icon: Icons.star,
                       context: context,
-                      description:
-                          " hello hello hello hello  hello hello hello hello  hello hello hello hello  hello hello hello hello "),
+                      description: widget.properties.type.name),
                   showImageAndTitle(
                       icon: Icons.group,
                       context: context,
-                      description: "hello hello hello hellohello hello ello "),
+                      description: (widget.properties.postalCode == null)
+                          ? "لا يوجد "
+                          : widget.properties.postalCode),
                   showImageAndTitle(
                       icon: Icons.account_box,
                       context: context,
-                      description: "hello hello  hello "),
+                      description: widget.properties.address),
                   Row(
                     children: <Widget>[],
                   ),
@@ -136,18 +144,22 @@ Widget space(BuildContext context) {
   );
 }
 
-Widget priceAndDetail() {
+Widget priceAndDetail(String price, String des, Color textColor) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       PropertyCardPrice(
-        price: '\$4.999',
+        price: '\$ $price',
       ),
       Align(
         alignment: Alignment.centerRight,
         child: IconButton(icon: Icon(Icons.favorite), onPressed: () {}),
       ),
+      Text(
+        des,
+        style: TextStyle(color: textColor),
+      )
     ],
   );
 }
@@ -155,8 +167,9 @@ Widget priceAndDetail() {
 class PagerHeader implements SliverPersistentHeaderDelegate {
   final double maxExtent;
   final double mminExtent;
+  Datum properties;
 
-  PagerHeader({@required this.maxExtent, this.mminExtent});
+  PagerHeader({@required this.maxExtent, this.mminExtent,this.properties});
 
   @override
   Widget build(
@@ -164,9 +177,8 @@ class PagerHeader implements SliverPersistentHeaderDelegate {
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
-        Image.network(
-          'https://images.pexels.com/photos/443356/pexels-photo-443356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-          fit: BoxFit.cover,
+          ImageCard(
+          imageUrl: properties.img,
         ),
         Container(
           decoration: BoxDecoration(
