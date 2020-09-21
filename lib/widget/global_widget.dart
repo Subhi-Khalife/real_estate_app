@@ -204,7 +204,7 @@ class ImageCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0), color: activeIconNavBar),
       child: CachedNetworkImage(
         imageUrl: "${Constant.baseUrl}${imageUrl}",
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
         placeholder: (context, imageUrl) => Center(
           child: CircularProgressIndicator(
             valueColor: new AlwaysStoppedAnimation<Color>(colorApp),

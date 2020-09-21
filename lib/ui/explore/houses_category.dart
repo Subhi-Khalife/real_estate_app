@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:real_estate_app/Provider/house_category_provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'file:///D:/projects/real_estate_app/lib/Provider/filter_provider.dart';
@@ -20,11 +21,14 @@ class HousesCategory extends StatefulWidget {
 
 class _HousesCategory extends State<HousesCategory> {
   FilterProvider _filterProvider;
+  HousesCategoryProvider housesCategoryProvider;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _filterProvider = Provider.of<FilterProvider>(context, listen: false);
+    housesCategoryProvider =   Provider.of<HousesCategoryProvider>(context, listen: false);
+    BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData(context));
   }
 
   @override
@@ -36,35 +40,88 @@ class _HousesCategory extends State<HousesCategory> {
             if (state is LoadingState) {
               return loadingInfo();
             } else if (state is SetHouseValuesState) {
-              // if(_filterProvider.firstTime==false)
-              // _filterProvider.filtersValues.add(state.types);
-              return Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Container(
-                    child: ListView.builder(
+              housesCategoryProvider.addValues(state.props[0]);
+              return Consumer<HousesCategoryProvider>(
+                  builder: (context, values, _) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HouesDetail(
-                              properties: state.types.properties.data[index],
-                            )));
-                      },
-                      child: PropertyCardInformation(
-                        img: state.types.properties.data[index].img,
-                        address: state.types.properties.data[index].address,
-                        price:
-                            state.types.properties.data[index].price.toString(),
-                        description:
-                            state.types.properties.data[index].description,
-                        space:
-                            state.types.properties.data[index].space.toString(),
-                      ),
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: 22,
+                            ),
+                            child: Text(
+                              "${values.list[index][0].type.name}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * .38,
+                            width: MediaQuery.of(context).size.width * .9,
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => HouesDetail(
+                                          properties: state
+                                              .types.properties.data[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        .38,
+                                    width:
+                                        MediaQuery.of(context).size.width * .9,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 0),
+                                      child: PropertyCardInformation(
+                                        img: state
+                                            .types.properties.data[index].img,
+                                        address: state.types.properties
+                                            .data[index].address,
+                                        price: state
+                                            .types.properties.data[index].price
+                                            .toString(),
+                                        description: state.types.properties
+                                            .data[index].description,
+                                        space: state
+                                            .types.properties.data[index].space
+                                            .toString(),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: values.list[index].length,
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
-                  itemCount: state.types.properties.data.length,
-                )),
-              );
+                  itemCount: values.list.length,
+                );
+              });
             } else if (state is ErrorState) {
               return error();
             }
@@ -73,11 +130,41 @@ class _HousesCategory extends State<HousesCategory> {
     );
   }
 
+/*
+ return Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Container(
+                        child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => HouesDetail(
+                                  properties: state.types.properties.data[index],
+                                )));
+                          },
+                          child: PropertyCardInformation(
+                            img: state.types.properties.data[index].img,
+                            address: state.types.properties.data[index].address,
+                            price:
+                                state.types.properties.data[index].price.toString(),
+                            description:
+                                state.types.properties.data[index].description,
+                            space:
+                                state.types.properties.data[index].space.toString(),
+                          ),
+                        );
+                      },
+                      itemCount: state.types.properties.data.length,
+                    )),
+                  );
+ */
   Widget error() {
     return IconButton(
       icon: Icon(Icons.refresh),
       onPressed: () {
-        BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData(context));
+        BlocProvider.of<ExploreDartBloc>(context)
+          ..add(LoadingExploreData(context));
       },
     );
   }

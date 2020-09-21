@@ -53,7 +53,7 @@ class PropertyCardDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(description , style: TextStyle(color: colorDescription ?? Colors.black,fontSize: 14,height: 1.4),maxLines: 3,);
+    return Text(description , style: TextStyle(color: colorDescription ?? Colors.black,fontSize: 14,height: 1.4),maxLines: 3,textDirection:       TextDirection.rtl,);
   }
 }
 

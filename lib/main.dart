@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
+import 'package:real_estate_app/Provider/house_category_provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
@@ -35,6 +36,9 @@ Future<void> main() {
           ),
           ChangeNotifierProvider(
             create: (BuildContext context) => GoogleMapProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (BuildContext context) => HousesCategoryProvider(),
           ),
         ],
         child: MyApp(),

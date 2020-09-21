@@ -41,7 +41,7 @@ class GetFilterApi {
       print("body ${response.body}");
       if (response.statusCode == 220) {
         print("success");
-        showMessage("تمت العملية بنجاح");
+        showMessage("تم جلب المعلومات");
         if(getAllHouse == false)
         loadingDialog.dismiss(context);
         return filterModelFromJson(response.body);

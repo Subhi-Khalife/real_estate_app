@@ -23,7 +23,8 @@ class _HouesDetail extends State<HouesDetail> {
           SliverPersistentHeader(
             pinned: true,
             floating: true,
-            delegate: PagerHeader(mminExtent: 150, maxExtent: 250,properties: widget.properties),
+            delegate: PagerHeader(
+                mminExtent: 150, maxExtent: 250, properties: widget.properties),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -33,22 +34,37 @@ class _HouesDetail extends State<HouesDetail> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   priceAndDetail(widget.properties.price.toString(),
-                      widget.properties.description, Colors.black54),
+                      widget.properties, Colors.black54),
                   space(context),
                   showImageAndTitle(
-                      icon: Icons.star,
+                      icon: Icons.location_on,
                       context: context,
-                      description: widget.properties.type.name),
+                      description: widget.properties.address +
+                          "  -  " +
+                          widget.properties.area.name),
+                  // showImageAndTitle(
+                  //     icon: Icons.info_outline,
+                  //     context: context,
+                  //     description: (widget.properties.postalCode == null)
+                  //         ? "لا يوجد "
+                  //         : widget.properties.),
+                  showFullInfo(
+                      context: context,
+                      pro: widget.properties,
+                      icon: Icons.info),
                   showImageAndTitle(
-                      icon: Icons.group,
+                      icon: Icons.tablet_mac,
                       context: context,
-                      description: (widget.properties.postalCode == null)
-                          ? "لا يوجد "
-                          : widget.properties.postalCode),
+                      description: (widget.properties.user.phone==null)?"لا يوجد":
+                      widget.properties.user.phone,
+
+                  ),
                   showImageAndTitle(
-                      icon: Icons.account_box,
-                      context: context,
-                      description: widget.properties.address),
+                    icon: Icons.mail,
+                    context: context,
+                    description: (widget.properties.user.email==null)?"لا يوجد":
+                    widget.properties.user.email,
+                  ),
                   Row(
                     children: <Widget>[],
                   ),
@@ -64,6 +80,64 @@ class _HouesDetail extends State<HouesDetail> {
       ),
     );
   }
+}
+
+Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
+  return Padding(
+    padding: EdgeInsets.only(top: 20, left: 5),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemCount: pro.propertySpecs.length,
+            itemBuilder: (context, index) {
+              String name = "${pro.propertySpecs[index].name}";
+              name += ":";
+              for (int i = 0;
+                  i < pro.propertySpecs[index].propertyOptions.length;
+                  i++) {
+                name +=
+                    " " +  pro.propertySpecs[index].propertyOptions[i].typeOption.name+" ";
+              }
+              return PropertyCardDescription(
+                description: name,
+                colorDescription: Colors.black45,
+              );
+              // return Row(
+              //   children: [
+              //     PropertyCardDescription(
+              //       description: pro.propertySpecs[index].name,
+              //       colorDescription: Colors.black45,
+              //     ),
+              //      ListView.builder(itemBuilder: (context,index){
+              //        return  PropertyCardDescription(
+              //          description: pro.propertySpecs[index].name,
+              //          colorDescription: Colors.black45,
+              //        );
+              //      })
+              //   ],
+              // );
+            },
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Icon(icon, color: colorApp),
+
+        // Expanded(
+        //   child: PropertyCardDescription(
+        //     description: description,
+        //     colorDescription: Colors.black45,
+        //   ),
+        // )
+      ],
+    ),
+  );
 }
 
 Widget showTwoButton(BuildContext context) {
@@ -118,16 +192,18 @@ Widget showImageAndTitle(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Icon(icon, color: colorApp),
-        SizedBox(
-          width: 10,
-        ),
+
         Expanded(
           child: PropertyCardDescription(
             description: description,
             colorDescription: Colors.black45,
           ),
-        )
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Icon(icon, color: colorApp),
+
       ],
     ),
   );
@@ -144,21 +220,37 @@ Widget space(BuildContext context) {
   );
 }
 
-Widget priceAndDetail(String price, String des, Color textColor) {
+Widget priceAndDetail(String price, Datum properties, Color textColor) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      PropertyCardPrice(
-        price: '\$ $price',
+      Padding(
+        padding: const EdgeInsets.only(top: 5),
+        child: Row(
+          children: [
+            PropertyCardPrice(
+              price: '\$ $price',
+            ),
+          ],
+        ),
       ),
-      Align(
-        alignment: Alignment.centerRight,
-        child: IconButton(icon: Icon(Icons.favorite), onPressed: () {}),
-      ),
-      Text(
-        des,
-        style: TextStyle(color: textColor),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              "وصف المنزل\n" + "${properties.description}",
+              style: TextStyle(color: textColor),
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(icon: Icon(Icons.favorite,color: colorApp,), onPressed: () {}),
+          ),
+        ],
       )
     ],
   );
@@ -169,7 +261,7 @@ class PagerHeader implements SliverPersistentHeaderDelegate {
   final double mminExtent;
   Datum properties;
 
-  PagerHeader({@required this.maxExtent, this.mminExtent,this.properties});
+  PagerHeader({@required this.maxExtent, this.mminExtent, this.properties});
 
   @override
   Widget build(
@@ -177,7 +269,7 @@ class PagerHeader implements SliverPersistentHeaderDelegate {
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
-          ImageCard(
+        ImageCard(
           imageUrl: properties.img,
         ),
         Container(

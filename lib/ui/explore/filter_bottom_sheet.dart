@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Api/get_filter_api.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
+import 'package:real_estate_app/Provider/house_category_provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
@@ -39,11 +40,14 @@ class FilterBottomSheet extends StatefulWidget {
 class _FilterBottomSheet extends State<FilterBottomSheet> {
   FilterProvider valueFromProvider;
   GoogleMapProvider googleMapProvider;
+  HousesCategoryProvider housesCategoryProvider;
   @override
   initState() {
     super.initState();
     valueFromProvider = Provider.of<FilterProvider>(context, listen: false);
     googleMapProvider = Provider.of<GoogleMapProvider>(context, listen: false);
+    housesCategoryProvider =   Provider.of<HousesCategoryProvider>(context, listen: false);
+
   }
 
   // Prov
@@ -529,6 +533,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
                 requiredParam: valueFromProvider.requiredParam,
                 context: context);
             if (values.status == "OK") {
+              housesCategoryProvider.addValues(values.data);
               print("Finally Length is ${values.data.properties.data.length}");
               valueFromProvider.setNewFilter(values.data);
               BlocProvider.of<ExploreDartBloc>(context)..add(ChangeValuesEvent(items: values.data));
