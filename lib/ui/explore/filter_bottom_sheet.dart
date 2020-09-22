@@ -184,53 +184,61 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
               itemCount: state.countryModel.data.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.countryModel.data[index].cities.length,
-                    itemBuilder: (context, position) {
-                      return ListView.separated(
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) {
-                            return Divider(
-                              indent: 10,
-                              endIndent: 20,
-                            );
-                          },
-                          itemCount: state.countryModel.data[index]
-                              .cities[position].areas.length,
-                          itemBuilder: (context, indexArea) {
-                            return InkWell(
-                              onTap: () {
-                                valueFromProvider.requiredParam.isVal.value =
-                                    false;
-                                valueFromProvider.requiredParam.title.value =
-                                    state.countryModel.data[index]
-                                        .cities[position].areas[indexArea].name;
-                                valueFromProvider.requiredParam.areaId = state
-                                    .countryModel
-                                    .data[index]
-                                    .cities[position]
-                                    .areas[indexArea]
-                                    .id;
-                                valueFromProvider.requiredParam.address =
-                                    valueFromProvider.requiredParam.title.value;
-                                valueFromProvider.requiredParam.colorTextCountry
-                                    .value = colorApp;
-                                provider.setAreaIdValue(
-                                    valueFromProvider.requiredParam.areaId);
-                                provider.setAddressValue(
-                                    valueFromProvider.requiredParam.address);
-                                print("areaId ${provider.areaId}");
-                                print(
-                                    "area id ${provider.areaId} address ${provider.address}");
+                return Container(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: state.countryModel.data[index].cities.length,
+                      itemBuilder: (context, position) {
+                        return Container(                  height: 140,
+
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+
+                              separatorBuilder: (context, index) {
+                                return Divider(
+                                  indent: 10,
+                                  endIndent: 20,
+                                );
                               },
-                              child: Container(
-                                child: Text(state.countryModel.data[index]
-                                    .cities[position].areas[indexArea].name),
-                              ),
-                            );
-                          });
-                    });
+                              itemCount: state.countryModel.data[index]
+                                  .cities[position].areas.length,
+                              itemBuilder: (context, indexArea) {
+                                return InkWell(
+                                  onTap: () {
+                                    valueFromProvider.requiredParam.isVal.value =
+                                        false;
+                                    valueFromProvider.requiredParam.title.value =
+                                        state.countryModel.data[index]
+                                            .cities[position].areas[indexArea].name;
+                                    valueFromProvider.requiredParam.areaId = state
+                                        .countryModel
+                                        .data[index]
+                                        .cities[position]
+                                        .areas[indexArea]
+                                        .id;
+                                    valueFromProvider.requiredParam.address =
+                                        valueFromProvider.requiredParam.title.value;
+                                    valueFromProvider.requiredParam.colorTextCountry
+                                        .value = colorApp;
+                                    provider.setAreaIdValue(
+                                        valueFromProvider.requiredParam.areaId);
+                                    provider.setAddressValue(
+                                        valueFromProvider.requiredParam.address);
+                                    print("areaId ${provider.areaId}");
+                                    print(
+                                        "area id ${provider.areaId} address ${provider.address}");
+                                  },
+                                  child: Container(
+                                    child: Text(state.countryModel.data[index]
+                                        .cities[position].areas[indexArea].name),
+                                  ),
+                                );
+                              }),
+                        );
+                      }),
+                );
               });
         } else if (state is FailedGetAllCountries)
           return Column(
@@ -562,7 +570,6 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
                       properties: values.data.properties.data[i],
                     )));
                 print("K2");
-
               },
             ),
 
