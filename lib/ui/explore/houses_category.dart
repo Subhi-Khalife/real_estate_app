@@ -28,7 +28,7 @@ class _HousesCategory extends State<HousesCategory> {
     super.initState();
     _filterProvider = Provider.of<FilterProvider>(context, listen: false);
     housesCategoryProvider =   Provider.of<HousesCategoryProvider>(context, listen: false);
-    BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData(context));
+    // BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData(context));
   }
 
   @override

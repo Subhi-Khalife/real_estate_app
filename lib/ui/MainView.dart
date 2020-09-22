@@ -4,6 +4,7 @@ import 'package:real_estate_app/ui/explore/explore.dart';
 import 'package:real_estate_app/ui/favourite/favorite.dart';
 import 'package:real_estate_app/ui/notification.dart';
 import 'package:real_estate_app/ui/profile.dart';
+import 'package:real_estate_app/ui/user_profile.dart';
 import 'package:real_estate_app/widget/bottom_navigation_bar.dart';
 
 class MainView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _MainViewState extends State<MainView> {
   }
 
    final tabs =[
-     ProfileView(),
+     UserProfile(),
      NotificationsView(),
      FavoriteView(),
      ExploreView(),

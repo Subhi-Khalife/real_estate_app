@@ -1,11 +1,26 @@
+import 'dart:io';
 
-class Constant{
- static double cardHeight
- , fontTitleSize, fontDescriptionSize ,
- fontMoreInfoSize, verificaionTextSize;
+import 'package:real_estate_app/widget/shared_preference.dart';
 
- static int indexNavBar = 0;
+class Constant {
+  static double cardHeight,
+      fontTitleSize,
+      fontDescriptionSize,
+      fontMoreInfoSize,
+      verificaionTextSize;
 
- static String baseUrl = "http://ahmad.404developers.com";
+  static int indexNavBar = 0;
 
+  static String baseUrl = "http://ahmad.404developers.com";
+
+  static Future<Map<String, String>> getHeader() async {
+    String token = await SharedPreferenceStore.getToken();
+
+    Map<String, String> header = {
+      HttpHeaders.authorizationHeader: "Bearer $token",
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json"
+    };
+    return header;
+  }
 }

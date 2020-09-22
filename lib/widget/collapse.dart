@@ -58,12 +58,12 @@ class _CollapseView extends State<CollapseView> {
       print("2");
       return showTitle('${widget.first[0]}');
     } else if (((widget.values[widget.index - 1] == "" && widget.index != 0)) ||
-        widget.getAllTypeApi.data[widget.houseTypeIndex[0]]
+        widget.getAllTypeApi.data.data[widget.houseTypeIndex[0]]
                 .typeSpecs[widget.index - 1].hasMultipleOption ==
             true) {
 
       return showTitle(
-          "${widget.getAllTypeApi.data[widget.houseTypeIndex[0]].typeSpecs[widget.index - 1].name}");
+          "${widget.getAllTypeApi.data.data[widget.houseTypeIndex[0]].typeSpecs[widget.index - 1].name}");
     } else {
       return showTitle(widget.values[widget.index - 1]);
     }
@@ -97,7 +97,7 @@ class _CollapseView extends State<CollapseView> {
                           if (widget.index == 0 ||
                               widget
                                       .getAllTypeApi
-                                      .data[widget.houseTypeIndex[0]]
+                                  .data   .data[widget.houseTypeIndex[0]]
                                       .typeSpecs[widget.index - 1]
                                       .hasMultipleOption ==
                                   false) randomValueCard = -1;
@@ -111,29 +111,29 @@ class _CollapseView extends State<CollapseView> {
                               widget.specID[i] = [];
                             }
 
-                            print("${widget.getAllTypeApi.data[index].id}");
+                            print("${widget.getAllTypeApi.data.data[index].id}");
                             widget.typeId[0] =
-                                widget.getAllTypeApi.data[index].id;
+                                widget.getAllTypeApi.data.data[index].id;
                             print("the allll l l l ");
                             widget.textEditingController.text =
-                                widget.getAllTypeApi.data[index].name;
+                                widget.getAllTypeApi.data.data[index].name;
                             widget.houseTypeIndex[0] = index;
                             print(
                                 "the house index is :: ${widget.houseTypeIndex}");
                             widget.first[0] =
-                                widget.getAllTypeApi.data[index].name;
+                                widget.getAllTypeApi.data.data[index].name;
                             print("the first value is ::${widget.first[0]}");
                           }
                           if (widget.index != 0) {
                             widget.textEditingController.text = widget
-                                .getAllTypeApi
+                                .getAllTypeApi.data
                                 .data[widget.houseTypeIndex[0]]
                                 .typeSpecs[widget.index - 1]
                                 .typeOptions[index]
                                 .name;
 
                             widget.values[widget.index - 1] = widget
-                                .getAllTypeApi
+                                .getAllTypeApi.data
                                 .data[widget.houseTypeIndex[0]]
                                 .typeSpecs[widget.index - 1]
                                 .typeOptions[index]
@@ -142,9 +142,9 @@ class _CollapseView extends State<CollapseView> {
                           if (widget.index != 0) {
                             List<int> items = widget.specID[widget.index];
                             print(
-                                "test ${widget.getAllTypeApi.data[widget.houseTypeIndex[0]].typeSpecs[widget.index - 1].hasMultipleOption}");
+                                "test ${widget.getAllTypeApi.data.data[widget.houseTypeIndex[0]].typeSpecs[widget.index - 1].hasMultipleOption}");
                             if (widget
-                                    .getAllTypeApi
+                                    .getAllTypeApi.data
                                     .data[widget.houseTypeIndex[0]]
                                     .typeSpecs[widget.index - 1]
                                     .hasMultipleOption ==
@@ -152,14 +152,14 @@ class _CollapseView extends State<CollapseView> {
                               print("inside one");
                               print("inside one2");
                               print(widget
-                                  .getAllTypeApi
+                                  .getAllTypeApi.data
                                   .data[widget.houseTypeIndex[0]]
                                   .typeSpecs[widget.index - 1]
                                   .typeOptions[index]
                                   .id);
                               items = [];
                               items.add((widget
-                                  .getAllTypeApi
+                                  .getAllTypeApi.data
                                   .data[widget.houseTypeIndex[0]]
                                   .typeSpecs[widget.index - 1]
                                   .typeOptions[index]
@@ -169,7 +169,7 @@ class _CollapseView extends State<CollapseView> {
                               int y = 0;
                               print("inside two");
                               if (items.contains((widget
-                                  .getAllTypeApi
+                                  .getAllTypeApi.data
                                   .data[widget.houseTypeIndex[0]]
                                   .typeSpecs[widget.index - 1]
                                   .typeOptions[index]
@@ -178,7 +178,7 @@ class _CollapseView extends State<CollapseView> {
                                   print("the length is :: ${items.length}");
                                   if (items[i] ==
                                       widget
-                                          .getAllTypeApi
+                                          .getAllTypeApi.data
                                           .data[widget.houseTypeIndex[0]]
                                           .typeSpecs[widget.index - 1]
                                           .typeOptions[index]
@@ -190,7 +190,7 @@ class _CollapseView extends State<CollapseView> {
                                   } else if (i == items.length - 1 && y == 0) {
                                     print("okkkk");
                                     items.add(widget
-                                        .getAllTypeApi
+                                        .getAllTypeApi.data
                                         .data[widget.houseTypeIndex[0]]
                                         .typeSpecs[widget.index - 1]
                                         .typeOptions[index]
@@ -199,7 +199,7 @@ class _CollapseView extends State<CollapseView> {
                                 }
                               } else {
                                 items.add(widget
-                                    .getAllTypeApi
+                                    .getAllTypeApi.data
                                     .data[widget.houseTypeIndex[0]]
                                     .typeSpecs[widget.index - 1]
                                     .typeOptions[index]
@@ -216,7 +216,7 @@ class _CollapseView extends State<CollapseView> {
                         });
                         if (widget.index != 0) {
                           widget.values[widget.index - 1] = widget
-                              .getAllTypeApi
+                              .getAllTypeApi.data
                               .data[widget.houseTypeIndex[0]]
                               .typeSpecs[widget.index - 1]
                               .typeOptions[index]
@@ -232,9 +232,9 @@ class _CollapseView extends State<CollapseView> {
                         children: <Widget>[
                           Text(
                             (widget.index == 0)
-                                ? widget.getAllTypeApi.data[index].name
+                                ? widget.getAllTypeApi.data.data[index].name
                                 : widget
-                                    .getAllTypeApi
+                                    .getAllTypeApi.data
                                     .data[widget.houseTypeIndex[0]]
                                     .typeSpecs[widget.index - 1]
                                     .typeOptions[index]
@@ -245,7 +245,7 @@ class _CollapseView extends State<CollapseView> {
                               ? Checkbox(
                                   value: widget.specID[widget.index].contains(
                                       (widget
-                                          .getAllTypeApi
+                                          .getAllTypeApi.data
                                           .data[widget.houseTypeIndex[0]]
                                           .typeSpecs[widget.index - 1]
                                           .typeOptions[index]
@@ -264,8 +264,8 @@ class _CollapseView extends State<CollapseView> {
                   return Divider();
                 },
                 itemCount: (widget.index == 0)
-                    ? widget.getAllTypeApi.data.length
-                    : widget.getAllTypeApi.data[widget.houseTypeIndex[0]]
+                    ? widget.getAllTypeApi.data.data.length
+                    : widget.getAllTypeApi.data.data[widget.houseTypeIndex[0]]
                         .typeSpecs[widget.index - 1].typeOptions.length)),
         value: (randomValueCard == widget.index) ? true : false,
         onChange: (bool value) {

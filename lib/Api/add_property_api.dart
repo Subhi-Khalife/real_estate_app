@@ -18,7 +18,7 @@ class AddPropertyApi {
     String url = Constant.baseUrl + "/type/allTypes";
     String token = await SharedPreferenceStore.getToken();
     print("the token is :: $token");
-    Map<String, String> header = {"Authorization": "Bearer $token"};
+    Map<String, String> header = await Constant.getHeader();
     try {
       var response = await http.get(url, headers: header);
       print('GetAllTypeApi Api :${response.body}');
@@ -44,7 +44,7 @@ class AddPropertyApi {
   static Future<CountryModel> getAllCountries() async {
     String url = Constant.baseUrl + "/country/all";
     String token = await SharedPreferenceStore.getToken();
-    Map<String, String> header = {"Authorization": "Bearer $token"};
+    Map<String, String> header =await Constant.getHeader();
 
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
@@ -90,10 +90,7 @@ class AddPropertyApi {
  })async {
    String url = Constant.baseUrl + "/property/create";
    String token = await SharedPreferenceStore.getToken();
-   Map<String, String> header = {
-     HttpHeaders.authorizationHeader: "Bearer $token",
-     HttpHeaders.contentTypeHeader: "application/json"
-   };
+   Map<String, String> header =await Constant.getHeader();
 final param={
   "description":description,
   "type_id": typeId,

@@ -378,13 +378,13 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
                 ),
               );
       },
-      itemCount: items.data[selectedValue].typeSpecs.length,
+      itemCount: items.data.data[selectedValue].typeSpecs.length,
     );
   }
 
   bool checkFields(GetAllTypeApi getAllTypeApi) {
     int typeSpecsLength =
-        getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs.length;
+        getAllTypeApi.data.data[requiredParam.houseIndex[0]].typeSpecs.length;
 
     requiredParam.specValues.clear();
     print("the house index is :: ${requiredParam.houseIndex[0]}");
@@ -394,7 +394,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
       for (int i = 0; i < typeSpecsLength; i++) {
         bool hasOptions = true;
         bool hasMutipleOptions = getAllTypeApi
-            .data[requiredParam.houseIndex[0]].typeSpecs[i].hasMultipleOption;
+            .data      .data[requiredParam.houseIndex[0]].typeSpecs[i].hasMultipleOption;
         if (hasOptions == false &&
             requiredParam.controller[i].text.trim() == "") {
           showMessage("الرجاء قم بادخال جميع الحقول المطلوبة ");
@@ -432,14 +432,14 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
         //   requiredParam.specValues.add(specValues);
         // } else {
           SpecValues specValues = SpecValues(
-              id: getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
+              id: getAllTypeApi.data.data[requiredParam.houseIndex[0]].typeSpecs[i].id,
               option: requiredParam.specID[i + 1],
               value: null);
           requiredParam.specValues.add(specValues);
         // }
       }
       for (int i = 0; i < requiredParam.specValues.length; i++) {
-        print("the id is :: ${getAllTypeApi.data[requiredParam.houseIndex[0]].typeSpecs[i].id}");
+        print("the id is :: ${getAllTypeApi.data.data[requiredParam.houseIndex[0]].typeSpecs[i].id}");
         print("the option is :: ${requiredParam.specValues[i].option}");
         print("the value is :: ${requiredParam.specValues[i].value}");
       }

@@ -37,20 +37,46 @@ class Data {
   });
 
   Properties properties;
-  List<NewFilter> newFilter;
+  NewFilter newFilter;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     properties: json["properties"] == null ? null : Properties.fromJson(json["properties"]),
-    newFilter: json["new_filter"] == null ? null : List<NewFilter>.from(json["new_filter"].map((x) => NewFilter.fromJson(x))),
+    newFilter: json["new_filter"] == null ? null : NewFilter.fromJson(json["new_filter"]),
   );
 
   Map<String, dynamic> toJson() => {
     "properties": properties == null ? null : properties.toJson(),
-    "new_filter": newFilter == null ? null : List<dynamic>.from(newFilter.map((x) => x.toJson())),
+    "new_filter": newFilter == null ? null : newFilter.toJson(),
   };
 }
 
+class TypeElement {
+  TypeElement({
+    this.id,
+    this.name,
+    this.img,
+    this.typeSpecs,
+  });
 
+  int id;
+  String name;
+  String img;
+  List<TypeSpec> typeSpecs;
+
+  factory TypeElement.fromJson(Map<String, dynamic> json) => TypeElement(
+    id: json["id"] == null ? null : json["id"],
+    name: json["name"] == null ? null : json["name"],
+    img: json["img"] == null ? null : json["img"],
+    typeSpecs: json["type_specs"] == null ? null : List<TypeSpec>.from(json["type_specs"].map((x) => TypeSpec.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id == null ? null : id,
+    "name": name == null ? null : name,
+    "img": img == null ? null : img,
+    "type_specs": typeSpecs == null ? null : List<dynamic>.from(typeSpecs.map((x) => x.toJson())),
+  };
+}
 
 class TypeSpec {
   TypeSpec({
@@ -211,7 +237,7 @@ class Datum {
   double distance;
   List<Image> images;
   User user;
-  NewFilter type;
+  TypeElement type;
   Area area;
   List<PropertySpec> propertySpecs;
 
@@ -234,7 +260,7 @@ class Datum {
     distance: json["distance"] == null ? null : json["distance"].toDouble(),
     images: json["images"] == null ? null : List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
     user: json["user"] == null ? null : User.fromJson(json["user"]),
-    type: json["type"] == null ? null : NewFilter.fromJson(json["type"]),
+    type: json["type"] == null ? null : TypeElement.fromJson(json["type"]),
     area: json["area"] == null ? null : Area.fromJson(json["area"]),
     propertySpecs: json["property_specs"] == null ? null : List<PropertySpec>.from(json["property_specs"].map((x) => PropertySpec.fromJson(x))),
   );

@@ -106,7 +106,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
 
   bool checkFields(GetAllTypeApi getAllTypeApi) {
     int typeSpecsLength = getAllTypeApi
-        .data[valueFromProvider.requiredParam.houseIndex[0]].typeSpecs.length;
+        .data  .data[valueFromProvider.requiredParam.houseIndex[0]].typeSpecs.length;
     print("the length is :: $typeSpecsLength");
     valueFromProvider.requiredParam.specValues.clear();
     print(
@@ -126,7 +126,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
       //   requiredParam.specValues.add(specValues);
       // } else {
       SpecValuesForFilter specValues = SpecValuesForFilter(
-        id: getAllTypeApi.data[valueFromProvider.requiredParam.houseIndex[0]]
+        id: getAllTypeApi.data.data[valueFromProvider.requiredParam.houseIndex[0]]
             .typeSpecs[i].id,
         option: valueFromProvider.requiredParam.specID[i + 1],
       );
@@ -165,7 +165,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
           ),
         );
       },
-      itemCount: items.data[selectedValue].typeSpecs.length,
+      itemCount: items.data.data[selectedValue].typeSpecs.length,
     );
   }
 
@@ -532,8 +532,8 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
               print("Finally Length is ${values.data.properties.data.length}");
               valueFromProvider.setNewFilter(values.data);
               BlocProvider.of<ExploreDartBloc>(context)..add(ChangeValuesEvent(items: values.data));
-              GetAllTypeApi getAllTypeApi =GetAllTypeApi(status: "OK", data: values.data.newFilter);
-              print(values.data.newFilter.length);
+              // GetAllTypeApi getAllTypeApi =GetAllTypeApi(status: "OK", data: values.data.newFilter);
+              // print(values  .data.newFilter.length);
               googleMapProvider.marker.clear();
               drawCircle(position);
               drawPoint(values);
