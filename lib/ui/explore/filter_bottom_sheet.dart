@@ -554,16 +554,18 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
         final marker = Marker(
             infoWindow: InfoWindow(
               title: 'I am a marker',
-            ),
-            onTap: () {
-              print("K!");
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => HouesDetail(
-                    properties: values.data.properties.data[i],
-                  )));
-              print("K2");
+              snippet: "HII",
+              onTap: () {
+                print("K!");
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => HouesDetail(
+                      properties: values.data.properties.data[i],
+                    )));
+                print("K2");
 
-            },
+              },
+            ),
+
             markerId: MarkerId(values.data.properties.data[i].id.toString()),
             position: LatLng(
               values.data.properties.data[i].latitude,
