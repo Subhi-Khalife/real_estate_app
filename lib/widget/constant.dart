@@ -13,8 +13,7 @@ class Constant {
 
   static String baseUrl = "http://ahmad.404developers.com";
 
-  static Future<Map<String, String>> getHeader() async {
-    String token = await SharedPreferenceStore.getToken();
+  static Future<Map<String, String>> getHeader(String token) async {
 
     Map<String, String> header = {
       HttpHeaders.authorizationHeader: "Bearer $token",

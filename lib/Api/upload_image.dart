@@ -40,7 +40,7 @@ class UploadImageModel {
 
         var uri = Uri.parse(url);
 
-        Map<String, String> headers = await Constant.getHeader();
+        Map<String, String> headers = await Constant.getHeader(token);
 
         var request = new http.MultipartRequest("POST", uri);
 

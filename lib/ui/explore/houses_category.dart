@@ -24,7 +24,6 @@ class _HousesCategory extends State<HousesCategory> {
   HousesCategoryProvider housesCategoryProvider;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _filterProvider = Provider.of<FilterProvider>(context, listen: false);
     housesCategoryProvider =   Provider.of<HousesCategoryProvider>(context, listen: false);

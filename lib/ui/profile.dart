@@ -61,18 +61,19 @@ class _HomePageState extends State<ProfileView> {
                 if (state.types.properties.data[i].longitude != null &&
                     state.types.properties.data[i].latitude != null) {
                   final marker = Marker(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HouesDetail(
-                          properties: state.types.properties.data[i],
-                        )));
-
-                      },
-                      markerId: MarkerId(
-                          state.types.properties.data[i].id.toString()),
-                      position: LatLng(
-                        state.types.properties.data[i].latitude,
-                        (state.types.properties.data[i].longitude),
-                      ));
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HouesDetail(
+                                properties: state.types.properties.data[i],
+                              )));
+                    },
+                    markerId:
+                        MarkerId(state.types.properties.data[i].id.toString()),
+                    position: LatLng(
+                      state.types.properties.data[i].latitude,
+                      (state.types.properties.data[i].longitude),
+                    ),
+                  );
                   googleMapProvider.addToMarker(marker);
                 }
               }
@@ -160,7 +161,6 @@ class _HomePageState extends State<ProfileView> {
           print(x);
           print("Sadsadas");
         },
-
         myLocationButtonEnabled: true,
         myLocationEnabled: true,
         zoomGesturesEnabled: true,
@@ -205,7 +205,6 @@ class _HomePageState extends State<ProfileView> {
         );
         print("XX");
         controller.animateCamera(CameraUpdate.newCameraPosition(x));
-
       });
     });
   }

@@ -16,6 +16,11 @@ class GoogleMapProvider extends ChangeNotifier {
     return marker;
   }
 
+ void clearAllData(){
+     marker.clear();
+    notifyListeners();
+  }
+
   addToCircle(Circle x) {
     circles.add(x);
     notifyListeners();

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:real_estate_app/Api/add_property_api.dart';
 import 'package:real_estate_app/Provider/provier_property.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
+import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
 import 'package:real_estate_app/ui/add_properity/required_param.dart';
 import 'package:real_estate_app/ui/add_properity/spec_values.dart';
@@ -500,42 +501,48 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
                 animating: true,
               ));
         else if (state is FetchAllCountry)
-          return ListView.builder(
-              itemCount: state.countryModel.data.length,
-              shrinkWrap: true,
-              itemBuilder:(context,index){
-                return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.countryModel.data[index].cities.length,
-                    itemBuilder: (context,position){
-                      return ListView.separated(
-                          shrinkWrap: true,
-                          separatorBuilder: (context,index){
-                            return Divider(
-                              indent: 10,endIndent: 20,
-                            );
-                          },
-                          itemCount: state.countryModel.data[index].cities[position].areas.length,
-                          itemBuilder: (context,indexArea){
-                            return InkWell(
-                              onTap: (){
-                                requiredParam.isVal.value = false;
-                                requiredParam.title.value = state.countryModel.data[index].cities[position].areas[indexArea].name;
-                                requiredParam.areaId = state.countryModel.data[index].cities[position].areas[indexArea].id;
-                                requiredParam.address = requiredParam.title.value;
-                                requiredParam.colorTextCountry.value = colorApp;
-                                provider.setAreaIdValue(requiredParam.areaId);
-                                provider.setAddressValue(requiredParam.address);
-                                print("areaId ${provider.areaId}");
-                                print("area id ${provider.areaId} address ${provider.address}");
-                              },
-                              child: Container(
-                                child: Text(state.countryModel.data[index].cities[position].areas[indexArea].name),
-                              ),
-                            );
-                          });
-                    });
-              });
+          return Container(
+            height: 100,
+            child: ListView.builder(
+                itemCount: state.countryModel.data.length,
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                itemBuilder:(context,index){
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.countryModel.data[index].cities.length,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context,position){
+                        return ListView.separated(
+                            shrinkWrap: true,                physics: BouncingScrollPhysics(),
+
+                            separatorBuilder: (context,index){
+                              return Divider(
+                                indent: 10,endIndent: 20,
+                              );
+                            },
+                            itemCount: state.countryModel.data[index].cities[position].areas.length,
+                            itemBuilder: (context,indexArea){
+                              return InkWell(
+                                onTap: (){
+                                  requiredParam.isVal.value = false;
+                                  requiredParam.title.value = state.countryModel.data[index].cities[position].areas[indexArea].name;
+                                  requiredParam.areaId = state.countryModel.data[index].cities[position].areas[indexArea].id;
+                                  requiredParam.address = requiredParam.title.value;
+                                  requiredParam.colorTextCountry.value = colorApp;
+                                  provider.setAreaIdValue(requiredParam.areaId);
+                                  provider.setAddressValue(requiredParam.address);
+                                  print("areaId ${provider.areaId}");
+                                  print("area id ${provider.areaId} address ${provider.address}");
+                                },
+                                child: Container(
+                                  child: Text(state.countryModel.data[index].cities[position].areas[indexArea].name),
+                                ),
+                              );
+                            });
+                      });
+                }),
+          );
         else if(state is FailedGetAllCountries)
           return Column(
             children: <Widget>[
@@ -734,6 +741,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
     ).then((value) {
     if(value == 230)
     {  showMessage("تمت اضافة العقار");
+    BlocProvider.of<ExploreDartBloc>(context)..add(LoadingExploreData(context));
     Navigator.of(context).pop();}
     else
       showMessage("تأكد من إدخال جميع الحقول المطلوبة");

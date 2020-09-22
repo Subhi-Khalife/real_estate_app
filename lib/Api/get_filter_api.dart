@@ -29,7 +29,7 @@ class GetFilterApi {
     }
     String url = Constant.baseUrl + "/property/filter?$param";
     String token = await SharedPreferenceStore.getToken();
-    Map<String, String> header =await Constant.getHeader();
+    Map<String, String> header =await Constant.getHeader(token);
     try {
       var response = await http
           .get(

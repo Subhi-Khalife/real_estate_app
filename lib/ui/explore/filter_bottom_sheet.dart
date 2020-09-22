@@ -546,21 +546,33 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
   }
 
   void drawPoint(FilterModel values) {
+    googleMapProvider.clearAllData();
     for (int i = 0; i < values.data.properties.data.length; i++) {
       if (values.data.properties.data[i].longitude != null &&
           values.data.properties.data[i].latitude != null) {
+        print("YESSSSSSSSSSSSSS");
         final marker = Marker(
+            infoWindow: InfoWindow(
+              title: 'I am a marker',
+            ),
             onTap: () {
+              print("K!");
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => HouesDetail(
                     properties: values.data.properties.data[i],
                   )));
+              print("K2");
+
             },
             markerId: MarkerId(values.data.properties.data[i].id.toString()),
             position: LatLng(
               values.data.properties.data[i].latitude,
               (values.data.properties.data[i].longitude),
             ));
+        marker.onTap(
+
+
+        );
         googleMapProvider.addToMarker(marker);
       }
     }
