@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 class CardDesignerHome extends StatelessWidget {
+  String imageUrl;
+
+  CardDesignerHome(this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +17,7 @@ class CardDesignerHome extends StatelessWidget {
             left: 10,
             right: 10,
             child: ImageCard(
-             imageUrl: "",
+             imageUrl: imageUrl,
              height: 50,width: 100,
             ),
           ),

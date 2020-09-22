@@ -65,91 +65,99 @@ class TextFieldApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isTextFieldPassword
-        ? TextField(
-            controller: controller,
-            focusNode: focusNode,
-            textInputAction: textInputAction,
-            onSubmitted: onSubmitted,
-            style: TextStyle(
-                color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
-            cursorColor: activeIconNavBar,
-            obscureText: !isLookAtPassword,
-            maxLength: maxLength,
-            onChanged: onChange,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 15),
-              labelText: labelText,
-              errorText:
-                  isLengthSmall ? "Please Enter 4 character at least" : null,
-              errorBorder: isLengthSmall
-                  ? OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7.0),
-                      gapPadding: 5.0,
-                      borderSide: BorderSide(color: Colors.red, width: 2))
-                  : null,
-              labelStyle: TextStyle(
-                  color: colorGrey, fontFamily: "regular", fontSize: 15),
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: IconButton(
-                  icon: Icon(
-                      isLookAtPassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color:
-                          isLengthSmall ? Colors.red : colorIcon ?? colorGrey,
-                      size: 18),
-                  onPressed: onPressedLookAtPassword,
+        ? Directionality(
+      textDirection: TextDirection.rtl,
+          child: TextField(
+              textDirection: TextDirection.rtl,
+              controller: controller,
+              focusNode: focusNode,
+              textInputAction: textInputAction,
+              onSubmitted: onSubmitted,
+              style: TextStyle(
+                  color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+              cursorColor: activeIconNavBar,
+              obscureText: !isLookAtPassword,
+              maxLength: maxLength,
+              onChanged: onChange,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(left: 15,right: 10.0),
+                labelText: labelText,
+                errorText:
+                    isLengthSmall ? "Please Enter 4 character at least" : null,
+                errorBorder: isLengthSmall
+                    ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(7.0),
+                        gapPadding: 5.0,
+                        borderSide: BorderSide(color: Colors.red, width: 2))
+                    : null,
+                labelStyle: TextStyle(
+                    color: colorGrey, fontFamily: "regular", fontSize: 15),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: IconButton(
+                    icon: Icon(
+                        isLookAtPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color:
+                            isLengthSmall ? Colors.red : colorIcon ?? colorGrey,
+                        size: 18),
+                    onPressed: onPressedLookAtPassword,
+                  ),
                 ),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(7.0),
+                    gapPadding: 5.0,
+                    borderSide: BorderSide(color: activeIconNavBar, width: 2)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(7.0), gapPadding: 5.0),
               ),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                  gapPadding: 5.0,
-                  borderSide: BorderSide(color: activeIconNavBar, width: 2)),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7.0), gapPadding: 5.0),
             ),
-          )
-        : TextField(
-            controller: controller,
-            inputFormatters: inputFormatter ?? [],
-            focusNode: focusNode,
-            onChanged: onChange,
-            textInputAction: textInputAction,
-            onSubmitted: onSubmitted,
-            maxLines: maxLines ?? 1,
-            keyboardType: keyboardType ?? TextInputType.text,
-            enabled: isEnable ?? true,
-            maxLength: maxLength,
-            style: TextStyle(
-                color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
-            cursorColor: activeIconNavBar,
-            decoration: InputDecoration(
-              contentPadding:
-                  EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-              labelText: labelText,
-              alignLabelWithHint: true,
-              labelStyle: TextStyle(
-                  color: colorGrey, fontFamily: "regular", fontSize: 15),
-              hintText: hintText,
-              hintStyle: TextStyle(
-                  color: colorGrey, fontFamily: "regular", fontSize: 15),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(7.0),
-                borderSide: BorderSide(color: activeIconNavBar, width: 2),
-              ),
-              suffixIcon: icon != null
-                  ? Icon(
-                      icon,
-                      color: colorIcon,
-                    )
-                  : null,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(7.0)),
-              focusColor: Colors.white,
-              hoverColor: Colors.white,
-              fillColor: Colors.white,
-            ));
+        )
+        : Directionality(
+          textDirection: TextDirection.rtl,
+          child: TextField(
+              textDirection: TextDirection.rtl,
+              controller: controller,
+              inputFormatters: inputFormatter ?? [],
+              focusNode: focusNode,
+              onChanged: onChange,
+              textInputAction: textInputAction,
+              onSubmitted: onSubmitted,
+              maxLines: maxLines ?? 1,
+              keyboardType: keyboardType ?? TextInputType.text,
+              enabled: isEnable ?? true,
+              maxLength: maxLength,
+              style: TextStyle(
+                  color: activeIconNavBar, fontFamily: "regular", fontSize: 16),
+              cursorColor: activeIconNavBar,
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                labelText: labelText,
+                alignLabelWithHint: true,
+                labelStyle: TextStyle(
+                    color: colorGrey, fontFamily: "regular", fontSize: 15),
+                hintText: hintText,
+                hintStyle: TextStyle(
+                    color: colorGrey, fontFamily: "regular", fontSize: 15),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7.0),
+                  borderSide: BorderSide(color: activeIconNavBar, width: 2),
+                ),
+                suffixIcon: icon != null
+                    ? Icon(
+                        icon,
+                        color: colorIcon,
+                      )
+                    : null,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(7.0)),
+                focusColor: Colors.white,
+                hoverColor: Colors.white,
+                fillColor: Colors.white,
+              )),
+        );
   }
 }
 

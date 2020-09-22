@@ -58,14 +58,14 @@ class _LoginViewState extends State<LoginView> {
             ),
             Center(
               child: LogInTitle(
-                title: "Login",
+                title: "تسجيل الدخول",
               ),
             ),
             SizedBox(height: 15),
             TextFieldApp(
               controller: _emailController,
               isTextFieldPassword: false,
-              labelText: "Email",
+              labelText: "البريد الإلكتروني",
               onSubmitted: (val) {
                 FocusScope.of(context).requestFocus(_passwordFocus);
               },
@@ -77,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
               controller: _passwordController,
               isTextFieldPassword: true,
               focusNode: _passwordFocus,
-              labelText: "Password",
+              labelText: "كلمة السر",
               colorIcon: colorIcon,
               onChange: (val) {
                 if (val.toString().trim() != "")
@@ -117,7 +117,7 @@ class _LoginViewState extends State<LoginView> {
                     },
                   ),
                   Text(
-                    "Remember me",
+                    "تذكرني",
                     style: TextStyle(
                         color: Colors.indigo.shade900.withOpacity(0.7)),
                   ),
@@ -138,7 +138,7 @@ class _LoginViewState extends State<LoginView> {
                       _emailController.text, _passwordController.text, context);
                 }
               },
-              textButton: "Login",
+              textButton: "تسجيل الدخول",
               colorButton: Colors.indigo.shade900,
               heightButton: 50,
             ),
@@ -160,23 +160,23 @@ class _LoginViewState extends State<LoginView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      "Don't Have an account ?",
-                      style: TextStyle(
-                          color: Colors.indigo.shade900.withOpacity(0.7)),
-                    ),
                     InkWell(
                       onTap: (){
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                          builder: (context) =>SignInView()
+                            builder: (context) =>SignInView()
                         ), (route) => false);
                       },
                       child: Text(
-                        " SignUp",
+                        "إنشاء حساب",
                         style: TextStyle(
-                          decoration: TextDecoration.underline,
+                            decoration: TextDecoration.underline,
                             color: Colors.indigo.shade900.withOpacity(0.7)),
                       ),
+                    ),
+                    Text(
+                      "  لا تملك حساب؟",
+                      style: TextStyle(
+                          color: Colors.indigo.shade900.withOpacity(0.7)),
                     ),
                   ],
                 )),

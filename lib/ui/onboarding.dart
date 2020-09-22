@@ -23,15 +23,15 @@ class _OnboardingState extends State<Onboarding> {
   void _addPages() {
     pages = List<PageModel>();
 
-    pages.add(PageModel("Search For you the perfect property",
-        "which suit your jop", "svg/navigation_amico.svg"));
+    pages.add(PageModel("ابحث عن العقار المثالي لك",
+        "الذي يناسب وظيفتك", "svg/navigation_amico.svg"));
     pages.add(PageModel(
-        "Explore Apartments Near You",
-        "finding an apartment has never been easies until now",
+        "استكشف الشقق القريبة منك",
+        "لم يكن العثور على شقة سهلاً حتى الآن؟",
         "svg/kids_studying_from_home_amico.svg"));
     pages.add(PageModel(
-        "Explore Apartments Near You",
-        "finding an apartment has never been easies until now",
+        "فلترة نتائج البحث ",
+        "إظهار النتائج على الخريطة و عرضها في قسم التصنيفات",
         "svg/house_searching_rafiki.svg"));
   }
 
@@ -168,7 +168,7 @@ class _OnboardingState extends State<Onboarding> {
           child: RaisedButton(
               color: colorApp,
               child: Text(
-                "LOGIN",
+                "تسجيل الدخول",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
@@ -203,7 +203,7 @@ class _OnboardingState extends State<Onboarding> {
           child: RaisedButton(
               color: activeIconNavBar,
               child: Text(
-                "SIGN UP",
+                "إنشاء حساب",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,

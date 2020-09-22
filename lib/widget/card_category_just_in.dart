@@ -4,6 +4,10 @@ import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 
 class CardJustIn extends StatelessWidget {
+  String imageUrl;
+
+  CardJustIn(this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,10 +18,13 @@ class CardJustIn extends StatelessWidget {
           padding: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.06,
           ),
-          child: ImageCard(
-            imageUrl: "",
-            height: MediaQuery.of(context).size.height * .25,
-            width: MediaQuery.of(context).size.width * .5,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: ImageCard(
+              imageUrl: imageUrl,
+              height: MediaQuery.of(context).size.height * .25,
+              width: MediaQuery.of(context).size.width * .5,
+            ),
           ),
         ),
 

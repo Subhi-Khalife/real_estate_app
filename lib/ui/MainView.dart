@@ -13,7 +13,7 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
 
-  int currentIndex = 0 ;
+  int currentIndex = 3 ;
 
   onTap(int index)
   {
@@ -23,10 +23,10 @@ class _MainViewState extends State<MainView> {
   }
 
    final tabs =[
-    ExploreView(),
-    FavoriteView(),
-    NotificationsView(),
-    ProfileView(),
+     ProfileView(),
+     NotificationsView(),
+     FavoriteView(),
+     ExploreView(),
   ];
 
   @override
@@ -34,14 +34,14 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       body: tabs[currentIndex],
       bottomNavigationBar: BottomNavBar(
-        iconProfile:CupertinoIcons.home ,
-        iconFavorite:currentIndex == 1 ? CupertinoIcons.heart_solid: CupertinoIcons.heart,
-        iconAlert: currentIndex == 2 ?CupertinoIcons.news_solid :CupertinoIcons.news,
+        iconProfile:currentIndex == 0 ? CupertinoIcons.person_solid : CupertinoIcons.person,
+        iconFavorite:currentIndex == 2 ? CupertinoIcons.heart_solid: CupertinoIcons.heart,
+        iconAlert: currentIndex == 1 ?CupertinoIcons.news_solid :CupertinoIcons.news,
         iconExplore:CupertinoIcons.search,
-        textProfile: "Profile",
-        textFavorite:"Favorite",
-        textExplore: "Explore",
-        textAlert: "News",
+        textProfile: "الملف الشخصي",
+        textFavorite:"المفضلة",
+        textExplore: "استكشاف",
+        textAlert: "الأخبار",
         onTap: onTap,
         index: currentIndex,
       ),

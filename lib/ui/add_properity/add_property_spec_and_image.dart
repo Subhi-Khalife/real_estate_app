@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Api/add_property_api.dart';
+import 'package:real_estate_app/Provider/provier_property.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
-import 'file:///D:/projects/real_estate_app/lib/Provider/provier_property.dart';
 import 'package:real_estate_app/ui/add_properity/required_param.dart';
 import 'package:real_estate_app/ui/add_properity/spec_values.dart';
 import 'package:real_estate_app/widget/collapse.dart';
@@ -161,9 +161,9 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
           child: TextFieldApp(
             controller:requiredParam.spaceController,
             isTextFieldPassword: false,
-            hintText: "المساحة(بالمتر) *",
+            hintText: "المساحة(بالمتر)",
             focusNode: requiredParam.spaceNode,
-            labelText: "المساحة",
+            labelText: "المساحة *",
             isLengthSmall: true,
             onSubmitted: (val){
               FocusScope.of(context).requestFocus(requiredParam.priceNode);
@@ -184,8 +184,8 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
           child: TextFieldApp(
             controller:requiredParam.priceController,
             isTextFieldPassword: false,
-            hintText: "السعر(ليرة سوري) *",
-            labelText: "السعر",
+            hintText: "السعر(ليرة سوري)",
+            labelText: "السعر *",
             focusNode: requiredParam.priceNode,
             onChange: (val){
               propertyProvider.setPriceValue(int.parse(val));
@@ -223,12 +223,12 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
             width: MediaQuery.of(context).size.width,
             child: ButtonApp(onPressed: (){
                 checkData(propertyProvider);
-            }, textButton: "Following",colorButton: colorApp)),
+            }, textButton: "التالي",colorButton: colorApp)),
         Container(
             width: MediaQuery.of(context).size.width,
             child: ButtonApp(onPressed: (){
               _pageController.previousPage(duration: Duration(milliseconds: 800), curve: Curves.easeIn);
-            }, textButton: "Previous",colorButton: colorApp)),
+            }, textButton: "السابق",colorButton: colorApp)),
       ],
     );
   }
@@ -246,13 +246,13 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
               child: ButtonApp(onPressed: (){
                 addPropertyAction(propertyProvider);
                 print("providerval  $propertyProvider");
-              }, textButton: "Add Property",colorButton: colorApp)),
+              }, textButton: "إضافة العقار",colorButton: colorApp)),
           Container(
               width: MediaQuery.of(context).size.width,
               child: ButtonApp(onPressed: (){
                 print("mypPositionProperty ${propertyProvider.latitude}  ${propertyProvider.longitude}");
                 _pageController.previousPage(duration: Duration(milliseconds: 800), curve: Curves.easeIn);
-              }, textButton: "Previous",colorButton: colorApp)),
+              }, textButton: "السابق",colorButton: colorApp)),
           SizedBox(height: 5,),
         ],
       ),
@@ -310,7 +310,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
 //                  }
                 },
                 colorButton: colorApp,
-                textButton:"Following" ,
+                textButton:"التالي" ,
                 colorText: Colors.white,
               )
             ],
@@ -465,7 +465,7 @@ class _AddPropertySpecAndImage extends State<AddPropertySpecAndImage> {
   }
 
   Widget titleWidget = Text(
-    "Add Property",
+    "إضافة عقار",
     style: TextStyle(fontSize: 20, color: Colors.black54),
   );
 

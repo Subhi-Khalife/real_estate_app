@@ -70,7 +70,7 @@ class _SignInViewState extends State<SignInView> {
             ),
             Center(
               child: LogInTitle(
-                title: "SignUp",
+                title: "إنشاء حساب",
               ),
             ),
             Expanded(
@@ -114,14 +114,14 @@ class _SignInViewState extends State<SignInView> {
                                 Flexible(
                                   flex: 1,
                                   child: TextFieldApp(
-                                    controller: _firstNameController,
+                                    controller: _lastNameController,
                                     isTextFieldPassword: false,
+                                    labelText: "الأسم الأخير *",
                                     textInputAction: TextInputAction.next,
-                                    focusNode: _firstNameFocus,
-                                    labelText: "First Name *",
+                                    focusNode: _lastNameFocus,
                                     onSubmitted: (val) {
                                       FocusScope.of(context)
-                                          .requestFocus(_lastNameFocus);
+                                          .requestFocus(_phoneNumberFocus);
                                     },
                                   ),
                                 ),
@@ -131,14 +131,14 @@ class _SignInViewState extends State<SignInView> {
                                 Flexible(
                                   flex: 1,
                                   child: TextFieldApp(
-                                    controller: _lastNameController,
+                                    controller: _firstNameController,
                                     isTextFieldPassword: false,
-                                    labelText: "Last Name *",
                                     textInputAction: TextInputAction.next,
-                                    focusNode: _lastNameFocus,
+                                    focusNode: _firstNameFocus,
+                                    labelText: "الاسم الأول *",
                                     onSubmitted: (val) {
                                       FocusScope.of(context)
-                                          .requestFocus(_phoneNumberFocus);
+                                          .requestFocus(_lastNameFocus);
                                     },
                                   ),
                                 ),
@@ -152,7 +152,7 @@ class _SignInViewState extends State<SignInView> {
                               inputFormatter: [
                                 WhitelistingTextInputFormatter(RegExp("[0-9]"))
                               ],
-                              labelText: "Phone Number",
+                              labelText: "رقم الموبايل",
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.phone,
                               onSubmitted: (val) {
@@ -164,7 +164,7 @@ class _SignInViewState extends State<SignInView> {
                             TextFieldApp(
                               controller: _emailController,
                               isTextFieldPassword: false,
-                              labelText: "Email *",
+                              labelText: "البريد الإلكتروني *",
                               keyboardType: TextInputType.emailAddress,
                               focusNode: _emailFocus,
                               textInputAction: TextInputAction.next,
@@ -194,7 +194,7 @@ class _SignInViewState extends State<SignInView> {
                               child: TextFieldApp(
                                 controller: _birthdayController,
                                 isTextFieldPassword: false,
-                                labelText: "Birthday",
+                                labelText: "تاريخ الميللاد",
                                 isEnable: false,
                                 onSubmitted: (val) {
                                   FocusScope.of(context)
@@ -229,7 +229,7 @@ class _SignInViewState extends State<SignInView> {
                               child: TextFieldApp(
                                 controller: _cityController,
                                 isTextFieldPassword: false,
-                                labelText: "City",
+                                labelText: "المدينة",
                                 onSubmitted: (val) {
                                   FocusScope.of(context)
                                       .requestFocus(_passwordFocus);
@@ -245,7 +245,7 @@ class _SignInViewState extends State<SignInView> {
                               controller: _passwordController,
                               isTextFieldPassword: true,
                               focusNode: _passwordFocus,
-                              labelText: "Password *",
+                              labelText: "كلمة السر *",
                               textInputAction: TextInputAction.next,
                               isLengthSmall: checkLengthPassword,
                               maxLength: 16,
@@ -287,7 +287,7 @@ class _SignInViewState extends State<SignInView> {
                               isTextFieldPassword: true,
                               textInputAction: TextInputAction.go,
                               focusNode: _passwordConfirmFocus,
-                              labelText: "Confirm Password",
+                              labelText: "تأكيد كلمة السر",
                               maxLength: 16,
                               isLengthSmall: checkLengthConfirmPassword,
                               colorIcon: colorIconPassConfirm,
@@ -327,7 +327,7 @@ class _SignInViewState extends State<SignInView> {
                               width: MediaQuery.of(context).size.width,
                               child: ButtonApp(
                                 onPressed: onSignUp,
-                                textButton: "SignUp",
+                                textButton: "إنشاء حساب",
                                 colorButton: Colors.indigo.shade900,
                                 heightButton: 50,
                               ),
@@ -341,7 +341,7 @@ class _SignInViewState extends State<SignInView> {
                                 onPressed: (){
 
                                 },
-                                textButton: "SignUp with Facebook",
+                                textButton: "إنشاء حساب مع فيسبوك",
                                 colorButton: activeIconNavBar,
                                 heightButton: 50,
                               ),
@@ -353,12 +353,6 @@ class _SignInViewState extends State<SignInView> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(
-                                      "Already Have an account?",
-                                      style: TextStyle(
-                                          color: Colors.indigo.shade900
-                                              .withOpacity(0.7)),
-                                    ),
                                     InkWell(
                                       onTap: () {
                                         Navigator.of(context).pushAndRemoveUntil(
@@ -368,12 +362,18 @@ class _SignInViewState extends State<SignInView> {
                                                 (route) => false);
                                       },
                                       child: Text(
-                                        " LogIn",
+                                        "تسجيل الدخول ",
                                         style: TextStyle(
-                                          decoration: TextDecoration.underline,
+                                            decoration: TextDecoration.underline,
                                             color: Colors.indigo.shade900
                                                 .withOpacity(0.7)),
                                       ),
+                                    ),
+                                    Text(
+                                      "هل متأكد أنك تملك حساب؟ ",
+                                      style: TextStyle(
+                                          color: Colors.indigo.shade900
+                                              .withOpacity(0.7)),
                                     ),
                                   ],
                                 )),

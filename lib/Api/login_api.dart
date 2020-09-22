@@ -26,7 +26,7 @@ class LoginApi {
       print("okkkk");
       print("the status Login :: ${response.statusCode}");
       if (response.statusCode == 220) {
-        showMessage("login success");
+        showMessage("تم تسجيل الدخول بنجاح");
         await SharedPreferenceStore.setUserObj(response.body);
         await SharedPreferenceStore.setToken(userModelFromJson(response.body).data.tokenApi); // extract token another way:     jsonDecode(response.body)["data"]["token_api"]
         await SharedPreferenceStore.setSaveLoginAndSignUp(true);
@@ -34,10 +34,10 @@ class LoginApi {
         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainView()));
 //        return userModelFromJson(response.body);
       } else if (response.statusCode == 401) {
-        showMessage("invalid email or password");
+        showMessage("خطأ في كلمة السر أو البريد الإلكتروني");
         loadingDialog.dismiss(context);
       } else if (response.statusCode == 522) {
-        showMessage("email format is invalid");
+        showMessage("تنسيق البريد الإلكتروني خاطئ");
         loadingDialog.dismiss(context);
       } else {
         print("error");

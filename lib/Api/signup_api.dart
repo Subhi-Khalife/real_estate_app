@@ -40,7 +40,7 @@ static Future<UserModel> signUpRequest(context,{
       print("status code ${response.statusCode}");
       print("33333333333");
       if (response.statusCode == 230) {
-        showMessage("SignUp success");
+        showMessage("تم إنشاء حساب بنجاح");
         print("response is ${response.body}");
         await SharedPreferenceStore.setUserObj(response.body);
         await SharedPreferenceStore.setToken(userModelFromJson(response.body).data.tokenApi); // extract token another way:     jsonDecode(response.body)["data"]["token_api"]
@@ -49,16 +49,16 @@ static Future<UserModel> signUpRequest(context,{
         return  userModelFromJson(response.body);
       }
       else if(response.statusCode == 330){
-        showMessage("email already registered");
+        showMessage("البريد الإلكتروني مسجل بالفعل مسبقاً");
         loadingDialog.dismiss(context);
         return UserModel(status: "330");
       }
       else if (response.statusCode == 502) {
-        showMessage("operation fail please contact us");
+        showMessage("فشلت العملية اتصل بنا");
         loadingDialog.dismiss(context);
         return UserModel(status: "502");
       } else if (response.statusCode == 522) {
-        showMessage("email format is invalid");
+        showMessage("تنسيق البريد الإلكتروني خاطئ");
         loadingDialog.dismiss(context);
         return UserModel(status: "522");
       } else {
@@ -73,7 +73,7 @@ static Future<UserModel> signUpRequest(context,{
     }
 
   } else {
-    showMessage("please check internet connection");
+    showMessage("لا يوجد اتصال بالانترنت!");
     return UserModel(status: "no internet");
   }
 }

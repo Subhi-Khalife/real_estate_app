@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/house_category_provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
-import 'file:///D:/projects/real_estate_app/lib/Provider/filter_provider.dart';
 import 'package:real_estate_app/ui/house_detail.dart';
 import 'package:real_estate_app/widget/card_category_just_in.dart';
 import 'package:real_estate_app/widget/card_designer_home.dart';
@@ -188,9 +188,9 @@ class _HousesCategory extends State<HousesCategory> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => HouesDetail()));
                 },
-                child: CardDesignerHome());
+                child: CardDesignerHome(images[index]));
           },
-          itemCount: 9,
+          itemCount: images.length,
           scrollDirection: Axis.horizontal,
         ),
       ),
@@ -212,12 +212,21 @@ class _HousesCategory extends State<HousesCategory> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => HouesDetail()));
                 },
-                child: CardJustIn());
+                child: CardJustIn(images[index]));
           },
-          itemCount: 9,
+          itemCount: images.length,
           scrollDirection: Axis.horizontal,
         ),
       ),
     );
   }
+
+  List<String> images = [
+    "https://www.antalyahomes.com/picsize.asp?picresize=g/800/457/BLK-097/peaceful-detached-homes-in-secure-villa-complex-in-belek-main.jpg",
+    "https://www.theplancollection.com/Upload/Designers/175/1073/Plan1751073MainImage_11_6_2015_13.jpg",
+    "https://i.pinimg.com/originals/ff/20/38/ff20382afaafd22e5a72e6b1fc0e74ad.jpg",
+    "https://pic.i7lm.com/wp-content/uploads/2020/01/1-45.jpg",
+    "https://www.alaraby.co.uk/sites/default/files/media/images/363928F7-03BB-4614-81C2-C3058C2DBED4.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQr6qumlY5b7XJfy3cY1JHAzLoP___hMZKoew&usqp=CAU"
+  ];
 }

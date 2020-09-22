@@ -45,20 +45,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
           backgroundColor: Colors.white,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(widget.iconExplore,),
-              title: Text(widget.textExplore,),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(widget.iconFavorite),
-              title: Text(widget.textFavorite,),
+              icon: Icon(widget.iconProfile),
+              title: Text(widget.textProfile, ),
             ),
             BottomNavigationBarItem(
               icon: Icon(widget.iconAlert),
               title: Text(widget.textAlert,),
             ),
             BottomNavigationBarItem(
-              icon: Icon(widget.iconProfile),
-              title: Text(widget.textProfile, ),
+              icon: Icon(widget.iconFavorite),
+              title: Text(widget.textFavorite,),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(widget.iconExplore,),
+              title: Text(widget.textExplore,),
             ),
           ],
           iconSize: 20,

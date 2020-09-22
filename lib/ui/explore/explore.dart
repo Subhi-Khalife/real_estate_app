@@ -1,29 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:real_estate_app/Api/get_filter_api.dart';
+import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
-import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
-import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
-import 'package:real_estate_app/model/filter_model.dart';
-import 'package:real_estate_app/model/get_all_type_model.dart';
-import 'package:real_estate_app/ui/add_properity/add_property_spec_and_image.dart';
-import 'file:///D:/projects/real_estate_app/lib/Provider/provier_property.dart';
-import 'package:real_estate_app/ui/add_properity/required_param.dart';
 import 'package:real_estate_app/ui/explore/filter_bottom_sheet.dart';
-import 'file:///D:/projects/real_estate_app/lib/Provider/filter_provider.dart';
 import 'package:real_estate_app/ui/explore/houses_category.dart';
-import 'package:real_estate_app/ui/explore/spec_value_for_filter.dart';
 import 'package:real_estate_app/ui/profile.dart';
-import 'package:real_estate_app/widget/collapse.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
-import 'package:real_estate_app/widget/show_message.dart';
-import 'package:geolocator/geolocator.dart';
 class ExploreView extends StatefulWidget {
   @override
   _ExploreViewState createState() => _ExploreViewState();
@@ -37,7 +24,7 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
   FilterProvider _filterProvider;
   GoogleMapProvider googleMapProvider;
   Widget titleWidget = Text(
-    "Dalal",
+    "دلال",
     style: TextStyle(fontSize: 20, color: Colors.black54),
   );
 
@@ -100,42 +87,38 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
       backgroundColor: Colors.grey.shade100,
       elevation: 0,
       centerTitle: false,
-      title: ValueListenableBuilder(
-          valueListenable: _searchNotifier,
-          builder: (context, _, __) {
-            return AnimatedSwitcher(
-                duration: Duration(milliseconds: 700),
-                switchInCurve: Curves.easeIn,
-                child: titleWidget);
-          }),
-      actions: <Widget>[
-        ValueListenableBuilder(
-          valueListenable: _searchNotifier,
-          builder: (context, _, __) {
-            return IconButton(
-              icon: Icon(
-                iconAction,
-                color: Colors.black45,
-                size: 20,
-              ),
-              onPressed: onSearchAction,
-            );
+      title:Transform.translate(
+        offset: Offset(-15,0),
+        child: IconButton(
+          icon: Icon(
+            Icons.sort,
+            color: Colors.black45,
+          ),
+          onPressed: () async {
+            // print(  "The _filterProvider.firstTime ${_filterProvider.firstTime}");
+            BlocProvider.of<AddProperetyDartBloc>(context)..add(LoadingData());
+            return onFilterAction();
           },
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 4, right: 4),
-          child: IconButton(
-            icon: Icon(
-              Icons.sort,
-              color: Colors.black45,
-            ),
-            onPressed: () async {
-              // print(  "The _filterProvider.firstTime ${_filterProvider.firstTime}");
-              BlocProvider.of<AddProperetyDartBloc>(context)..add(LoadingData());
-              return onFilterAction();
-            },
-          ),
-        ),
+      ),
+      actions: <Widget>[
+        // ValueListenableBuilder(
+        //   valueListenable: _searchNotifier,
+        //   builder: (context, _, __) {
+        //     return IconButton(
+        //       icon: Icon(
+        //         iconAction,
+        //         color: Colors.black45,
+        //         size: 20,
+        //       ),
+        //       onPressed: onSearchAction,
+        //     );
+        //   },
+        // ),
+        Transform.translate(
+            offset: Offset(0,15),
+            child: titleWidget),
+        SizedBox(width: 25,),
       ],
     );
   }
@@ -178,7 +161,7 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Text(
-                              "On Map",
+                              "الخريطة",
                               style: TextStyle(
                                   color: tapIndex == 0
                                       ? activeIconNavBar
@@ -187,11 +170,11 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
                                       ? FontWeight.bold
                                       : FontWeight.w300),
                             ),
-                            Icon(CupertinoIcons.location_solid,
-                                size: 15,
-                                color: tapIndex == 0
-                                    ? activeIconNavBar
-                                    : colorGrey),
+                            // Icon(CupertinoIcons.location_solid,
+                            //     size: 15,
+                            //     color: tapIndex == 0
+                            //         ? activeIconNavBar
+                            //         : colorGrey),
                           ],
                         ),
                       ),
@@ -207,7 +190,7 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Text(
-                              "Category",
+                              "التصنيفات",
                               style: TextStyle(
                                   color: tapIndex == 1
                                       ? activeIconNavBar
@@ -216,11 +199,11 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
                                       ? FontWeight.bold
                                       : FontWeight.w300),
                             ),
-                            Icon(Icons.category,
-                                size: 15,
-                                color: tapIndex == 1
-                                    ? activeIconNavBar
-                                    : colorGrey),
+                            // Icon(Icons.category,
+                            //     size: 15,
+                            //     color: tapIndex == 1
+                            //         ? activeIconNavBar
+                            //         : colorGrey),
                           ],
                         ),
                       ),
