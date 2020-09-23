@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:real_estate_app/Api/login_api.dart';
 import 'package:real_estate_app/ui/verification_interfaces/signup.dart';
 import 'package:real_estate_app/widget/color_app.dart';
@@ -18,7 +17,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final facebookLogin = FacebookLogin();
+  // final facebookLogin = FacebookLogin();
   TextEditingController _emailController, _passwordController;
   bool isLockPassword = false;
   bool isCheck = false;

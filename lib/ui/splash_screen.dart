@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:real_estate_app/model/user_model.dart';
 import 'package:real_estate_app/ui/MainView.dart';
 import 'package:real_estate_app/ui/onboarding.dart';
@@ -66,10 +67,12 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(activeIconNavBar),
-            ),
+          SvgPicture.asset("svg/Logo.svg"),
+          SizedBox(height: 50,),
+          Text("تطبيق دلال",style: TextStyle(color: colorApp,fontSize: 26,fontWeight: FontWeight.bold),textDirection: TextDirection.rtl,),
+          SizedBox(height: 75,),
+          CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(activeIconNavBar),
           ),
         ],
       ),

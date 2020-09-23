@@ -10,7 +10,6 @@ import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 import 'package:real_estate_app/widget/show_message.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
 
@@ -40,7 +39,7 @@ class _SignInViewState extends State<SignInView> {
       _emailFocus = FocusNode();
   Color colorIconPass = colorGrey;
   Color colorIconPassConfirm = colorGrey;
-  final facebookSignUp = FacebookLogin();
+  // final facebookSignUp = FacebookLogin();
 
   @override
   void initState() {
