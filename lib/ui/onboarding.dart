@@ -50,14 +50,16 @@ class _OnboardingState extends State<Onboarding> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 70, bottom: 56),
+                      padding: const EdgeInsets.only(top: 70),
                       child: SvgPicture.asset(
                         pages[index].image,
                         fit: BoxFit.fitWidth,
-                        width: 200,
+                        height: MediaQuery.of(context).size.height*0.3,
                       ),
                     ),
+                    Spacer(flex: 1,),
                     Padding(
                       padding: const EdgeInsets.only(left: 32, right: 32),
                       child: Text(
@@ -80,7 +82,7 @@ class _OnboardingState extends State<Onboarding> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Expanded(
+                    index == 2 ?Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -88,8 +90,8 @@ class _OnboardingState extends State<Onboarding> {
                           ButtonSignUp(index),
                         ],
                       ),
-                    ),
-                    Spacer(),
+                    ) :Container(),
+                    Spacer(flex: 1,)
                   ],
                 );
               },

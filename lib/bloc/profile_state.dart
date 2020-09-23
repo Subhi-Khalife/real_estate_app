@@ -1,0 +1,41 @@
+part of 'profile_bloc.dart';
+
+abstract class ProfileState extends Equatable {
+  const ProfileState();
+}
+
+class ProfileInitial extends ProfileState {
+  @override
+  List<Object> get props => [];
+}
+
+class LoadingDataProfile extends ProfileState{
+  @override
+  List<Object> get props =>  [];
+
+}
+
+class GetProfileInitial extends ProfileState {
+  @override
+  List<Object> get props => [];
+}
+
+class Wait extends ProfileState {
+  @override
+  List<Object> get props => [];
+}
+
+class FetchProfile extends ProfileState{
+ final GetProfile getProfile ;
+
+  FetchProfile(this.getProfile);
+
+  @override
+  List<Object> get props => [];
+
+}
+
+class InvalidFetchState extends ProfileState {
+  @override
+  List<Object> get props => [];
+}

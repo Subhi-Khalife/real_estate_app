@@ -172,29 +172,29 @@ class _HousesCategory extends State<HousesCategory> {
     return Center(child: CircularProgressIndicator());
   }
 
-  Widget designerHome() {
-    return Padding(
-      padding: EdgeInsets.only(top: 20),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * .3,
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HouesDetail()));
-                },
-                child: CardDesignerHome(images[index]));
-          },
-          itemCount: images.length,
-          scrollDirection: Axis.horizontal,
-        ),
-      ),
-    );
-  }
+  // Widget designerHome() {
+  //   return Padding(
+  //     padding: EdgeInsets.only(top: 20),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width,
+  //       height: MediaQuery.of(context).size.height * .3,
+  //       child: ListView.builder(
+  //         shrinkWrap: true,
+  //         physics: BouncingScrollPhysics(),
+  //         itemBuilder: (context, index) {
+  //           return GestureDetector(
+  //               onTap: () {
+  //                 Navigator.of(context).push(
+  //                     MaterialPageRoute(builder: (context) => HouesDetail()));
+  //               },
+  //               child: CardDesignerHome(images[index]));
+  //         },
+  //         itemCount: images.length,
+  //         scrollDirection: Axis.horizontal,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget houseIntoJsutIn() {
     return Padding(

@@ -26,7 +26,8 @@ static Future<UserModel> signUpRequest(context,{
     "birthday":birthDay,
     "city":cityName
   };
-  print("11111111111");
+  print("params $param");
+  Map<String, String> header =await Constant.getHeader("");
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
 
@@ -34,9 +35,8 @@ static Future<UserModel> signUpRequest(context,{
     loadingDialog.show(context);
     try{
       print("22222222222");
-      var response = await http.post(url, body: param).timeout(Duration(
-        seconds: 30
-      ));
+      var response = await http.post(url, body: json.encode(param), headers: header).timeout(Duration(
+        seconds: 30));
       print("status code ${response.statusCode}");
       print("33333333333");
       if (response.statusCode == 230) {

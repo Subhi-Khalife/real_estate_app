@@ -54,18 +54,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [colorApp,
-          activeIconNavBar],
+          colors: [colorGrey,
+          Colors.white],
           begin: Alignment.bottomCenter,end: Alignment.topCenter,
-          stops: [0.1,0.9],tileMode: TileMode.clamp
+          stops: [0.1,1],tileMode: TileMode.clamp
         ),
       ),
-      child: Center(
-        child: CupertinoActivityIndicator(
-          animating: true,radius: 25,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(activeIconNavBar),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -90,10 +90,13 @@ class _SignInViewState extends State<SignInView> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ShowImage(
-                                "svg/Login-rafiki.svg",
-                                height: height * 0.5,
-                                boxFit: BoxFit.fitHeight,
+                              Opacity(
+                                opacity: 0.1,
+                                child: ShowImage(
+                                  "svg/Login-rafiki.svg",
+                                  height: height * 0.5,
+                                  boxFit: BoxFit.fitHeight,
+                                ),
                               ),
                               SizedBox(
                                 height: height * 0.05,
@@ -510,7 +513,7 @@ class _SignInViewState extends State<SignInView> {
               phoneNumber: _phoneNumberController.text,
               lastName: _lastNameController.text,
               email: _emailController.text,
-              password: _phoneNumberController.text,
+              password: _passwordController.text,
               birthDay: _birthdayController.text ?? "",
               cityName: _cityController.text ?? "")
           .then((value) {

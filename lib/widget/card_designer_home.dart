@@ -3,8 +3,8 @@ import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 class CardDesignerHome extends StatelessWidget {
   String imageUrl;
-
-  CardDesignerHome(this.imageUrl);
+  String price ;
+  CardDesignerHome({@required this.imageUrl, @required this.price });
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,12 @@ class CardDesignerHome extends StatelessWidget {
           Positioned.fill(
             left: 10,
             right: 10,
-            child: ImageCard(
-             imageUrl: imageUrl,
-             height: 50,width: 100,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: ImageCard(
+               imageUrl: imageUrl,
+               height: 50,width: 100,
+              ),
             ),
           ),
           Positioned(
@@ -27,7 +30,7 @@ class CardDesignerHome extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomRight,
               child: ContainerONCard(
-                price: '\$ 1,999/sq.ft',
+                price: price,
               ),
             ),
           )
@@ -59,9 +62,10 @@ class ContainerONCard extends StatelessWidget {
       ),
       child: Center(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Text("Starts at  "),
-            Text(price,style: TextStyle(color: activeIconNavBar),),
+            Text(price + " ل.س",textDirection: TextDirection.rtl,style: TextStyle(color: activeIconNavBar),),
+            Text(" السعر : ",textDirection: TextDirection.rtl,),
           ],
         ),
       ),

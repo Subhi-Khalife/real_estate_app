@@ -135,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                   showMessage("Password should between 4 and 12");
                 else {
                   await LoginApi.login(
-                      _emailController.text, _passwordController.text, context);
+                      _emailController.text.trim(), _passwordController.text, context);
                 }
               },
               textButton: "تسجيل الدخول",

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,17 @@ class LoginApi {
       "password": password,
       "email": email,
     };
+    Map<String, String> header =await Constant.getHeader("");
+    print("param $params");
     LoadingDialog loadingDialog = LoadingDialog(context);
     loadingDialog.show(context);
     try {
       print("okk");
-      var response = await http.post(url, body: params);
-      print("okkkk");
-      print("the status Login :: ${response.statusCode}");
+      var response = await http.post(url, body: json.encode(params),headers: header).timeout(Duration(seconds: 30));
+
+      print("the status Login :: ${response.body}");
       if (response.statusCode == 220) {
+        print("220000000000000000000000000000000000000");
         showMessage("تم تسجيل الدخول بنجاح");
         await SharedPreferenceStore.setUserObj(response.body);
         await SharedPreferenceStore.setToken(userModelFromJson(response.body).data.tokenApi); // extract token another way:     jsonDecode(response.body)["data"]["token_api"]
@@ -34,6 +38,8 @@ class LoginApi {
         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainView()));
 //        return userModelFromJson(response.body);
       } else if (response.statusCode == 401) {
+
+        print("askjdsajkfd sjkda ndskjafkj sdahkj hadsjkfh jk");
         showMessage("خطأ في كلمة السر أو البريد الإلكتروني");
         loadingDialog.dismiss(context);
       } else if (response.statusCode == 522) {

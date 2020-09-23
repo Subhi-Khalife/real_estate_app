@@ -7,12 +7,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
+import 'package:real_estate_app/Provider/provier_property.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/ui/add_properity/add_property_spec_and_image.dart';
 import 'package:real_estate_app/ui/house_detail.dart';
 import 'package:real_estate_app/widget/card_info.dart';
-import 'file:///D:/projects/real_estate_app/lib/Provider/provier_property.dart';
-import 'file:///D:/projects/real_estate_app/lib/Provider/filter_provider.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
 class ProfileView extends StatefulWidget {
