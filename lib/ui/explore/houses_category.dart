@@ -51,10 +51,10 @@ class _HousesCategory extends State<HousesCategory> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.centerRight,
                           child: Padding(
                             padding: EdgeInsets.only(
-                              left: 22,
+                              right: 22,
                             ),
                             child: Text(
                               "${values.list[index][0].type.name}",
