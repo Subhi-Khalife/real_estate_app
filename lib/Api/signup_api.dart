@@ -61,6 +61,11 @@ static Future<UserModel> signUpRequest(context,{
         showMessage("تنسيق البريد الإلكتروني خاطئ");
         loadingDialog.dismiss(context);
         return UserModel(status: "522");
+      }
+      else if (response.statusCode == 477) {
+        showMessage("تنسيق الرقم خاطئ");
+        loadingDialog.dismiss(context);
+        return UserModel(status: "477");
       } else {
         print("error");
         loadingDialog.dismiss(context);

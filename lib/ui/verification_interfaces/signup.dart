@@ -158,6 +158,7 @@ class _SignInViewState extends State<SignInView> {
                               labelText: "رقم الموبايل",
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.phone,
+                              maxLength: 10,
                               onSubmitted: (val) {
                                 FocusScope.of(context)
                                     .requestFocus(_emailFocus);
@@ -513,7 +514,7 @@ class _SignInViewState extends State<SignInView> {
               firstName: _firstNameController.text,
               phoneNumber: _phoneNumberController.text,
               lastName: _lastNameController.text,
-              email: _emailController.text,
+              email: _emailController.text.trim(),
               password: _passwordController.text,
               birthDay: _birthdayController.text ?? "",
               cityName: _cityController.text ?? "")
