@@ -8,6 +8,7 @@ import 'package:real_estate_app/Provider/provier_property.dart';
 import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
+import 'package:real_estate_app/bloc/news_bloc/news_bloc.dart';
 import 'package:real_estate_app/ui/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,6 +25,9 @@ Future<void> main() {
         ),
         BlocProvider<ExploreDartBloc>(
           create: (context) => ExploreDartBloc()..add(LoadingExploreData(context)),
+        ),
+        BlocProvider<NewsBloc>(
+          create: (context) => NewsBloc()..add(GetAllNewsEvent()),
         ),
       ],
       child: MultiProvider(
