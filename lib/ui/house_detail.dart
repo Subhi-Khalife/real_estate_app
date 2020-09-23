@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
+import 'package:real_estate_app/Api/add_favourite.dart';
 import 'package:real_estate_app/model/filter_model.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
@@ -53,17 +54,18 @@ class _HouesDetail extends State<HouesDetail> {
                       pro: widget.properties,
                       icon: Icons.info),
                   showImageAndTitle(
-                      icon: Icons.tablet_mac,
-                      context: context,
-                      description: (widget.properties.user.phone==null)?"لا يوجد":
-                      widget.properties.user.phone,
-
+                    icon: Icons.tablet_mac,
+                    context: context,
+                    description: (widget.properties.user.phone == null)
+                        ? "لا يوجد"
+                        : widget.properties.user.phone,
                   ),
                   showImageAndTitle(
                     icon: Icons.mail,
                     context: context,
-                    description: (widget.properties.user.email==null)?"لا يوجد":
-                    widget.properties.user.email,
+                    description: (widget.properties.user.email == null)
+                        ? "لا يوجد"
+                        : widget.properties.user.email,
                   ),
                   Row(
                     children: <Widget>[],
@@ -78,6 +80,59 @@ class _HouesDetail extends State<HouesDetail> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget priceAndDetail(String price, Datum properties, Color textColor) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 5),
+          child: Row(
+            children: [
+              PropertyCardPrice(
+                price: '\$ $price',
+              ),
+            ],
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                "وصف المنزل\n" + "${properties.description}",
+                style: TextStyle(color: textColor),
+                textDirection: TextDirection.rtl,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.favorite,
+                    color: (properties.isFavorite == true)
+                        ? colorApp
+                        : Colors.grey,
+                  ),
+                  onPressed: () async {
+                    setState(() {
+                      if (properties.isFavorite == true) {
+                        properties.isFavorite = null;
+                      } else {
+                        properties.isFavorite = true;
+                      }
+                    });
+                    await AddFavouriteApi.addToFavourite(
+                        properties.id.toString());
+                  }),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
@@ -100,8 +155,10 @@ Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
               for (int i = 0;
                   i < pro.propertySpecs[index].propertyOptions.length;
                   i++) {
-                name +=
-                    " " +  pro.propertySpecs[index].propertyOptions[i].typeOption.name+" ";
+                name += " " +
+                    pro.propertySpecs[index].propertyOptions[i].typeOption
+                        .name +
+                    " ";
               }
               return PropertyCardDescription(
                 description: name,
@@ -192,7 +249,6 @@ Widget showImageAndTitle(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-
         Expanded(
           child: PropertyCardDescription(
             description: description,
@@ -203,7 +259,6 @@ Widget showImageAndTitle(
           width: 10,
         ),
         Icon(icon, color: colorApp),
-
       ],
     ),
   );
@@ -217,42 +272,6 @@ Widget space(BuildContext context) {
       height: 1,
       color: Colors.black38,
     ),
-  );
-}
-
-Widget priceAndDetail(String price, Datum properties, Color textColor) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(top: 5),
-        child: Row(
-          children: [
-            PropertyCardPrice(
-              price: '\$ $price',
-            ),
-          ],
-        ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Text(
-              "وصف المنزل\n" + "${properties.description}",
-              style: TextStyle(color: textColor),
-              textDirection: TextDirection.rtl,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(icon: Icon(Icons.favorite,color: colorApp,), onPressed: () {}),
-          ),
-        ],
-      )
-    ],
   );
 }
 

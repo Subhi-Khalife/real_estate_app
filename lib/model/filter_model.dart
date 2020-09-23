@@ -148,8 +148,10 @@ class Properties {
     this.prevPageUrl,
     this.to,
     this.total,
+    this.isFavorite,
   });
 
+  dynamic isFavorite;
   int currentPage;
   List<Datum> data;
   String firstPageUrl;
@@ -176,6 +178,7 @@ class Properties {
     prevPageUrl: json["prev_page_url"],
     to: json["to"] == null ? null : json["to"],
     total: json["total"] == null ? null : json["total"],
+    isFavorite: json["is_favorite"] == null ? null : json["is_favorite"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -191,6 +194,9 @@ class Properties {
     "prev_page_url": prevPageUrl,
     "to": to == null ? null : to,
     "total": total == null ? null : total,
+
+    "is_favorite": isFavorite == null ? null : isFavorite,
+
   };
 }
 
@@ -217,8 +223,9 @@ class Datum {
     this.type,
     this.area,
     this.propertySpecs,
+    this.isFavorite,
   });
-
+dynamic isFavorite;
   int id;
   String address;
   double longitude;
@@ -255,6 +262,7 @@ class Datum {
     useType: json["use_type"] == null ? null : json["use_type"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     areaId: json["area_id"] == null ? null : json["area_id"],
+    isFavorite: json["is_favorite"] == null ? null : json["is_favorite"],
     userId: json["user_id"] == null ? null : json["user_id"],
     typeId: json["type_id"] == null ? null : json["type_id"],
     distance: json["distance"] == null ? null : json["distance"].toDouble(),
@@ -286,10 +294,11 @@ class Datum {
     "user": user == null ? null : user.toJson(),
     "type": type == null ? null : type.toJson(),
     "area": area == null ? null : area.toJson(),
+    "is_favorite": isFavorite == null ? null : isFavorite,
     "property_specs": propertySpecs == null ? null : List<dynamic>.from(propertySpecs.map((x) => x.toJson())),
   };
 }
-
+//
 class Area {
   Area({
     this.id,
