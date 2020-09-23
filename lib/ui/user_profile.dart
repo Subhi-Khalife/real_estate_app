@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:real_estate_app/bloc/profile_bloc.dart';
+import 'file:///D:/real_estate_app/lib/bloc/profile/profile_bloc.dart';
 import 'package:real_estate_app/model/get_profile.dart';
 import 'package:real_estate_app/ui/house_deatil_profile.dart';
 import 'package:real_estate_app/widget/card_designer_home.dart';

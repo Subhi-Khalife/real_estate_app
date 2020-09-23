@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:real_estate_app/ui/explore/explore.dart';
 import 'package:real_estate_app/ui/favourite/favorite.dart';
 import 'package:real_estate_app/ui/last_news.dart';
-import 'package:real_estate_app/ui/profile.dart';
+import 'package:real_estate_app/ui/map_view.dart';
 import 'package:real_estate_app/ui/user_profile.dart';
 import 'package:real_estate_app/widget/bottom_navigation_bar.dart';
 

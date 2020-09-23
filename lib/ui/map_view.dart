@@ -14,12 +14,12 @@ import 'package:real_estate_app/ui/house_detail.dart';
 import 'package:real_estate_app/widget/card_info.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 
-class ProfileView extends StatefulWidget {
+class MapView extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _MapView createState() => _MapView();
 }
 
-class _HomePageState extends State<ProfileView> {
+class _MapView extends State<MapView> {
   Set<Circle> circles;
   Set<Polyline> _polyline;
   PolylinePoints polylinePoints = PolylinePoints();

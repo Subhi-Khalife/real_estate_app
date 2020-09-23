@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/house_category_provider.dart';
-import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
+import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
+import 'package:real_estate_app/model/filter_model.dart';
 import 'package:real_estate_app/ui/house_detail.dart';
 import 'package:real_estate_app/widget/card_category_just_in.dart';
 import 'package:real_estate_app/widget/card_designer_home.dart';
@@ -39,13 +40,14 @@ class _HousesCategory extends State<HousesCategory> {
             if (state is LoadingState) {
               return loadingInfo();
             } else if (state is SetHouseValuesState) {
-              housesCategoryProvider.addValues(state.props[0]);
+              housesCategoryProvider.addValues(state.types);
               return Consumer<HousesCategoryProvider>(
                   builder: (context, values, _) {
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
+                    print("values ${values.list[index].length}");
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -73,14 +75,14 @@ class _HousesCategory extends State<HousesCategory> {
                               physics: BouncingScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, index2) {
+                                Datum item=values.list[index][index2];
                                 return InkWell(
                                   onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => HouesDetail(
-                                          properties: state
-                                              .types.properties.data[index],
+                                          properties: item,
                                         ),
                                       ),
                                     );
@@ -94,17 +96,12 @@ class _HousesCategory extends State<HousesCategory> {
                                       padding: const EdgeInsets.only(
                                           left: 8, right: 0),
                                       child: PropertyCardInformation(
-                                        img: state
-                                            .types.properties.data[index].img,
-                                        address: state.types.properties
-                                            .data[index].address,
-                                        price: state
-                                            .types.properties.data[index].price
+                                        img: item.img,
+                                        address: item.address,
+                                        price: item.price
                                             .toString(),
-                                        description: state.types.properties
-                                            .data[index].description,
-                                        space: state
-                                            .types.properties.data[index].space
+                                        description: item.description,
+                                        space: item.space
                                             .toString(),
                                       ),
                                     ),

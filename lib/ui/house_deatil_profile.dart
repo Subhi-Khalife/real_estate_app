@@ -40,9 +40,10 @@ class _HouseDetailProfileState extends State<HouesDetailProfile> {
                   showImageAndTitle(
                       icon: Icons.location_on,
                       context: context,
-                      description: widget.properties.address +
+
+                      description: widget.properties.area .cityName+
                           "  -  " +
-                          widget.properties.area.name),
+                          widget.properties.address),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.2,
                   )

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:real_estate_app/Api/signup_api.dart';
 import 'package:real_estate_app/ui/MainView.dart';
 import 'package:real_estate_app/ui/explore/explore.dart';
-import 'package:real_estate_app/ui/profile.dart';
+import 'package:real_estate_app/ui/map_view.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';

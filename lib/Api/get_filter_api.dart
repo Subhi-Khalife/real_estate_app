@@ -38,7 +38,13 @@ class GetFilterApi {
           )
           .timeout(Duration(seconds: 17));
       print(response.statusCode);
-      print("body ${response.body}");
+      print("body  ${response.body}");
+      FilterModel filterModel=filterModelFromJson(response.body);
+      for(int i=0;i<filterModel.data.properties.data.length;i++){
+        print("the id is :: ${filterModel.data.properties.data[i].id}");
+        print("the type is :: ${filterModel.data.properties.data[i].type.name}");
+
+      }
       if (response.statusCode == 220) {
         print("success");
         showMessage("تم جلب المعلومات");

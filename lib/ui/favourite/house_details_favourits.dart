@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 import 'package:real_estate_app/Api/favourite.dart';
 import 'package:real_estate_app/model/filter_model.dart';
+import 'package:real_estate_app/model/get_all_favourites_model.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 import 'package:real_estate_app/widget/swiper_image.dart';
 
-class HouesDetail extends StatefulWidget {
-  Datum properties;
-  HouesDetail({this.properties});
+class HouesDetailFavourits extends StatefulWidget {
+  Datumes properties;
+  HouesDetailFavourits({this.properties});
   @override
-  _HouesDetail createState() => _HouesDetail();
+  _HouesDetailFavourits createState() => _HouesDetailFavourits();
 }
 
-class _HouesDetail extends State<HouesDetail> {
+class _HouesDetailFavourits extends State<HouesDetailFavourits> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +26,7 @@ class _HouesDetail extends State<HouesDetail> {
             pinned: true,
             floating: true,
             delegate: PagerHeader(
-                mminExtent: 150, maxExtent: 250, properties: widget.properties),
+                mminExtent: 150, maxExtent: 250, properties: widget.properties.property),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -34,38 +35,33 @@ class _HouesDetail extends State<HouesDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  priceAndDetail(widget.properties.price.toString(),
-                      widget.properties, Colors.black54),
+                  priceAndDetail(widget.properties.property.price.toString(),
+                      widget.properties.property, Colors.black54),
                   space(context),
                   showImageAndTitle(
                       icon: Icons.location_on,
                       context: context,
-                      description:  widget.properties.area.cityName  +
-                          "  -  " +widget.properties.address
-                         ),
-                  // showImageAndTitle(
-                  //     icon: Icons.info_outline,
-                  //     context: context,
-                  //     description: (widget.properties.postalCode == null)
-                  //         ? "لا يوجد "
-                  //         : widget.properties.),
+                      description: widget.properties.property.area.cityName +
+                          "  -  " +
+                          widget.properties.property.address),
+
                   showFullInfo(
                       context: context,
-                      pro: widget.properties,
+                      pro: widget.properties.property,
                       icon: Icons.info),
                   showImageAndTitle(
                     icon: Icons.tablet_mac,
                     context: context,
-                    description: (widget.properties.user.phone == null)
+                    description: (widget.properties.property.user.phone == null)
                         ? "لا يوجد"
-                        : widget.properties.user.phone,
+                        : widget.properties.property.user.phone,
                   ),
                   showImageAndTitle(
                     icon: Icons.mail,
                     context: context,
-                    description: (widget.properties.user.email == null)
+                    description: (widget.properties.property.user.email == null)
                         ? "لا يوجد"
-                        : widget.properties.user.email,
+                        : widget.properties.property.user.email,
                   ),
                   Row(
                     children: <Widget>[],
@@ -83,7 +79,7 @@ class _HouesDetail extends State<HouesDetail> {
     );
   }
 
-  Widget priceAndDetail(String price, Datum properties, Color textColor) {
+  Widget priceAndDetail(String price, Property properties, Color textColor) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +133,7 @@ class _HouesDetail extends State<HouesDetail> {
   }
 }
 
-Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
+Widget showFullInfo({BuildContext context, Property pro, IconData icon}) {
   return Padding(
     padding: EdgeInsets.only(top: 20, left: 5),
     child: Row(
@@ -153,8 +149,8 @@ Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
               String name = "${pro.propertySpecs[index].name}";
               name += ":";
               for (int i = 0;
-                  i < pro.propertySpecs[index].propertyOptions.length;
-                  i++) {
+              i < pro.propertySpecs[index].propertyOptions.length;
+              i++) {
                 name += " " +
                     pro.propertySpecs[index].propertyOptions[i].typeOption
                         .name +
@@ -196,7 +192,7 @@ Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
     ),
   );
 }
-
+//
 // Widget showTwoButton(BuildContext context) {
 //   return Padding(
 //     padding: EdgeInsets.only(top: 20),
@@ -220,7 +216,6 @@ Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
 //   );
 // }
 
-//
 // Widget button(
 //     {BuildContext context, String text, Color color, Color textColor}) {
 //   return GestureDetector(
@@ -232,9 +227,9 @@ Widget showFullInfo({BuildContext context, Datum pro, IconData icon}) {
 //         color: color,
 //         child: Center(
 //             child: Text(
-//           text,
-//           style: TextStyle(color: textColor),
-//         )),
+//               text,
+//               style: TextStyle(color: textColor),
+//             )),
 //         elevation: 2,
 //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
 //       ),
@@ -279,7 +274,7 @@ Widget space(BuildContext context) {
 class PagerHeader implements SliverPersistentHeaderDelegate {
   final double maxExtent;
   final double mminExtent;
-  Datum properties;
+  Property properties;
 
   PagerHeader({@required this.maxExtent, this.mminExtent, this.properties});
 
@@ -295,12 +290,12 @@ class PagerHeader implements SliverPersistentHeaderDelegate {
         Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
-            colors: [Colors.transparent, Colors.black45],
-            stops: [0.5, 1.0],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            tileMode: TileMode.repeated,
-          )),
+                colors: [Colors.transparent, Colors.black45],
+                stops: [0.5, 1.0],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                tileMode: TileMode.repeated,
+              )),
         ),
       ],
     );

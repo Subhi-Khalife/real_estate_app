@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_collapse/flutter_collapse.dart';
-import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
+import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
 
 class CollapseView extends StatefulWidget {

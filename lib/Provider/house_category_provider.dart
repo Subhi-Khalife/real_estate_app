@@ -3,7 +3,7 @@ import 'package:real_estate_app/model/filter_model.dart';
 
 class HousesCategoryProvider extends ChangeNotifier {
   Map<String, List<Datum>> items = {};
-  var list;
+  List<List<Datum>> list;
 
 
   resetMapValues() {
@@ -14,7 +14,11 @@ class HousesCategoryProvider extends ChangeNotifier {
   addValues(Data filterModel) {
     items.clear();
     for (int i = 0; i < filterModel.properties.data.length; i++) {
+      print("the id is  ::  ${filterModel.properties.data[i].id}");
+      print("the type Name is :: ${filterModel.properties.data[i].type.name.toString()} ");
       if (items[filterModel.properties.data[i].type.name] == null) {
+        print("the type Name is inside Map  :: ${items[filterModel.properties.data[i].type.name.toString()]} ");
+
         print("ok inside MAP");
         items[filterModel.properties.data[i].type.name] = List<Datum>();
       }

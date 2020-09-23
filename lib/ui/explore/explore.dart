@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
-import 'package:real_estate_app/bloc/add_properety_dart_bloc.dart';
+import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/ui/explore/filter_bottom_sheet.dart';
 import 'package:real_estate_app/ui/explore/houses_category.dart';
-import 'package:real_estate_app/ui/profile.dart';
+import 'package:real_estate_app/ui/map_view.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
 class ExploreView extends StatefulWidget {
@@ -33,7 +33,7 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
   ValueNotifier<bool> _searchNotifier = ValueNotifier(false);
   ValueNotifier<bool> _bottomSheetNotifier = ValueNotifier(false);
   final tabs = [
-    ProfileView(),
+    MapView(),
     HousesCategory(),
   ];
   TabController controller;
