@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Api/add_property_api.dart';
 import 'package:real_estate_app/Provider/provier_property.dart';
-import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
+import 'package:real_estate_app/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
 import 'package:real_estate_app/ui/add_properity/required_param.dart';

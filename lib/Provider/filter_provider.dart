@@ -7,6 +7,17 @@ class FilterProvider extends ChangeNotifier {
 
   RequiredParam requiredParam;
 
+  bool _isShowFilter = false;
+
+
+  bool get isShowFilter => _isShowFilter;
+
+
+  setIsShowFilter(bool value) {
+    _isShowFilter = value;
+    notifyListeners();
+  }
+
   initValues() {
     requiredParam = RequiredParam();
   }

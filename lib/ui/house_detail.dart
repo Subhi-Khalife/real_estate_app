@@ -92,8 +92,11 @@ class _HouesDetail extends State<HouesDetail> {
           padding: const EdgeInsets.only(top: 5),
           child: Row(
             children: [
-              PropertyCardPrice(
-                price: '\$ $price',
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: PropertyCardPrice(
+                  price: price + " ل.س",
+                ),
               ),
             ],
           ),

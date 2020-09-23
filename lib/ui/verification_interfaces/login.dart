@@ -102,28 +102,28 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: 15,
             ),
-            Transform.translate(
-              offset: Offset(-10, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Checkbox(
-                    value: isCheck,
-                    activeColor: activeIconNavBar,
-                    onChanged: (val) {
-                      setState(() {
-                        isCheck = val;
-                      });
-                    },
-                  ),
-                  Text(
-                    "تذكرني",
-                    style: TextStyle(
-                        color: Colors.indigo.shade900.withOpacity(0.7)),
-                  ),
-                ],
-              ),
-            ),
+            // Transform.translate(
+            //   offset: Offset(-10, 0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: <Widget>[
+            //       Checkbox(
+            //         value: isCheck,
+            //         activeColor: activeIconNavBar,
+            //         onChanged: (val) {
+            //           setState(() {
+            //             isCheck = val;
+            //           });
+            //         },
+            //       ),
+            //       Text(
+            //         "تذكرني",
+            //         style: TextStyle(
+            //             color: Colors.indigo.shade900.withOpacity(0.7)),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             ButtonApp(
               onPressed: () async {
                 if (_passwordController.text.isEmpty)
@@ -145,14 +145,14 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: 15,
             ),
-            ButtonApp(
-              onPressed: () {
-                // _loginWithFB();
-              },
-              textButton: "Login with Facebook",
-              colorButton: activeIconNavBar,
-              heightButton: 50,
-            ),
+            // ButtonApp(
+            //   onPressed: () {
+            //     // _loginWithFB();
+            //   },
+            //   textButton: "Login with Facebook",
+            //   colorButton: activeIconNavBar,
+            //   heightButton: 50,
+            // ),
             SizedBox(
               height: 30,
             ),

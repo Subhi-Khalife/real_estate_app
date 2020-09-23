@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'file:///D:/real_estate_app/lib/bloc/profile/profile_bloc.dart';
+import 'package:real_estate_app/bloc/profile/profile_bloc.dart';
 import 'package:real_estate_app/model/get_profile.dart';
 import 'package:real_estate_app/ui/house_deatil_profile.dart';
+import 'package:real_estate_app/ui/verification_interfaces/login.dart';
 import 'package:real_estate_app/widget/card_designer_home.dart';
 import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/widget/shared_preference.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -32,6 +34,35 @@ class _UserProfile extends State<UserProfile> {
       backgroundColor: Colors.grey.shade100,
       elevation: 0,
       centerTitle: false,
+      title: IconButton(
+        tooltip: "تسجيل الخروج",
+        icon: Icon(Icons.exit_to_app,color: colorGrey,size: 25,),
+        onPressed: (){
+          showDialog(
+              context: context,
+              builder: (context){
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)
+              ),
+              elevation: 5.0,
+              insetPadding: EdgeInsets.all(20.0),
+              child: Padding(
+                padding:  EdgeInsets.only(top: 20.0,bottom: 20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.report_problem,color: colorApp,size: 50,),
+                    SizedBox(height: 15,),
+                    Text("هل تود الخروج من التطبيق ؟",textDirection: TextDirection.rtl,style: TextStyle(fontSize: 18.0),),
+                    showTwoButton(context),
+                  ],
+                ),
+              ),
+            );
+          });
+        },
+      ),
       actions: <Widget>[
         Transform.translate(
           offset: Offset(0, 15),
@@ -73,7 +104,7 @@ class _UserProfile extends State<UserProfile> {
         children: [
           profileImage(),
           space(height: 30),
-          rowInfo(text: getProfile.data.user.firstName + getProfile.data.user.lastName, title:"الاسم الكامل:" ),
+          rowInfo(text: getProfile.data.user.firstName + "  "+getProfile.data.user.lastName, title:"الاسم الكامل:" ),
           space(),
           Divider(),
           space(),
@@ -121,6 +152,39 @@ class _UserProfile extends State<UserProfile> {
           ),
         ]);
   }
+  Widget showTwoButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 20,right: 10.0,left: 10.0),
+      child: Row(
+        children: <Widget>[
+          //context, ,Colors.white
+          Flexible(
+              child: button(
+                  context: context,
+                  color: colorApp,
+                  onTap: ()async{
+                    await SharedPreferenceStore.setSaveLoginAndSignUp(false);
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                      builder: (context) => LoginView()
+                    ), (route) => false);
+                  },
+                  text: "تسجيل الخروج",
+                  textColor: Colors.white)),
+          SizedBox(width: 10.0,),
+          Flexible(
+              child: button(
+                context: context,
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                color: Colors.white,
+                text: "إلغاء",
+                textColor: colorApp,)),
+        ],
+      ),
+    );
+  }
+
 
   Widget space({double height, double width}) {
     return SizedBox(
@@ -130,26 +194,28 @@ class _UserProfile extends State<UserProfile> {
   }
 
   Widget rowInfo({@required String title, @required String text }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          text ?? "",
-          textDirection: TextDirection.rtl,
-          style: TextStyle(color: Colors.black, fontSize: 18),
-        ),
-        SizedBox(
-          width: 20,
-        ),
-        Text(
-          title,
-          textDirection: TextDirection.rtl,
-          style: TextStyle(color: Colors.black, fontSize: 18),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-      ],
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            text ?? "",
+            textDirection: TextDirection.rtl,
+            style: TextStyle(color: Colors.black, fontSize: 18),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text(
+            title,
+            textDirection: TextDirection.rtl,
+            style: TextStyle(color: Colors.black, fontSize: 18),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
     );
   }
 

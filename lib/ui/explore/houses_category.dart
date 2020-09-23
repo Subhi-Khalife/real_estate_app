@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/house_category_provider.dart';
-import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/model/filter_model.dart';
 import 'package:real_estate_app/ui/house_detail.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
-import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
+import 'package:real_estate_app/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/ui/explore/filter_bottom_sheet.dart';
 import 'package:real_estate_app/ui/explore/houses_category.dart';
 import 'package:real_estate_app/ui/map_view.dart';
@@ -65,17 +65,17 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
                   child: tabs[tapIndex]),
             ),
             tapBar(),
-            ValueListenableBuilder(
-              valueListenable: _bottomSheetNotifier,
-              builder: (context, _, __) {
+            Selector<FilterProvider,bool>(
+              selector: (context , filterProvider) => filterProvider.isShowFilter,
+              builder: (context,value,_){
                 return AnimatedSwitcher(
                     duration: Duration(milliseconds: 1000),
                     switchInCurve: Curves.easeInOutBack,
                     switchOutCurve: Curves.easeInOutBack,
                     reverseDuration: Duration(milliseconds: 1000),
-                    child: bottomSheet);
+                    child:value ? FilterBottomSheet() : null);
               },
-            ),
+            )
           ],
         ),
       ),
@@ -87,19 +87,24 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
       backgroundColor: Colors.grey.shade100,
       elevation: 0,
       centerTitle: false,
-      title:Transform.translate(
-        offset: Offset(-15,0),
-        child: IconButton(
-          icon: Icon(
-            Icons.sort,
-            color: Colors.black45,
-          ),
-          onPressed: () async {
-            // print(  "The _filterProvider.firstTime ${_filterProvider.firstTime}");
-            BlocProvider.of<AddProperetyDartBloc>(context)..add(LoadingData());
-            return onFilterAction();
-          },
-        ),
+      title:Selector<FilterProvider,bool>(
+        selector: (context , filterProvider) => filterProvider.isShowFilter,
+        builder: (context , value , _){
+          return Transform.translate(
+            offset: Offset(-15,0),
+            child: IconButton(
+              icon: Icon(
+                Icons.sort,
+                color: Colors.black45,
+              ),
+              onPressed: () async {
+                // print(  "The _filterProvider.firstTime ${_filterProvider.firstTime}");
+                BlocProvider.of<AddProperetyDartBloc>(context)..add(LoadingData());
+                onFilterAction(value);
+              },
+            ),
+          );
+        },
       ),
       actions: <Widget>[
         // ValueListenableBuilder(
@@ -246,12 +251,10 @@ class _ExploreViewState extends State<ExploreView>with SingleTickerProviderState
     }
   }
 
-  void onFilterAction() {
-    _bottomSheetNotifier.value = !_bottomSheetNotifier.value;
-
-    if (_bottomSheetNotifier.value)
-      bottomSheet = FilterBottomSheet();
+  void onFilterAction(bool isShow) {
+    if(!isShow)
+    _filterProvider.setIsShowFilter(true);
     else
-      bottomSheet = null;
+      _filterProvider.setIsShowFilter(false);
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:real_estate_app/Api/upload_image.dart';
 import 'package:real_estate_app/model/photos_model.dart';
+import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/constant.dart';
 
 class ListImage extends StatefulWidget {
@@ -42,9 +43,50 @@ class _ListImage extends State<ListImage> {
     );
   }
   Future getImageFileFromGallery() async {
+    Navigator.of(context).pop();
     File imageFile;
     try {
       imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    } catch (e) {
+      print("error Happened");
+    }
+
+    if (imageFile != null) {
+      setState(() {
+        isUploadImage = true;
+      });
+    }
+
+    if (imageFile != null)
+      setState(() {
+        image = imageFile;
+        isUploadImage = true;
+      });
+    if (image != null)
+      UploadImageModel.uploadImageCreateActivity(imageFile,
+          imageType: "property")
+          .then((response) {
+        response.stream.transform(utf8.decoder).listen((value) {
+          print("updateImageApi::: $value");
+          PhotosModel updateImageApi = photosModelFromJson(value);
+          print("path::: ${updateImageApi.data}");
+          if (updateImageApi.status == "OK") {
+            setState(() {
+              isUploadImage = false;
+              widget.propertyImages.add(updateImageApi.data);
+            });
+          }
+          setState(() {
+            isUploadImage = false;
+          });
+        });
+      });
+  }
+  Future getImageFileFromCamera() async {
+    Navigator.of(context).pop();
+    File imageFile;
+    try {
+      imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
     } catch (e) {
       print("error Happened");
     }
@@ -90,7 +132,52 @@ class _ListImage extends State<ListImage> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              getImageFileFromGallery();
+              showModalBottomSheet(context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0))
+                  ),
+                  builder: (context){
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20,bottom: 8.0,top: 8.0),
+                      child: Text("اختيار صورة :",textDirection: TextDirection.rtl,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20,top: 20,bottom: 30),
+                      child: InkWell(
+                        onTap: getImageFileFromCamera,
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                           Text("كاميرا الهاتف",style: TextStyle(fontSize: 18.0),),
+                           SizedBox(width: 20,),
+                           Icon(Icons.camera,size: 25,color: colorApp,)
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20,bottom: 30),
+                      child: InkWell(
+                        onTap: getImageFileFromGallery,
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("الاستديو",style: TextStyle(fontSize: 18.0),),
+                            SizedBox(width: 20,),
+                            Icon(Icons.image,size: 25,color: colorApp,)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              });
             },
             child: Container(
               height: 150,

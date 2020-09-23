@@ -23,10 +23,13 @@ class PropertyCardInformation extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        ImageCard(
-          imageUrl: "$img",
-          height: MediaQuery.of(context).size.height * .25,
-          width: MediaQuery.of(context).size.width * .9,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: ImageCard(
+            imageUrl: "$img",
+            height: MediaQuery.of(context).size.height * .25,
+            width: MediaQuery.of(context).size.width * .9,
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 6, left: 4, right: 4),
@@ -35,12 +38,18 @@ class PropertyCardInformation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               PropertyCardDescription(
-                description: "1,200 sq.ft",
+                description: space + " متر مربع",
                 colorDescription: Colors.black87,
               ),
               Spacer(),
-              PropertyCardPrice(
-                price: "\$$price",
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding:  EdgeInsets.only(right: 10.0),
+                  child: PropertyCardPrice(
+                    price: price + " ل.س",
+                  ),
+                ),
               )
             ],
           ),

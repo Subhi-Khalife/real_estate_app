@@ -176,71 +176,71 @@ class _SignInViewState extends State<SignInView> {
                                     .requestFocus(_passwordFocus);
                               },
                             ),
-                            SizedBox(height: 15),
-                            InkWell(
-                              onTap: () {
-                                if (_birthdayController.text.trim() == "")
-                                  _birthdayController.text =
-                                      parseToDateTime(DateTime.now());
-                                showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    isDismissible: false,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(15.0),
-                                            topLeft: Radius.circular(15.0))),
-                                    builder: (context) {
-                                      return selectDate();
-                                    });
-                              },
-                              child: TextFieldApp(
-                                controller: _birthdayController,
-                                isTextFieldPassword: false,
-                                labelText: "تاريخ الميللاد",
-                                isEnable: false,
-                                onSubmitted: (val) {
-                                  FocusScope.of(context)
-                                      .requestFocus(_passwordFocus);
-                                },
-                                icon: Icons.date_range,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) => dialogCity([
-                                          "Aleppo",
-                                          "Homs",
-                                          "Idleb",
-                                          "Damascus",
-                                          "Lattakia",
-                                          "Tartous",
-                                          "Raqqa",
-                                          "Deir Al-Zour",
-                                          "Hasaka",
-                                          "Daraa",
-                                          "Al-Suwayda",
-                                          "Hamah"
-                                        ]));
-                              },
-                              child: TextFieldApp(
-                                controller: _cityController,
-                                isTextFieldPassword: false,
-                                labelText: "المدينة",
-                                onSubmitted: (val) {
-                                  FocusScope.of(context)
-                                      .requestFocus(_passwordFocus);
-                                },
-                                icon: Icons.arrow_drop_down,
-                                isEnable: false,
-                              ),
-                            ),
+                            // SizedBox(height: 15),
+                            // InkWell(
+                            //   onTap: () {
+                            //     if (_birthdayController.text.trim() == "")
+                            //       _birthdayController.text =
+                            //           parseToDateTime(DateTime.now());
+                            //     showModalBottomSheet(
+                            //         context: context,
+                            //         isScrollControlled: true,
+                            //         isDismissible: false,
+                            //         shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.only(
+                            //                 topRight: Radius.circular(15.0),
+                            //                 topLeft: Radius.circular(15.0))),
+                            //         builder: (context) {
+                            //           return selectDate();
+                            //         });
+                            //   },
+                            //   child: TextFieldApp(
+                            //     controller: _birthdayController,
+                            //     isTextFieldPassword: false,
+                            //     labelText: "تاريخ الميللاد",
+                            //     isEnable: false,
+                            //     onSubmitted: (val) {
+                            //       FocusScope.of(context)
+                            //           .requestFocus(_passwordFocus);
+                            //     },
+                            //     icon: Icons.date_range,
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: 15,
+                            // ),
+                            // InkWell(
+                            //   onTap: () {
+                            //     showDialog(
+                            //         context: context,
+                            //         barrierDismissible: false,
+                            //         builder: (context) => dialogCity([
+                            //               "Aleppo",
+                            //               "Homs",
+                            //               "Idleb",
+                            //               "Damascus",
+                            //               "Lattakia",
+                            //               "Tartous",
+                            //               "Raqqa",
+                            //               "Deir Al-Zour",
+                            //               "Hasaka",
+                            //               "Daraa",
+                            //               "Al-Suwayda",
+                            //               "Hamah"
+                            //             ]));
+                            //   },
+                            //   child: TextFieldApp(
+                            //     controller: _cityController,
+                            //     isTextFieldPassword: false,
+                            //     labelText: "المدينة",
+                            //     onSubmitted: (val) {
+                            //       FocusScope.of(context)
+                            //           .requestFocus(_passwordFocus);
+                            //     },
+                            //     icon: Icons.arrow_drop_down,
+                            //     isEnable: false,
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 15,
                             ),
@@ -338,17 +338,17 @@ class _SignInViewState extends State<SignInView> {
                             SizedBox(
                               height: 15,
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: ButtonApp(
-                                onPressed: (){
-
-                                },
-                                textButton: "إنشاء حساب مع فيسبوك",
-                                colorButton: activeIconNavBar,
-                                heightButton: 50,
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width,
+                            //   child: ButtonApp(
+                            //     onPressed: (){
+                            //
+                            //     },
+                            //     textButton: "إنشاء حساب مع فيسبوك",
+                            //     colorButton: activeIconNavBar,
+                            //     heightButton: 50,
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 30,
                             ),
@@ -508,6 +508,7 @@ class _SignInViewState extends State<SignInView> {
         _passwordConfirmController.text.trim())
       showMessage("Please check password equal confirm password ");
     else {
+      print('_phoneNumberController.text ${_phoneNumberController.text}');
       SignUpApi.signUpRequest(context,
               firstName: _firstNameController.text,
               phoneNumber: _phoneNumberController.text,

@@ -83,9 +83,9 @@ Widget showTwoButton(BuildContext context) {
 }
 
 Widget button(
-    {BuildContext context, String text, Color color, Color textColor}) {
+    {BuildContext context,Function onTap , String text, Color color, Color textColor}) {
   return GestureDetector(
-    onTap: () {},
+    onTap: onTap,
     child: Container(
       width: MediaQuery.of(context).size.width,
       height: 60,

@@ -9,7 +9,7 @@ import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/google_map_provider.dart';
 import 'package:real_estate_app/Provider/provier_property.dart';
 import 'package:real_estate_app/Provider/house_category_provider.dart';
-import 'file:///D:/real_estate_app/lib/bloc/add_properity/add_properety_dart_bloc.dart';
+import 'package:real_estate_app/bloc/add_properity/add_properety_dart_bloc.dart';
 import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/model/filter_model.dart';
@@ -543,6 +543,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
               // GetAllTypeApi getAllTypeApi =GetAllTypeApi(status: "OK", data: values.data.newFilter);
               // print(values  .data.newFilter.length);
               googleMapProvider.marker.clear();
+              valueFromProvider.setIsShowFilter(false);
               drawCircle(position);
               drawPoint(values);
               valueFromProvider.requiredParam = new RequiredParam();
