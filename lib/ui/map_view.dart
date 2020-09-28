@@ -10,9 +10,11 @@ import 'package:real_estate_app/Provider/google_map_provider.dart';
 import 'package:real_estate_app/Provider/provier_property.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/ui/add_properity/add_property_spec_and_image.dart';
-import 'package:real_estate_app/ui/house_detail.dart';
-import 'package:real_estate_app/widget/card_info.dart';
 import 'package:real_estate_app/widget/color_app.dart';
+import 'package:real_estate_app/ui/house_details/house_details_view.dart';
+import 'file:///D:/projects/real_estate_app/lib/model/unified_model/properity_model.dart';
+
+import 'house_details/house_details_param.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -61,10 +63,26 @@ class _MapView extends State<MapView> {
                     state.types.properties.data[i].latitude != null) {
                   final marker = Marker(
                     onTap: () {
+                      Property  property=state.types.properties.data[i];
+                      HouseDetails houseDetails=HouseDetails(
+                        location: "property.area.cityName",
+                        isFavourit: property.isFavorite,
+                        areaCityAddress:property.area.cityName ,
+                        areaCityName: property.area.name,
+                        phone:  property.user.phone,
+                        email:  property.user.email,
+                        description:  property.description,
+                        price:  property.price.toString(),
+                        image:  property.img,
+                        property: property,
+                        properityId:  property.id.toString(),
+                      );
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => HouesDetail(
-                                properties: state.types.properties.data[i],
-                              )));
+                        builder: (context) =>
+                            HouesDetailFavourits(
+                              houseDetails:houseDetails,
+                            ),
+                      ));
                     },
                     markerId:
                         MarkerId(state.types.properties.data[i].id.toString()),

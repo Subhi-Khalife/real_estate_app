@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'unified_model/area_model.dart';
+
 CountryModel countryModelFromJson(String str) => CountryModel.fromJson(json.decode(str));
 
 String countryModelToJson(CountryModel data) => json.encode(data.toJson());
@@ -111,31 +113,3 @@ class City {
   }
 }
 
-class Area {
-  Area({
-    this.id,
-    this.name,
-    this.cityId,
-  });
-
-  int id;
-  String name;
-  int cityId;
-
-  factory Area.fromJson(Map<String, dynamic> json) => Area(
-    id: json["id"] == null ? null : json["id"],
-    name: json["name"] == null ? null : json["name"],
-    cityId: json["city_id"] == null ? null : json["city_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "name": name == null ? null : name,
-    "city_id": cityId == null ? null : cityId,
-  };
-
-  @override
-  String toString() {
-    return 'Area{id: $id, name: $name, cityId: $cityId}';
-  }
-}

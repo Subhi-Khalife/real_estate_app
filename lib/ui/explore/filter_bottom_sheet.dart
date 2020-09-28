@@ -14,10 +14,12 @@ import 'package:real_estate_app/bloc/bloc_get_all_country/country_bloc.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
 import 'package:real_estate_app/model/filter_model.dart';
 import 'package:real_estate_app/model/get_all_type_model.dart';
+import 'file:///D:/projects/real_estate_app/lib/model/unified_model/properity_model.dart';
 import 'package:real_estate_app/ui/add_properity/add_property_spec_and_image.dart';
 import 'package:real_estate_app/ui/add_properity/required_param.dart';
 import 'package:real_estate_app/ui/explore/spec_value_for_filter.dart';
-import 'package:real_estate_app/ui/house_detail.dart';
+import 'package:real_estate_app/ui/house_details/house_details_param.dart';
+import 'package:real_estate_app/ui/house_details/house_details_view.dart';
 import 'package:real_estate_app/widget/collapse.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
@@ -566,10 +568,26 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
               snippet: "HII",
               onTap: () {
                 print("K!");
+                Property  property=values.data.properties.data[i];
+                HouseDetails houseDetails=HouseDetails(
+                  location: "property.area.cityName",
+                  isFavourit: property.isFavorite,
+                  areaCityAddress:property.area.cityName ,
+                  areaCityName: property.area.name,
+                  phone:  property.user.phone,
+                  email:  property.user.email,
+                  description:  property.description,
+                  price:  property.price.toString(),
+                  image:  property.img,
+                  property: property,
+                  properityId:  property.id.toString(),
+                );
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HouesDetail(
-                      properties: values.data.properties.data[i],
-                    )));
+                  builder: (context) =>
+                      HouesDetailFavourits(
+                        houseDetails:houseDetails,
+                      ),
+                ));
                 print("K2");
               },
             ),

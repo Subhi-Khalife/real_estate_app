@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:real_estate_app/model/user_model.dart';
 import 'package:real_estate_app/ui/MainView.dart';
 import 'package:real_estate_app/ui/onboarding.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';

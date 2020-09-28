@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:real_estate_app/model/filter_model.dart';
+import 'file:///D:/projects/real_estate_app/lib/model/unified_model/properity_model.dart';
 
 class HousesCategoryProvider extends ChangeNotifier {
-  Map<String, List<Datum>> items = {};
-  List<List<Datum>> list;
+  Map<String, List<Property>> items = {};
+  List<List<Property>> list;
 
 
   resetMapValues() {
@@ -20,7 +21,7 @@ class HousesCategoryProvider extends ChangeNotifier {
         print("the type Name is inside Map  :: ${items[filterModel.properties.data[i].type.name.toString()]} ");
 
         print("ok inside MAP");
-        items[filterModel.properties.data[i].type.name] = List<Datum>();
+        items[filterModel.properties.data[i].type.name] = List<Property>();
       }
       items[filterModel.properties.data[i].type.name]
           .add(filterModel.properties.data[i]);

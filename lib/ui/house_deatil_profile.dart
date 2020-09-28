@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
-import 'package:real_estate_app/model/filter_model.dart';
-import 'package:real_estate_app/model/get_profile.dart';
+import 'file:///D:/projects/real_estate_app/lib/model/unified_model/properity_model.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
-import 'package:real_estate_app/widget/swiper_image.dart';
 
 class HouesDetailProfile extends StatefulWidget {
   Property properties;

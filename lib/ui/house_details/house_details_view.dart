@@ -1,17 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 import 'package:real_estate_app/Api/favourite.dart';
-import 'package:real_estate_app/model/filter_model.dart';
-import 'package:real_estate_app/model/get_all_favourites_model.dart';
+import 'file:///D:/projects/real_estate_app/lib/model/unified_model/properity_model.dart';
+import 'package:real_estate_app/ui/house_details/house_details_param.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/global_text.dart';
 import 'package:real_estate_app/widget/global_widget.dart';
-import 'package:real_estate_app/widget/swiper_image.dart';
 
 class HouesDetailFavourits extends StatefulWidget {
-  Datumes properties;
-  HouesDetailFavourits({this.properties});
+  HouseDetails houseDetails;
+  HouesDetailFavourits({this.houseDetails});
   @override
   _HouesDetailFavourits createState() => _HouesDetailFavourits();
 }
@@ -26,7 +24,7 @@ class _HouesDetailFavourits extends State<HouesDetailFavourits> {
             pinned: true,
             floating: true,
             delegate: PagerHeader(
-                mminExtent: 150, maxExtent: 250, properties: widget.properties.property),
+                mminExtent: 150, maxExtent: 250, houseDetails: widget.houseDetails),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -35,33 +33,33 @@ class _HouesDetailFavourits extends State<HouesDetailFavourits> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  priceAndDetail(widget.properties.property.price.toString(),
-                      widget.properties.property, Colors.black54),
+                  priceAndDetail(widget.houseDetails.price.toString(),
+                      widget.houseDetails, Colors.black54),
                   space(context),
                   showImageAndTitle(
                       icon: Icons.location_on,
                       context: context,
-                      description: widget.properties.property.area.cityName +
+                      description: widget.houseDetails.areaCityName +
                           "  -  " +
-                          widget.properties.property.address),
+                          widget.houseDetails.areaCityAddress),
 
                   showFullInfo(
                       context: context,
-                      pro: widget.properties.property,
+                      pro: widget.houseDetails.property,
                       icon: Icons.info),
                   showImageAndTitle(
                     icon: Icons.tablet_mac,
                     context: context,
-                    description: (widget.properties.property.user.phone == null)
+                    description: (widget.houseDetails.phone == null)
                         ? "لا يوجد"
-                        : widget.properties.property.user.phone,
+                        : widget.houseDetails.phone,
                   ),
                   showImageAndTitle(
                     icon: Icons.mail,
                     context: context,
-                    description: (widget.properties.property.user.email == null)
+                    description: (widget.houseDetails.email == null)
                         ? "لا يوجد"
-                        : widget.properties.property.user.email,
+                        : widget.houseDetails.email,
                   ),
                   Row(
                     children: <Widget>[],
@@ -79,7 +77,7 @@ class _HouesDetailFavourits extends State<HouesDetailFavourits> {
     );
   }
 
-  Widget priceAndDetail(String price, Property properties, Color textColor) {
+  Widget priceAndDetail(String price, HouseDetails properties, Color textColor) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,20 +108,20 @@ class _HouesDetailFavourits extends State<HouesDetailFavourits> {
               child: IconButton(
                   icon: Icon(
                     Icons.favorite,
-                    color: (properties.isFavorite == true)
+                    color: (properties.property.isFavorite == true)
                         ? colorApp
                         : Colors.grey,
                   ),
                   onPressed: () async {
                     setState(() {
-                      if (properties.isFavorite == true) {
-                        properties.isFavorite = null;
+                      if (properties.property.isFavorite == true) {
+                        properties.property.isFavorite = null;
                       } else {
-                        properties.isFavorite = true;
+                        properties.property.isFavorite = true;
                       }
                     });
                     await FavouriteApi.addToFavourite(
-                        properties.id.toString());
+                        properties.properityId.toString());
                   }),
             ),
           ],
@@ -160,20 +158,7 @@ Widget showFullInfo({BuildContext context, Property pro, IconData icon}) {
                 description: name,
                 colorDescription: Colors.black45,
               );
-              // return Row(
-              //   children: [
-              //     PropertyCardDescription(
-              //       description: pro.propertySpecs[index].name,
-              //       colorDescription: Colors.black45,
-              //     ),
-              //      ListView.builder(itemBuilder: (context,index){
-              //        return  PropertyCardDescription(
-              //          description: pro.propertySpecs[index].name,
-              //          colorDescription: Colors.black45,
-              //        );
-              //      })
-              //   ],
-              // );
+
             },
           ),
         ),
@@ -182,61 +167,10 @@ Widget showFullInfo({BuildContext context, Property pro, IconData icon}) {
         ),
         Icon(icon, color: colorApp),
 
-        // Expanded(
-        //   child: PropertyCardDescription(
-        //     description: description,
-        //     colorDescription: Colors.black45,
-        //   ),
-        // )
       ],
     ),
   );
 }
-//
-// Widget showTwoButton(BuildContext context) {
-//   return Padding(
-//     padding: EdgeInsets.only(top: 20),
-//     child: Row(
-//       children: <Widget>[
-//         //context, ,Colors.white
-//         Flexible(
-//             child: button(
-//                 context: context,
-//                 color: Colors.white,
-//                 text: "Ask a Question",
-//                 textColor: colorApp)),
-//         Flexible(
-//             child: button(
-//                 context: context,
-//                 color: colorApp,
-//                 text: "Express interest",
-//                 textColor: Colors.white))
-//       ],
-//     ),
-//   );
-// }
-
-// Widget button(
-//     {BuildContext context, String text, Color color, Color textColor}) {
-//   return GestureDetector(
-//     onTap: () {},
-//     child: Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: 60,
-//       child: Card(
-//         color: color,
-//         child: Center(
-//             child: Text(
-//               text,
-//               style: TextStyle(color: textColor),
-//             )),
-//         elevation: 2,
-//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-//       ),
-//     ),
-//   );
-// }
-
 Widget showImageAndTitle(
     {BuildContext context, String description, IconData icon}) {
   return Padding(
@@ -274,9 +208,9 @@ Widget space(BuildContext context) {
 class PagerHeader implements SliverPersistentHeaderDelegate {
   final double maxExtent;
   final double mminExtent;
-  Property properties;
+  HouseDetails houseDetails;
 
-  PagerHeader({@required this.maxExtent, this.mminExtent, this.properties});
+  PagerHeader({@required this.maxExtent, this.mminExtent, this.houseDetails});
 
   @override
   Widget build(
@@ -285,7 +219,7 @@ class PagerHeader implements SliverPersistentHeaderDelegate {
       fit: StackFit.expand,
       children: <Widget>[
         ImageCard(
-          imageUrl: properties.img,
+          imageUrl: houseDetails.image,
         ),
         Container(
           decoration: BoxDecoration(

@@ -5,12 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:real_estate_app/Provider/filter_provider.dart';
 import 'package:real_estate_app/Provider/house_category_provider.dart';
 import 'package:real_estate_app/bloc/explore_bloc/explore_dart_bloc.dart';
-import 'package:real_estate_app/model/filter_model.dart';
-import 'package:real_estate_app/ui/house_detail.dart';
-import 'package:real_estate_app/widget/card_category_just_in.dart';
-import 'package:real_estate_app/widget/card_designer_home.dart';
+import 'file:///D:/projects/real_estate_app/lib/model/unified_model/properity_model.dart';
+import 'package:real_estate_app/ui/house_details/house_details_param.dart';
+import 'package:real_estate_app/ui/house_details/house_details_view.dart';
 import 'package:real_estate_app/widget/card_info.dart';
-import 'package:real_estate_app/widget/global_text.dart';
 
 class HousesCategory extends StatefulWidget {
   @override
@@ -75,16 +73,28 @@ class _HousesCategory extends State<HousesCategory> {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index2) {
-                                Datum item=values.list[index][index2];
+                                Property property=values.list[index][index2];
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => HouesDetail(
-                                          properties: item,
-                                        ),
-                                      ),
+                                    HouseDetails houseDetails=HouseDetails(
+                                      location: "property.area.cityName",
+                                      isFavourit: property.isFavorite,
+                                      areaCityAddress:property.area.cityName ,
+                                      areaCityName: property.area.name,
+                                      phone:  property.user.phone,
+                                      email:  property.user.email,
+                                      description:  property.description,
+                                      price:  property.price.toString(),
+                                      image:  property.img,
+                                      property: property,
+                                      properityId:  property.id.toString(),
                                     );
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          HouesDetailFavourits(
+                                            houseDetails:houseDetails,
+                                          ),
+                                    ));
                                   },
                                   child: Container(
                                     height: MediaQuery.of(context).size.height *
@@ -95,12 +105,12 @@ class _HousesCategory extends State<HousesCategory> {
                                       padding: const EdgeInsets.only(
                                           left: 8, right: 0),
                                       child: PropertyCardInformation(
-                                        img: item.img,
-                                        address: item.address,
-                                        price: item.price
+                                        img: property.img,
+                                        address: property.address,
+                                        price: property.price
                                             .toString(),
-                                        description: item.description,
-                                        space: item.space
+                                        description: property.description,
+                                        space: property.space
                                             .toString(),
                                       ),
                                     ),
@@ -125,35 +135,6 @@ class _HousesCategory extends State<HousesCategory> {
     );
   }
 
-/*
- return Padding(
-                    padding: EdgeInsets.only(top: 10.0),
-                    child: Container(
-                        child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HouesDetail(
-                                  properties: state.types.properties.data[index],
-                                )));
-                          },
-                          child: PropertyCardInformation(
-                            img: state.types.properties.data[index].img,
-                            address: state.types.properties.data[index].address,
-                            price:
-                                state.types.properties.data[index].price.toString(),
-                            description:
-                                state.types.properties.data[index].description,
-                            space:
-                                state.types.properties.data[index].space.toString(),
-                          ),
-                        );
-                      },
-                      itemCount: state.types.properties.data.length,
-                    )),
-                  );
- */
   Widget error() {
     return IconButton(
       icon: Icon(Icons.refresh),
@@ -166,54 +147,6 @@ class _HousesCategory extends State<HousesCategory> {
 
   Widget loadingInfo() {
     return Center(child: CircularProgressIndicator());
-  }
-
-  // Widget designerHome() {
-  //   return Padding(
-  //     padding: EdgeInsets.only(top: 20),
-  //     child: Container(
-  //       width: MediaQuery.of(context).size.width,
-  //       height: MediaQuery.of(context).size.height * .3,
-  //       child: ListView.builder(
-  //         shrinkWrap: true,
-  //         physics: BouncingScrollPhysics(),
-  //         itemBuilder: (context, index) {
-  //           return GestureDetector(
-  //               onTap: () {
-  //                 Navigator.of(context).push(
-  //                     MaterialPageRoute(builder: (context) => HouesDetail()));
-  //               },
-  //               child: CardDesignerHome(images[index]));
-  //         },
-  //         itemCount: images.length,
-  //         scrollDirection: Axis.horizontal,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget houseIntoJsutIn() {
-    return Padding(
-      padding: EdgeInsets.only(top: 20),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * .45,
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HouesDetail()));
-                },
-                child: CardJustIn(images[index]));
-          },
-          itemCount: images.length,
-          scrollDirection: Axis.horizontal,
-        ),
-      ),
-    );
   }
 
   List<String> images = [
