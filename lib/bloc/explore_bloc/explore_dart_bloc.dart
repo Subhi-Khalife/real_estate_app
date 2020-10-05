@@ -22,7 +22,7 @@ class ExploreDartBloc extends Bloc<ExploreDartEvent, ExploreDartState> {
           yield ErrorState();
     }else if(event is ChangeValuesEvent){
       yield LoadingState();
-      yield SetHouseValuesState(types: event.items,index: -1);
+      yield SetHouseValuesFilter(types: event.items,index: -1);
     }
   }
 }

@@ -6,7 +6,6 @@ class HousesCategoryProvider extends ChangeNotifier {
   Map<String, List<Property>> items = {};
   List<List<Property>> list;
 
-
   resetMapValues() {
     items.clear();
     notifyListeners();

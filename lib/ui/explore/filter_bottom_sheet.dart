@@ -55,19 +55,6 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
     return WillPopScope(
       // ignore: missing_return
       onWillPop: () {
-        // if (valueFromProvider.filtersValues.length != 0) {
-        // print(
-        //     "the length before clear ${valueFromProvider.filtersValues.length}");
-        // Data items = valueFromProvider.filtersValues.removeLast();
-        // print(
-        //     "the length after clear ${valueFromProvider.filtersValues.length}");
-        // GetAllTypeApi getAllTypeApi =
-        //     GetAllTypeApi(status: "OK", data: items.newFilter);
-        // BlocProvider.of<AddProperetyDartBloc>(context)
-        //   ..add(ShowSpecEvent(-1, getAllTypeApi));
-        // BlocProvider.of<ExploreDartBloc>(context)
-        //   ..add(ChangeValuesEvent(items: items));
-        // }
       },
       child: DraggableScrollableSheet(
           maxChildSize: 0.85,
@@ -84,7 +71,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
                           child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Advance Filter",
+                            "البحث المتقدم",
                             style: TextStyle(color: colorApp, fontSize: 18),
                           ),
                         ))
@@ -514,7 +501,6 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
           ),
           onPressed: () async {
             Position position;
-            print("ok");
 
             if (valueFromProvider.requiredParam.spaceSearchController.text.trim() .isNotEmpty) {
               final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
@@ -543,6 +529,7 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
               valueFromProvider.setNewFilter(values.data);
               BlocProvider.of<ExploreDartBloc>(context)..add(ChangeValuesEvent(items: values.data));
               // GetAllTypeApi getAllTypeApi =GetAllTypeApi(status: "OK", data: values.data.newFilter);
+
               // print(values  .data.newFilter.length);
               googleMapProvider.marker.clear();
               valueFromProvider.setIsShowFilter(false);

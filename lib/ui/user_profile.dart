@@ -5,6 +5,7 @@ import 'package:real_estate_app/bloc/profile/profile_bloc.dart';
 import 'package:real_estate_app/model/get_profile.dart';
 import 'package:real_estate_app/ui/house_deatil_profile.dart';
 import 'package:real_estate_app/ui/verification_interfaces/login.dart';
+import 'package:real_estate_app/widget/app_bar.dart';
 import 'package:real_estate_app/widget/card_designer_home.dart';
 import 'package:real_estate_app/widget/color_app.dart';
 import 'package:real_estate_app/widget/shared_preference.dart';
@@ -29,38 +30,50 @@ class _UserProfile extends State<UserProfile> {
     );
   }
 
-  Widget appBar() {
-    return AppBar(
-      backgroundColor: Colors.grey.shade100,
-      elevation: 0,
+  Widget showAppBar() {
+
+    return appBar(
       centerTitle: false,
-      title: IconButton(
+      widget: IconButton(
         tooltip: "تسجيل الخروج",
-        icon: Icon(Icons.exit_to_app,color: colorGrey,size: 25,),
-        onPressed: (){
+        icon: Icon(
+          Icons.exit_to_app,
+          color: colorGrey,
+          size: 25,
+        ),
+        onPressed: () {
           showDialog(
               context: context,
-              builder: (context){
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0)
-              ),
-              elevation: 5.0,
-              insetPadding: EdgeInsets.all(20.0),
-              child: Padding(
-                padding:  EdgeInsets.only(top: 20.0,bottom: 20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.report_problem,color: colorApp,size: 50,),
-                    SizedBox(height: 15,),
-                    Text("هل تود الخروج من التطبيق ؟",textDirection: TextDirection.rtl,style: TextStyle(fontSize: 18.0),),
-                    showTwoButton(context),
-                  ],
-                ),
-              ),
-            );
-          });
+              builder: (context) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  elevation: 5.0,
+                  insetPadding: EdgeInsets.all(20.0),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.report_problem,
+                          color: colorApp,
+                          size: 50,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "هل تود الخروج من التطبيق ؟",
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                        showTwoButton(context),
+                      ],
+                    ),
+                  ),
+                );
+              });
         },
       ),
       actions: <Widget>[
@@ -165,7 +178,7 @@ class _UserProfile extends State<UserProfile> {
                   onTap: ()async{
                     await SharedPreferenceStore.setSaveLoginAndSignUp(false);
                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                      builder: (context) => LoginView()
+                        builder: (context) => LoginView()
                     ), (route) => false);
                   },
                   text: "تسجيل الخروج",
@@ -232,7 +245,7 @@ class _UserProfile extends State<UserProfile> {
             height: 100,
             child: Center(child: Icon(CupertinoIcons.person_solid,color: colorApp,size: 60,),),
             decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+            BoxDecoration(shape: BoxShape.circle, color: Colors.white),
           ),
         ),
       ],

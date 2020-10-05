@@ -14,6 +14,14 @@ class LoadingState extends ExploreDartState {
   List<Object> get props => [];
 }
 
+class SetHouseValuesFilter extends ExploreDartState{
+  Data types;
+  int index;
+  SetHouseValuesFilter({this.types,this.index});
+  @override
+  List<Object> get props => [types,index];
+}
+
 class SetHouseValuesState extends ExploreDartState{
   Data types;
   int index;
